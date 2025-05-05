@@ -131,7 +131,7 @@ const modules = [FreeMode, Pagination, Autoplay]
 
                         <div class="flex-1 ml-3">
                             <h2
-                                class="text-sm font-bold text-slate-900 hover:text-[#173044] transition-colors duration-200 line-clamp-2">
+                                class="text-xl font-bold text-slate-900 hover:text-[#173044] transition-colors duration-200 line-clamp-1">
                                 {{ item.name }}
                             </h2>
                             <div class="flex items-center mt-1">

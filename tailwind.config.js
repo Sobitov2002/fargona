@@ -12,6 +12,9 @@ module.exports = {
         primary: '#0F172A',
         stroke: '#E5E7EB',
       },
+       fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
  plugins: [

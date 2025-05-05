@@ -5,7 +5,7 @@ import Header from '@/components/header/Header.vue'
 import Footer from '@/components/footer/Footer.vue';
 </script>
 <template>
-    <div class="bg-[#eaeaea] ">
+    <div class="bg-[#f5f4f4] ">
         <SideBar />
         <Header />
         <main class=" min-h-screen  pt-20  ">

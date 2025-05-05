@@ -1,7 +1,6 @@
 
 import api from '@/services/apiServices'
 
-const lang = localStorage.getItem('lang') || 'uz'
 
 const getCategory = async (lang: string) => {
   try {

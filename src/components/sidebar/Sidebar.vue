@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import {  watch, ref, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
 import { useSidebarStore } from '@/stores/sidebarStore';
 import Logo from '@/components/ui/Logo.vue'
 import { getCategory } from '@/components/header/services'
 
-const router = useRouter();
-const route = useRoute();
 const sidebarRef = ref<HTMLElement | null>(null);
 const selectedLang = ref(localStorage.getItem('lang') || 'uz')
-const sidebarStore = useSidebarStore();
-
 
 
 watch(selectedLang, async (newLang) => {
     localStorage.setItem('lang', newLang)
-    categories.value = await getCategory(newLang)
+    categories.value = await getCategory(newLang)  
 })
+
+
+const sidebarStore = useSidebarStore()
 
 interface Category {
     id: number
@@ -26,7 +24,9 @@ interface Category {
 const categories = ref<Category[]>([])
 
 onMounted(async () => {
-    categories.value = await getCategory(selectedLang.value)
+    categories.value = await getCategory(selectedLang.value) 
+    console.log(categories.value);
+    
 })
 
 

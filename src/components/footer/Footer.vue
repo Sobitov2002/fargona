@@ -34,20 +34,20 @@ const socialLinks = ref<SocialLink[]>([
 
 <template>
     <footer class="bg-[#1a2e42] text-white py-12">
-        <div class="max-w-[1114px] w-full mx-auto px-4">
+        <div class="max-w-[1260px] w-full mx-auto px-4">
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
 
                 <div>
                     <div class="flex items-center mb-4">
-                      <Logo />
+                        <Logo />
                     </div>
                     <p class="text-sm text-gray-300 mt-4">
                         Farg'ona viloyati yangiliklari va ma'lumotlari
                     </p>
                 </div>
                 <div>
-                    
+
                     <ul class="space-y-2">
                         <li v-for="(link, index) in aboutLinks" :key="`about-${index}`">
                             <a :href="link.url" class="text-lg font-medium mb-4 hover:text-white transition-colors">
@@ -58,7 +58,7 @@ const socialLinks = ref<SocialLink[]>([
                 </div>
 
                 <div>
-                   
+
                     <ul class="space-y-2">
                         <li v-for="(link, index) in contactLinks" :key="`contact-${index}`">
                             <a :href="link.url" class="text-lg font-medium mb-4 hover:text-white transition-colors">
