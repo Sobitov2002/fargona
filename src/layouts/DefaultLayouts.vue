@@ -8,7 +8,7 @@ import Footer from '@/components/footer/Footer.vue';
     <div class="bg-[#eaeaea] ">
         <SideBar />
         <Header />
-        <main class=" min-h-screen  pt-20  max-w-[1114px] w-full mx-auto">
+        <main class=" min-h-screen  pt-20  ">
             <RouterView />
         </main>
     </div>

@@ -26,11 +26,13 @@ const categories = ref<Category[]>([])
 
 onMounted(async () => {
     categories.value = await getCategory(selectedLang.value) 
+    console.log(categories.value);
+    
 })
 </script>
 
 <template>
-    <div class="w-full px-3 py-4 bg-[#173044] fixed">
+    <div class="w-full z-10 px-3 py-4 bg-[#173044] fixed">
         <div class="max-w-[1114px] w-full mx-auto flex justify-between items-center">
             <Logo />
 
