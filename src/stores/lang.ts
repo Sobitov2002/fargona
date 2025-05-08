@@ -3,12 +3,11 @@ import { defineStore } from 'pinia'
 
 export const useLangStore = defineStore('lang', {
   state: () => ({
-    lang: localStorage.getItem('lang') || 'en'
+    lang: 'uz'
   }),
   actions: {
     setLang(newLang: string) {
       this.lang = newLang
-      localStorage.setItem('lang', newLang)
     }
   }
 })

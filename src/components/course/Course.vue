@@ -1,21 +1,36 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useLangStore } from '@/stores/lang'
+const store = useLangStore()
 
-const currencies = ref([])
+interface Currency {
+    Ccy: string
+    CcyNm_UZ: string
+    Rate: string
+    Date: string
+    id: number
+}
+const currencies = ref<Currency[]>([])
 
-onMounted(async () => {
+const getValuta = async () =>{
     try {
-        const res = await fetch('https://cbu.uz/oz/arkhiv-kursov-valyut/json/')
+        const res = await fetch(`https://cbu.uz/${store.lang}/arkhiv-kursov-valyut/json/`)
         const data = await res.json()
         currencies.value = data.filter(item => ['USD', 'RUB', 'EUR'].includes(item.Ccy))
     } catch (error) {
         console.error('Valyuta kurslarini olishda xatolik:', error)
     }
+}
+watch(() => store.lang, async () => {
+    await getValuta()
+})
+onMounted(async () => {
+    await getValuta()
 })
 </script>
 
 <template>
-    <div class="block  bg-white rounded-sm mt-6">
+    <div class="block  bg-white rounded-xl mt-6">
         <div class="p-4 md:flex justify-between">
             <h2 class="text-xl font-bold ">Valyuta kurslari</h2>
             <ul v-if="currencies.length" class="space-y-2 md:flex gap-4">

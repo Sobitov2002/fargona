@@ -1,9 +1,10 @@
 import api from '@/services/apiServices'
+import { useLangStore } from '@/stores/lang';
 
-const lang = localStorage.getItem('lang') || 'uz'
 const getMainNews = async () =>{
+    const store = useLangStore()
     try {
-        const response = await api.get(`/last-news?lang=${lang}`)
+        const response = await api.get(`/last-news?lang=${store.lang}`)
         return response.data
     } catch (error) {
         console.log(error);
@@ -12,7 +13,7 @@ const getMainNews = async () =>{
 
 const getRecNews = async () =>{
     try {
-        const response = await api.get(`/rec?lang=${lang}`)
+        const response = await api.get(`/header-ads`)
         return response.data
     } catch (error) {
         console.log(error);
@@ -20,9 +21,12 @@ const getRecNews = async () =>{
     }
 }
 const getLastNews = async () =>{
+    const store = useLangStore()
     try {
        
-        const response = await api.get(`last-post?lang=${lang}`)
+        const response = await api.get(`last-post?lang=${store.lang}`)
+        console.log("Songi yangiliklar", response.data);
+        
         return response.data
     } catch (error) {
         console.log(error);

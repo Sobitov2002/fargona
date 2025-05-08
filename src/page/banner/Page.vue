@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { getMainNews, getRecNews, getLastNews } from './services'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref , watch } from 'vue'
 import Course from '@/components/course/Course.vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
+import { useLangStore } from '@/stores/lang';
 
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -15,25 +16,32 @@ const recNews = ref<any[]>([])
 const lsNews = ref<any>(null)
 const isLoading = ref(true)
 
-onMounted(async () => {
+
+const store = useLangStore()
+const getNewsHandler = async () => {
     try {
-        isLoading.value = true
         const [mainNewsData, recNewsData, lsNewsData] = await Promise.all([
             getMainNews(),
             getRecNews(),
             getLastNews()
         ])
-
-        lastNews.value = mainNewsData || []
-        recNews.value = recNewsData || []
-        lsNews.value = lsNewsData || null
-
-        // console.log('Latest news loaded:', lsNews.value)
+        lastNews.value = mainNewsData
+        recNews.value = recNewsData
+        lsNews.value = lsNewsData || null       
     } catch (error) {
         console.error('Error loading news:', error)
     } finally {
-        isLoading.value = false
     }
+}
+
+watch(() => store.lang, async () => {
+    await getNewsHandler()
+})
+
+onMounted(async () => {
+    isLoading.value = true
+    await getNewsHandler()
+    isLoading.value = false
 })
 
 // Format date function
@@ -51,7 +59,7 @@ const modules = [FreeMode, Pagination, Autoplay]
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto  sm:px-6  py-6">
+    <div class="max-w-7xl mx-auto  sm:px-6  pt-6 p-4 ">
 
         <div v-if="isLoading" class="flex justify-center items-center min-h-[300px]">
             <div class="animate-pulse text-slate-500">Yuklanmoqda...</div>
@@ -60,7 +68,7 @@ const modules = [FreeMode, Pagination, Autoplay]
         <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             <div class="flex flex-col gap-6">
-                <div v-if="lsNews" class="relative rounded-sm overflow-hidden shadow-md group">
+                <div v-if="lsNews" class="relative rounded-xl overflow-hidden shadow-md group">
                     <img :src="`https://fargona24.uz/storage/${lsNews.photo}`" :alt="lsNews.name"
                         class="w-full h-60 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
@@ -80,67 +88,36 @@ const modules = [FreeMode, Pagination, Autoplay]
 
 
                 <div class=" overflow-hidden">
-                    <h2 class="text-lg font-bold text-slate-900 mb-3">Tavsiya etilgan</h2>
-                    <swiper :slidesPerView="1" :loop="true" :autoplay="{
-                        delay: 3500,
-                        disableOnInteraction: false
-                    }" :spaceBetween="20" :freeMode="true" :pagination="{
-                clickable: true,
-                dynamicBullets: true
-            }" :modules="modules" :breakpoints="{
-                    640: {
-                        slidesPerView: 1.5,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                    }
-                }" class="mySwiper ">
-                        <swiper-slide v-for="(item, index) in recNews" :key="index"
-                            class="relative rounded-sm overflow-hidden shadow-sm group h-60 sm:h-56">
-                            <img :src="`https://fargona24.uz/storage/${item.photo}`" :alt="item.title"
-                                class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-105" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                                <div class="absolute bottom-0 left-0 w-full p-3">
-                                    <p class="text-white text-sm font-semibold line-clamp-2">
-                                        {{ item.title }}
-                                    </p>
-                                    <p class="text-white/80 text-xs mt-1">
-                                        {{ formatDate(item.created_at) }}
-                                    </p>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                    </swiper>
+                    <div class="w-full ">
+                        <img class="w-full h-66 rounded-xl" :src="`https://fargona24.uz/storage/${recNews.photo}`"
+                            alt="Reklama uchun joy...">
+                    </div>
                 </div>
             </div>
 
 
-            <div class="bg-white  shadow-sm overflow-hidden">
+            <div class=" bg-white rounded-xl shadow-sm overflow-hidden">
                 <h1 class="text-xl text-slate-900 py-3 px-4 border-b font-bold border-slate-200">
                     Yangiliklar
                 </h1>
 
                 <div class="divide-y divide-slate-200">
                     <div v-for="(item, index) in lastNews" :key="index"
-                        class="flex flex-row items-center p-3 hover:bg-slate-50 transition-colors duration-200">
+                        class="flex flex-row items-center cursor-pointer p-3  transition-colors duration-200">
                         <!-- Image section -->
-                        <div class="w-24 sm:w-28 h-20 flex-shrink-0 rounded-md overflow-hidden">
+                        <div class="w-24 sm:w-28 h-20 flex-shrink-0 rounded-xl overflow-hidden">
                             <img :src="`https://fargona24.uz/storage/${item.photo}`" :alt="item.name"
                                 class="w-full h-full object-cover" loading="lazy">
                         </div>
 
                         <div class="flex-1 ml-3">
                             <h2
-                                class="text-xl font-bold text-slate-900 hover:text-[#173044] transition-colors duration-200 line-clamp-1">
+                                class="text-xl font-bold text-gray-800  hover:text-gray-700 transition-colors duration-200 line-clamp-1">
                                 {{ item.name }}
                             </h2>
-                            <div class="flex items-center mt-1">
-                                <span class="text-xs text-slate-500">
-                                    {{ formatDate(item.created_at) }}
-                                </span>
-                                <span class="mx-2 text-slate-300">•</span>
-                                <span class="text-xs text-[#173044]">
-                                    Batafsil
+                            <div class="flex items-center justify-between mt-1 pr-6">
+                                <span class="text-sm text-slate-500">
+                                    {{ (item.date) }}
                                 </span>
                             </div>
                         </div>
