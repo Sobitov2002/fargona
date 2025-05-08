@@ -16,7 +16,7 @@ watch(selectedLang, async (newLang) => {
     categories.value = await getCategory(newLang)
 })
 
-// Glabal lang changing
+
 watch(selectedLang,
     () => {
         store.lang = selectedLang.value
@@ -41,16 +41,15 @@ onMounted(async () => {
 
 <template>
     <div class="w-full z-10 px-3 py-4 bg-[#173044] fixed">
-        <div class="max-w-[1114px] w-full mx-auto flex justify-between items-center">
+        <div class="max-w-[1250px] px-4 w-full mx-auto flex justify-between items-center">
             <Logo />
-
-
             <div class="hidden md:block">
                 <div class="flex justify-between gap-6">
-                    <ul class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
-                        <li v-for="(item, index) in categories" :key="index">
+                    <ul v-for="(item, index) in categories" :key="index"
+                        class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
+                        <router-link :to="`/category/${item.id}`">
                             {{ item.name }}
-                        </li>
+                        </router-link>
                     </ul>
                 </div>
             </div>
@@ -73,7 +72,7 @@ onMounted(async () => {
                                 </SelectItem>
                                 <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px] border-none px-2 py-2"
                                     value="kr">
-                                    Ўzbek 
+                                    Ўzbek
                                 </SelectItem>
                             </SelectGroup>
                         </SelectContent>

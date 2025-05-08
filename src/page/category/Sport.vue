@@ -67,7 +67,7 @@ onMounted(async () => {
 
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Jamiyat</h1>
+                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Sport</h1>
                     <div class="text-left mt-2 cursor-pointer">
                         <button @click="showAllItems"
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
@@ -78,37 +78,39 @@ onMounted(async () => {
                             </svg>
                         </button>
                     </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-3 ">
+                </div>
+                <div class="grid md:grid-cols-2 gap-3 ">
 
-                        <div v-for="category in visibleCategories" :key="category.id"
-                            class="flex-none  overflow-hidden transition-transform ">
-                            <div class="flex h-full cursor-pointer">
-                                <div v-if="category.photo" class="w-1/4  flex-shrink-0">
-                                    <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
-                                        class="w-full h-30 rounded-xl object-cover">
-                                </div>
-                                <div class="w-2/3 p-2">
+                    <div v-for="category in visibleCategories" :key="category.id"
+                        class="flex-none  overflow-hidden transition-transform ">
+                        <div class="flex h-full cursor-pointer">
+                            <div v-if="category.photo" class="w-1/4  flex-shrink-0">
+                                <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
+                                    class="w-full h-30 rounded-xl object-cover">
+                            </div>
+                            <div class="w-2/3 p-2">
+                                <router-link :to="`/new/${category.id}`" class="block cursor-pointer">
                                     <h2
                                         class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
                                         {{ category.name
                                         }}</h2>
-                                    <div>
-                                        <p></p>
-                                    </div>
+                                </router-link>
+                                <div>
+                                    <p class="text-sm text-gray-800">{{ category.date }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
-                    <div v-if="hasMoreItems" class="text-left mt-2 cursor-pointer">
-                        <button @click="showAllItems"
-                            class=" py-1   text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
-                            Yana ko'rish...
-                        </button>
-                    </div>
+                <div v-if="hasMoreItems" class="text-left mt-2 cursor-pointer">
+                    <button @click="showAllItems"
+                        class=" py-1   text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
+                        Yana ko'rish...
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
 </template>

@@ -1,45 +1,48 @@
-<script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { useLangStore } from '@/stores/lang'
-const store = useLangStore()
+<script setup>
+import { ref, onMounted } from 'vue'
+import { RefreshCw } from 'lucide-vue-next'
 
-interface Currency {
-    Ccy: string
-    CcyNm_UZ: string
-    Rate: string
-    Date: string
-    id: number
-}
-const currencies = ref<Currency[]>([])
+const currencies = ref([])
+const loading = ref(false)
+const error = ref(null)
 
-const getValuta = async () =>{
+const fetchCurrencies = async () => {
+    loading.value = true
+    error.value = null
+
     try {
-        const res = await fetch(`https://cbu.uz/${store.lang}/arkhiv-kursov-valyut/json/`)
+        const res = await fetch('https://cbu.uz/oz/arkhiv-kursov-valyut/json/')
         const data = await res.json()
         currencies.value = data.filter(item => ['USD', 'RUB', 'EUR'].includes(item.Ccy))
-    } catch (error) {
-        console.error('Valyuta kurslarini olishda xatolik:', error)
+    } catch (err) {
+        error.value = 'Valyuta kurslarini olishda xatolik'
+        console.error('Valyuta kurslarini olishda xatolik:', err)
+    } finally {
+        loading.value = false
     }
 }
-watch(() => store.lang, async () => {
-    await getValuta()
-})
-onMounted(async () => {
-    await getValuta()
-})
+
+onMounted(fetchCurrencies)
 </script>
 
 <template>
-    <div class="block  bg-white rounded-xl mt-6">
-        <div class="p-4 md:flex justify-between">
-            <h2 class="text-xl font-bold ">Valyuta kurslari</h2>
-            <ul v-if="currencies.length" class="space-y-2 md:flex gap-4">
-                <li v-for="currency in currencies" :key="currency.Ccy" class="text-slate-800">
-                    <span class="font-semibold">{{ currency.CcyNm_UZ }} ({{ currency.Ccy }}):</span>
-                    {{ currency.Rate }} 
-                </li>
-            </ul>
-            <p v-else class="text-gray-500">Yuklanmoqda...</p>
+    <div class="bg-white rounded-xl mt-6 p-4 flex items-center justify-between">
+        <div class="flex justify-between items-center ">
+            <h2 class="text-xl text-gray-800 font-bold">Valyuta kurslari</h2>
+
         </div>
+
+        <div v-if="error" class="text-red-600 mb-2">{{ error }}</div>
+
+        <div v-if="loading && !currencies.length" class="text-gray-500">
+            Yuklanmoqda...
+        </div>
+
+        <ul v-else class="md:flex gap-4 space-y-2 md:space-y-0">
+            <li v-for="currency in currencies" :key="currency.Ccy" class="text-gray-800">
+                <span class="font-semibold">{{ currency.CcyNm_UZ }} ({{ currency.Ccy }}):</span>
+                {{ currency.Rate }} UZS
+            </li>
+        </ul>
     </div>
 </template>

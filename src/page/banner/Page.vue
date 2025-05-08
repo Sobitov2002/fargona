@@ -10,9 +10,11 @@ import { useLangStore } from '@/stores/lang';
 
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
+ interface Recnews{
+    photo:string
+ }
 const lastNews = ref<any[]>([])
-const recNews = ref<any[]>([])
+const recNews = ref<Recnews[]>([])
 const lsNews = ref<any>(null)
 const isLoading = ref(true)
 
@@ -59,14 +61,12 @@ const modules = [FreeMode, Pagination, Autoplay]
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto  sm:px-6  pt-6 p-4 ">
+    <div class="max-w-[1250px] mx-auto  sm:px-6  pt-6 p-4 ">
 
         <div v-if="isLoading" class="flex justify-center items-center min-h-[300px]">
             <div class="animate-pulse text-slate-500">Yuklanmoqda...</div>
         </div>
-
         <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
             <div class="flex flex-col gap-6">
                 <div v-if="lsNews" class="relative rounded-xl overflow-hidden shadow-md group">
                     <img :src="`https://fargona24.uz/storage/${lsNews.photo}`" :alt="lsNews.name"
@@ -76,9 +76,11 @@ const modules = [FreeMode, Pagination, Autoplay]
                             <span class="inline-block px-2 py-1 text-xs bg-[#173044] text-white rounded mb-2">
                                 Asosiy yangilik
                             </span>
-                            <h2 class="text-white text-lg sm:text-xl font-bold line-clamp-2 mb-2">
-                                {{ lsNews.name }}
-                            </h2>
+                            <router-link :to="`/new/${lsNews.id}`" class="block cursor-pointer">
+                                <h2 class="text-white text-lg sm:text-xl font-bold line-clamp-2 mb-2">
+                                    {{ lsNews.name }}
+                                </h2>
+                            </router-link>
                             <p class="text-white/80 text-xs">
                                 {{ formatDate(lsNews.created_at) }}
                             </p>
@@ -102,26 +104,26 @@ const modules = [FreeMode, Pagination, Autoplay]
                 </h1>
 
                 <div class="divide-y divide-slate-200">
-                    <div v-for="(item, index) in lastNews" :key="index"
-                        class="flex flex-row items-center cursor-pointer p-3  transition-colors duration-200">
+                    <router-link v-for="(item, index) in lastNews" :key="index" :to="`/new/${item.id}`"
+                        class="flex flex-row items-center cursor-pointer p-3 transition-colors duration-200 no-underline">
                         <!-- Image section -->
                         <div class="w-24 sm:w-28 h-20 flex-shrink-0 rounded-xl overflow-hidden">
                             <img :src="`https://fargona24.uz/storage/${item.photo}`" :alt="item.name"
-                                class="w-full h-full object-cover" loading="lazy">
+                                class="w-full h-full object-cover" loading="lazy" />
                         </div>
-
                         <div class="flex-1 ml-3">
                             <h2
-                                class="text-xl font-bold text-gray-800  hover:text-gray-700 transition-colors duration-200 line-clamp-1">
+                                class="text-xl font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-1">
                                 {{ item.name }}
                             </h2>
                             <div class="flex items-center justify-between mt-1 pr-6">
                                 <span class="text-sm text-slate-500">
-                                    {{ (item.date) }}
+                                    {{ item.date }}
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </router-link>
+
 
 
                     <div v-if="!lastNews || lastNews.length === 0" class="py-8 text-center text-slate-500">

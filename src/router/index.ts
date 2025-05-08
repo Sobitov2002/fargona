@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/page/main/Page.vue'
 import DefaultLayout from '@/layouts/DefaultLayouts.vue'
-
+import PostDetail from '@/page/postdetail/NewPodtdetail.vue'
+import CategoryDetail from '@/page/categorydetail/CategoryDetail.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -11,8 +12,18 @@ const router = createRouter({
       component: HomeView,
       meta: { layout: DefaultLayout }
     },
-    
-    
+    {
+      path: '/new/:id',
+      name: 'PostDetail',
+      component: PostDetail,
+      meta: { layout: DefaultLayout }
+    },
+    {
+      path: '/category/:id',
+      name: 'CategoryDetail',
+      component: CategoryDetail,
+      meta: { layout: DefaultLayout }
+    },
   ],
 })
 

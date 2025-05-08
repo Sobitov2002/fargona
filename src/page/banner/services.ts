@@ -5,6 +5,8 @@ const getMainNews = async () =>{
     const store = useLangStore()
     try {
         const response = await api.get(`/last-news?lang=${store.lang}`)
+        
+        
         return response.data
     } catch (error) {
         console.log(error);
@@ -22,8 +24,7 @@ const getRecNews = async () =>{
 }
 const getLastNews = async () =>{
     const store = useLangStore()
-    try {
-       
+    try { 
         const response = await api.get(`last-post?lang=${store.lang}`)
         console.log("Songi yangiliklar", response.data);
         

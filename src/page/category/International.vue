@@ -51,7 +51,7 @@ onMounted(async () => {
 loading.value = false
 </script>
 <template>
-    <div class="max-w-7xl mx-auto p-5">
+    <div class="max-w-[1250px]  mx-auto p-5">
         <div v-if="loading" class="text-center py-10">
             <div class="flex h-full cursor-pointer space-x-4">
                 <Skeleton class="w-1/4 h-30 rounded-xl" />
@@ -72,7 +72,7 @@ loading.value = false
 
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Jamiyat</h1>
+                    <h1 class="text-2xl font-bold  pb-1 text-[#1a2e42] ">Xalqaro</h1>
                     <div class="text-left mt-2 cursor-pointer">
                         <button @click="showAllItems"
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
@@ -94,12 +94,15 @@ loading.value = false
                                     class="w-full h-30 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <h2
-                                    class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
-                                    {{ category.name
-                                    }}</h2>
+
                                 <div>
-                                    <p></p>
+                                    <router-link :to="`/new/${category.id}`" class="block cursor-pointer">
+                                        <h2
+                                            class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
+                                            {{ category.name
+                                            }}</h2>
+                                    </router-link>
+                                    <p class="text-sm text-gray-800">{{ category.date }}</p>
                                 </div>
                             </div>
                         </div>

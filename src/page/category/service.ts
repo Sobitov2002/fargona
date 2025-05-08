@@ -1,5 +1,4 @@
 import api from '@/services/apiServices'
-import { watch } from 'vue'
 import { useLangStore } from '@/stores/lang';
 
 
@@ -18,7 +17,7 @@ const getCategory = async () =>{
 const getSocialNews = async () =>{
     const store = useLangStore()
     try {
-        const response = await api.get(`/news-category?lang=${store.lang}&c_id=1`)
+        const response = await api.get(`/news-category?lang=${store.lang}&c_id=5`)
         return response.data
     } catch (error) {
         console.log(error);

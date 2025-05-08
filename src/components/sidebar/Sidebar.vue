@@ -81,16 +81,16 @@ const setActive = (id: number) => {
                     <TransitionGroup name="list">
                         <li v-for="(item, index) in categories" :key="item.id" class="relative">
                             <!-- Main menu item -->
-                            <div class="flex flex-col">
+                            <router-link :to="`/category/${item.id}`" class="flex flex-col items-start">
                                 <button @click="setActive(item.id)"
-                                    class="group flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
+                                    class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
                                     :class="{
                                         'bg-[#1E3D4E] text-white': activeItem === item.id,
                                         'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== item.id
                                     }">
-                                    <span class="flex-1 text-sm font-medium">{{ item.name }}</span>
+                                    <span class="flex-1 text-sm  font-medium">{{ item.name }}</span>
                                 </button>
-                            </div>
+                            </router-link>
 
                             <!-- Active indicator -->
                             <div v-if="activeItem === item.id"
