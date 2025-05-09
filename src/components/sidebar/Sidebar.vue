@@ -107,7 +107,6 @@ const setActive = (id: number | null) => {
                                    {{ mainText }}
                                 </router-link>
                             </button>
-
                             <!-- Active indicator -->
                             <div v-if="activeItem === null"
                                 class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full">

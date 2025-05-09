@@ -4,6 +4,8 @@ import DefaultLayout from '@/layouts/DefaultLayouts.vue'
 import PostDetail from '@/page/postdetail/NewPodtdetail.vue'
 import CategoryDetail from '@/page/categorydetail/CategoryDetail.vue'
 import About from '@/page/about/Page.vue'
+import Search from '@/page/search/Page.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +25,12 @@ const router = createRouter({
       path: '/category/:id',
       name: 'CategoryDetail',
       component: CategoryDetail,
+      meta: { layout: DefaultLayout }
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search,
       meta: { layout: DefaultLayout }
     },
     {

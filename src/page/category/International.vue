@@ -115,12 +115,7 @@ loading.value = false
                 </div>
 
 
-                <div v-if="hasMoreItems" class="text-left mt-2 cursor-pointer">
-                    <button @click="showAllItems"
-                        class=" py-1   text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
-                        Yana ko'rish...
-                    </button>
-                </div>
+               
             </div>
         </div>
     </div>

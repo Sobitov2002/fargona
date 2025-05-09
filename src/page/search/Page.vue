@@ -2,8 +2,9 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/lang'
-import { categorydetail } from './services'
+import { searchDetail } from './services'
 import { Skeleton } from '@/components/ui/skeleton'
+
 
 interface Category {
     id: number
@@ -14,47 +15,45 @@ interface Category {
 
 interface CategoryDetailResponse {
     data: Category[]
-    current_page: number
-    last_page: number
     [key: string]: any
 }
 
 const store = useLangStore()
 const detailPost = ref<CategoryDetailResponse | null>(null)
 const route = useRoute()
-const page = ref(1)
+const serchText = ref<string>('') 
 
-const postDetail = async (id: string, pageNum = 1) => {
+const postDetail = async (id: string) => {
     try {
-        const response = await categorydetail(id, pageNum)
+        const response = await searchDetail(id)
         detailPost.value = response
-        console.log("Detail data:", response)
+        console.log("search data:", response)
     } catch (error) {
         console.error("Error fetching detail:", error)
     }
 }
 
-const loadPage = async (pageNum: number) => {
-    const id = route.params.id as string
-    page.value = pageNum
-    await postDetail(id, pageNum)
-}
 
-onMounted(() => {
-    loadPage(page.value)
+onMounted(async () => {
+    const id = route.query.q as string
+    serchText.value = id 
+    await postDetail(id)
 })
 
-watch([() => store.lang, () => route.params.id], () => {
-    loadPage(1)
-})
+watch([() => store.lang, () => route.query.q], async () => {
+    const id = route.query.q as string
+    serchText.value = id 
+    await postDetail(id)
+}, { immediate: true })
+
 </script>
 
 <template>
     <div class="max-w-[1250px] mx-auto p-5">
         <div>
             <div v-if="!detailPost || !detailPost.data || detailPost.data.length === 0"
-                class="text-center py-10 text-lg grid md:grid-cols-2">
-                <div v-for="n in 4" :key="n" class="transition-transform mb-4 bg-white p-4">
+                class="text-center py-10 text-lg  grid md:grid-cols-2">
+                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white p-4">
                     <div class="flex justify-between h-full cursor-pointer">
                         <div class="w-1/4 flex-shrink-0">
                             <Skeleton class="w-full bg-gray-300 h-30 rounded-xl" />
@@ -69,7 +68,8 @@ watch([() => store.lang, () => route.params.id], () => {
 
             <div v-else class="bg-white rounded-xl border-slate-200 p-4">
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">Xalqaro</h1>
+                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar soni: {{detailPost.data.length}} </h1>
+                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">"{{serchText}}" </h1>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-3">
@@ -91,20 +91,6 @@ watch([() => store.lang, () => route.params.id], () => {
                             </div>
                         </div>
                     </div>
-                </div>
-
-              
-                <div class="flex justify-center mt-6 space-x-2">
-                    <button @click="loadPage(page - 1)" :disabled="page === 1"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Orqaga</button>
-
-                    <button v-for="p in detailPost.last_page" :key="p" @click="loadPage(p)"
-                        :class="['px-3 py-1 border rounded', { 'bg-blue-500 text-white': p === page }]">
-                        {{ p }}
-                    </button>
-
-                    <button @click="loadPage(page + 1)" :disabled="page === detailPost.last_page"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Oldinga</button>
                 </div>
             </div>
         </div>
