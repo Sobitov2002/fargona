@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import Logo from '../ui/Logo.vue'
 
-// Define types for footer links
+
 interface FooterLink {
     text: string
     url: string
@@ -13,8 +13,6 @@ interface SocialLink {
     url: string
     icon: string
 }
-
-
 const aboutLinks = ref<FooterLink[]>([
     { text: 'Biz haqimizda', url: '/about' },
 ])

@@ -3,6 +3,7 @@ import HomeView from '@/page/main/Page.vue'
 import DefaultLayout from '@/layouts/DefaultLayouts.vue'
 import PostDetail from '@/page/postdetail/NewPodtdetail.vue'
 import CategoryDetail from '@/page/categorydetail/CategoryDetail.vue'
+import About from '@/page/about/Page.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,6 +23,12 @@ const router = createRouter({
       path: '/category/:id',
       name: 'CategoryDetail',
       component: CategoryDetail,
+      meta: { layout: DefaultLayout }
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About,
       meta: { layout: DefaultLayout }
     },
   ],

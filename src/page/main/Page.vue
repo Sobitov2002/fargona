@@ -15,5 +15,5 @@ import RecommendationNews from '../recommendation/Page.vue'
    <Video />
    <Tech />
    <InterviewVideo />
-   <RecommendationNews/>
-    </template>
+   <RecommendationNews />
+</template>

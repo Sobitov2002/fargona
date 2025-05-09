@@ -4,7 +4,9 @@ import Logo from '@/components/ui/Logo.vue'
 import { ref, onMounted, watch ,computed } from "vue";
 import { getCategory } from './services'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 import { useLangStore } from '@/stores/lang';
 
 
@@ -52,7 +54,10 @@ onMounted(async () => {
             <Logo />
             <div class="hidden md:block">
                 <div class="flex justify-between gap-6">
-                        <p class="text-white text-[15px]  font-sans font-bold cursor-pointer">{{mainText}}</p>
+                        <p  @click="router.push('/')"  class="text-white text-[15px] font-sans font-bold cursor-pointer">
+                 {{ mainText }}
+                </p>
+
                     <ul v-for="(item, index) in categories" :key="index"
                         class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
                         <router-link :to="`/category/${item.id}`">

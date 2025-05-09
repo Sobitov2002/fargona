@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 import {  FacebookIcon } from 'lucide-vue-next'
 import { useLangStore } from '@/stores/lang'
 import Course from '@/components/course/Course.vue'
-
+import Recomundation from '@/page/recommendation/Page.vue'
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
@@ -59,7 +59,7 @@ watch(() => store.lang, async () => {
             <!-- Article Image -->
             <div v-if="detailPost.photo" class="mb-6 flex justify-center">
                 <img :src="`https://fargona24.uz/storage/${detailPost.photo}`" :alt="detailPost.name"
-                    class=" w-full h-[650px] rounded-xl ">
+                    class=" w-full md:h-[650px] h-[400px] rounded-xl ">
             </div>
             <!-- Article Content -->
             <div class="prose prose-lg max-w-none  " v-html="detailPost.info"></div>
@@ -86,10 +86,13 @@ watch(() => store.lang, async () => {
 
         <!-- Loading state -->
         <div v-else class="p-4 md:p-6 flex justify-center items-center min-h-[400px]">
-           <div>
-           
-           </div>
+            <div>
+
+            </div>
         </div>
+        <Recomundation />
+    </div>
+    <div class="max-w-[1250px] mx-auto">
     </div>
 </template>
 
