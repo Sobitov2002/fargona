@@ -31,8 +31,22 @@ const getSidebarItem = async () =>{
         
     }
 }
+
+const mainText = ref('Asosiy');
+
+// Tilga qarab matnni o‘zgartirish
+const updateMainText = () => {
+    if (store.lang === 'uz') {
+        mainText.value = 'Asosiy';
+    } else if (store.lang === 'ru') {
+        mainText.value = 'Главный';
+    } else if (store.lang === 'kr') {
+        mainText.value = 'Асосий';
+    }
+};
 onMounted(async () => {
     await getSidebarItem()
+    updateMainText();
 });
 
 
@@ -41,6 +55,7 @@ const toggleSidebar = () => {
     sidebarStore.isOpen = !sidebarStore.isOpen;
 };
 watch(() => store.lang, async () => {
+    updateMainText();
     await getSidebarItem()
 })
 
@@ -74,13 +89,21 @@ const setActive = (id: number) => {
                 </button>
             </div>
             <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
-
-            
             <div class="flex-1 overflow-y-auto sidebar-scrollbar px-1">
                 <ul class="space-y-1 pb-6">
                     <TransitionGroup name="list">
+                        <div :class="{
+                            'bg-[#1E3D4E] text-white': activeItem === null,
+                            'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
+                        }" class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200">
+                            <p class="flex-1 text-sm font-medium"
+                                :class="activeItem === null ? 'text-white' : 'text-gray-300'">
+                                {{ mainText }}
+                            </p>
+                        </div>
+
+
                         <li v-for="(item, index) in categories" :key="item.id" class="relative">
-                            <!-- Main menu item -->
                             <router-link :to="`/category/${item.id}`" class="flex flex-col items-start">
                                 <button @click="setActive(item.id)"
                                     class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
@@ -108,10 +131,9 @@ const setActive = (id: number) => {
                     <Settings class="w-5 h-5" />
                     <span class="text-sm font-medium">Settings</span>
                 </div>
-
                 <!-- Language selector -->
                 <div class="mt-4 flex gap-2">
-                   
+
                 </div>
             </div>
         </div>

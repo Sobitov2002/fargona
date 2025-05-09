@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/lang'
 import { categorydetail } from './services'
-
+import { Skeleton } from '@/components/ui/skeleton'
 // TypeScript interfeys
 interface Category {
     id: number
@@ -47,8 +47,18 @@ watch([() => store.lang, () => route.params.id], async () => {
     <div class="max-w-[1250px] mx-auto p-5">
         <div>
             <div v-if="!detailPost || !detailPost.data || detailPost.data.length === 0"
-                class="text-center py-10 text-lg">
-                No categories found
+                class="text-center py-10 text-lg  grid md:grid-cols-2">
+                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white p-4">
+                    <div class="flex justify-between h-full cursor-pointer">
+                        <div class="w-1/4 flex-shrink-0">
+                            <Skeleton class="w-full bg-gray-300 h-30 rounded-xl" />
+                        </div>
+                        <div class="w-2/3 p-2 space-y-2">
+                            <Skeleton class="h-6 bg-gray-300 w-3/4 rounded" />
+                            <Skeleton class="h-4 w-1/2 bg-gray-300 rounded" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div v-else class="bg-white rounded-xl border-slate-200 p-4">

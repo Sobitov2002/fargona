@@ -2,9 +2,11 @@
 import Banner from '../banner/Page.vue'
 import Course from '@/components/course/Course.vue'
 import Tech from '@/page/category/Sport.vue'
-import Video from '../video/Page.vue'
+import Video from '../video/Video.vue'
 import Society from '../category/Society.vue'
 import International from '../category/International.vue'
+import InterviewVideo from '../video/InterviewVideo.vue'
+import RecommendationNews from '../recommendation/Page.vue'
 </script>
 <template>
    <Banner />
@@ -12,4 +14,6 @@ import International from '../category/International.vue'
    <International />
    <Video />
    <Tech />
-</template>
+   <InterviewVideo />
+   <RecommendationNews/>
+    </template>

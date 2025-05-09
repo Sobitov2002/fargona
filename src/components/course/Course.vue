@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { RefreshCw } from 'lucide-vue-next'
-
+import { Skeleton } from '@/components/ui/skeleton'
 const currencies = ref([])
 const loading = ref(false)
 const error = ref(null)
@@ -35,7 +34,10 @@ onMounted(fetchCurrencies)
         <div v-if="error" class="text-red-600 mb-2">{{ error }}</div>
 
         <div v-if="loading && !currencies.length" class="text-gray-500">
-            Yuklanmoqda...
+            <div class="grid md:grid-cols-2 grid-cols-1">
+                <Skeleton class="w-[200px] bg-gray-300 h-5 rounded-full" />
+                <Skeleton class="w-[400px] bg-gray-300 h-5 rounded-full" />
+            </div>
         </div>
 
         <ul v-else class="md:flex gap-4 space-y-2 md:space-y-0">

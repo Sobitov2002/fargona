@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getCategory } from './service'
 import { onMounted, ref, computed ,watch } from 'vue'
-
+import { Skeleton } from '@/components/ui/skeleton'
 import { useLangStore } from '@/stores/lang';
 const store = useLangStore()
 
@@ -53,8 +53,18 @@ loading.value = false
 
         </div>
         <div v-else>
-            <div v-if="categories.length === 0" class="text-center py-10 text-lg">
-                No categories found
+            <div v-if="categories.length === 0" class="text-center py-10 text-lg grid grid-cols-2">
+                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white p-4">
+                    <div class="flex justify-between h-full cursor-pointer">
+                        <div class="w-1/4 flex-shrink-0">
+                            <Skeleton class="w-full bg-gray-300 h-30 rounded-xl" />
+                        </div>
+                        <div class="w-2/3 p-2 space-y-2">
+                            <Skeleton class="h-6 bg-gray-300 w-3/4 rounded" />
+                            <Skeleton class="h-4 w-1/2 bg-gray-300 rounded" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">

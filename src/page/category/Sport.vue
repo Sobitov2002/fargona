@@ -2,7 +2,7 @@
 import { getSocialNews } from './service'
 import { onMounted, ref, computed , watch } from 'vue'
 import { useLangStore } from '@/stores/lang';
-
+import { Skeleton } from '@/components/ui/skeleton'
 const store = useLangStore()
 // Define proper typing for your data
 interface CategoryItem {
@@ -23,15 +23,12 @@ const visibleCategories = computed(() => {
     return categories.value.slice(0, itemsToShow.value)
 })
 
-
 const hasMoreItems = computed(() => {
     return categories.value.length > itemsToShow.value
 })
-
 const showAllItems = () => {
     itemsToShow.value = categories.value.length
 }
-
 const getTechnica = async ()=>{
     try {
         const response = await getSocialNews()
@@ -54,17 +51,24 @@ onMounted(async () => {
 <template>
     <div class="max-w-7xl mx-auto p-5">
         <div v-if="loading" class="text-center py-10">
-            <div class="text-lg">Loading categories...</div>
-        </div>
-
-
-        <div v-else>
-
-
-            <div v-if="categories.length === 0" class="text-center py-10 text-lg">
-                No categories found
+            <div  class="text-center py-10 text-lg grid grid-cols-2">
+                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white p-4">
+                    <div class="flex justify-between h-full cursor-pointer">
+                        <div class="w-1/4 flex-shrink-0">
+                            <Skeleton class="w-full bg-gray-300 h-30 rounded-xl" />
+                        </div>
+                        <div class="w-2/3 p-2 space-y-2">
+                            <Skeleton class="h-6 bg-gray-300 w-3/4 rounded" />
+                            <Skeleton class="h-4 w-1/2 bg-gray-300 rounded" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
+        </div>
+        <div v-else>
+            <div v-if="categories.length === 0" class="text-center py-10 text-lg grid grid-cols-2">
+                <h1>Ma'lumot topilmadi...!</h1>
+            </div>
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
                     <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Sport</h1>

@@ -74,7 +74,7 @@ onMounted(() => {
 
 <template>
     <div class="bg-[#173044]">
-        <div class="  max-w-[1250px]  w-full mx-auto">
+        <div class="  max-w-[1250px] px-4  w-full mx-auto">
             <h2 class="text-2xl font-bold text-white mb-3 border-b py-2">Barcha videolar</h2>
             <swiper :modules="[Autoplay, FreeMode, Pagination]" :slides-per-view="1" :loop="true" :autoplay="{
                 delay: 3500,

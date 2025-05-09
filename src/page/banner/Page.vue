@@ -2,6 +2,7 @@
 import { getMainNews, getRecNews, getLastNews } from './services'
 import { onMounted, ref , watch } from 'vue'
 import Course from '@/components/course/Course.vue'
+import { Skeleton } from '@/components/ui/skeleton'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
@@ -63,8 +64,14 @@ const modules = [FreeMode, Pagination, Autoplay]
 <template>
     <div class="max-w-[1250px] mx-auto  sm:px-6  pt-6 p-4 ">
 
-        <div v-if="isLoading" class="flex justify-center items-center min-h-[300px]">
-            <div class="animate-pulse text-slate-500">Yuklanmoqda...</div>
+        <div v-if="isLoading" class="grid grid-cols-2 gap-4 bg-white p-4 rounded-xl min-h-[300px] items-center">
+            <div class="space-y-4">
+                <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
+                <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
+            </div>
+            <div>
+                <Skeleton class="w-full h-48 bg-gray-300 rounded-2xl object-contain" />
+            </div>
         </div>
         <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="flex flex-col gap-6">

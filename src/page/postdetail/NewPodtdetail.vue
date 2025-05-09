@@ -63,8 +63,6 @@ watch(() => store.lang, async () => {
             </div>
             <!-- Article Content -->
             <div class="prose prose-lg max-w-none  " v-html="detailPost.info"></div>
-
-            <!-- Article Tags -->
             <div v-if="detailPost.category" class="flex flex-wrap gap-2 mt-6">
                 <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
                     {{ detailPost.category }}
@@ -83,16 +81,14 @@ watch(() => store.lang, async () => {
                     <FacebookIcon class="w-5 h-5" />
                     <span class="sr-only">Share on Twitter</span>
                 </button>
-
             </div>
-
-            <!-- Related Articles Section (placeholder) -->
-
         </article>
 
         <!-- Loading state -->
         <div v-else class="p-4 md:p-6 flex justify-center items-center min-h-[400px]">
-            <div class="animate-pulse text-gray-500">Loading article...</div>
+           <div>
+           
+           </div>
         </div>
     </div>
 </template>

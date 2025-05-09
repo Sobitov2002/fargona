@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSidebarStore } from '@/stores/sidebarStore'
 import Logo from '@/components/ui/Logo.vue'
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch ,computed } from "vue";
 import { getCategory } from './services'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
@@ -17,11 +17,18 @@ watch(selectedLang, async (newLang) => {
 })
 
 
-watch(selectedLang,
-    () => {
-        store.lang = selectedLang.value
-    }
-)
+watch(selectedLang, () => {
+  store.lang = selectedLang.value;
+
+  
+});
+const mainText = computed(() => {
+  if (selectedLang.value === 'uz') return 'Asosiy';
+  if (selectedLang.value === 'ru') return 'Главный';
+  if (selectedLang.value === 'kr') return 'Асосий'; 
+  return 'Asosiy';
+});
+
 
 const sidebarStore = useSidebarStore()
 
@@ -45,6 +52,7 @@ onMounted(async () => {
             <Logo />
             <div class="hidden md:block">
                 <div class="flex justify-between gap-6">
+                        <p class="text-white text-[15px]  font-sans font-bold cursor-pointer">{{mainText}}</p>
                     <ul v-for="(item, index) in categories" :key="index"
                         class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
                         <router-link :to="`/category/${item.id}`">
