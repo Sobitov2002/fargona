@@ -60,8 +60,8 @@ watch([() => store.lang, () => route.query.q], async () => {
 
             <div v-else class="bg-white rounded-xl border-slate-200 p-4">
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar soni: {{detailPost.data.length}} </h1>
-                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">"{{serchText}}" </h1>
+                    <h1 class="md:text-2xl text-lg  font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar soni: {{detailPost.data.length}} </h1>
+                    
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-3">
