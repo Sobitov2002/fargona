@@ -32,6 +32,10 @@ interface TeamMember {
         <!-- About Section - Simplified -->
         <div class="container mx-auto px-4 py-12 rounded-xl bg-white">
             <div class="flex flex-col md:flex-row items-start gap-8">
+                <div class="md:w-1/2">
+                    <img src="https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401"
+                        alt="Farg'ona24 Office" class="w-full rounded-xl " />
+                </div>
                 <div class="md:w-1/2 items-center flex-col">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">Farg'ona24 haqida</h2>
                     <p class="text-gray-600 mb-4">
@@ -49,10 +53,7 @@ interface TeamMember {
                     </button>
                 </div>
 
-                <div class="md:w-1/2">
-                    <img src="https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401"
-                        alt="Farg'ona24 Office" class="w-full rounded-xl " />
-                </div>
+
             </div>
         </div>
 

@@ -4,6 +4,9 @@ import { useSidebarStore } from '@/stores/sidebarStore';
 import Logo from '@/components/ui/Logo.vue';
 import { getSidebar } from './services';
 import { useLangStore } from '@/stores/lang';
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const sidebarRef = ref<HTMLElement | null>(null);
 const activeItem = ref<number | null>(null);
 const store = useLangStore()
@@ -59,9 +62,9 @@ watch(() => store.lang, async () => {
     await getSidebarItem()
 })
 
-const setActive = (id: number) => {
+const setActive = (id: number | null) => {
     activeItem.value = id;
-};
+}
 
 
 
@@ -92,17 +95,26 @@ const setActive = (id: number) => {
             <div class="flex-1 overflow-y-auto sidebar-scrollbar px-1">
                 <ul class="space-y-1 pb-6">
                     <TransitionGroup name="list">
-                        <div :class="{
-                            'bg-[#1E3D4E] text-white': activeItem === null,
-                            'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
-                        }" class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200">
-                            <p class="flex-1 text-sm font-medium"
-                                :class="activeItem === null ? 'text-white' : 'text-gray-300'">
-                                {{ mainText }}
-                            </p>
-                        </div>
+                        <!-- mainText element as li -->
+                        <li class="relative">
+                            <button @click="setActive(null)"
+                                class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
+                                :class="{
+                                    'bg-[#1E3D4E] text-white': activeItem === null,
+                                    'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
+                                }">
+                               <router-link to="/" class="flex-1 text-sm font-medium">
+                                   {{ mainText }}
+                                </router-link>
+                            </button>
 
+                            <!-- Active indicator -->
+                            <div v-if="activeItem === null"
+                                class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full">
+                            </div>
+                        </li>
 
+                        <!-- Dynamic category items -->
                         <li v-for="(item, index) in categories" :key="item.id" class="relative">
                             <router-link :to="`/category/${item.id}`" class="flex flex-col items-start">
                                 <button @click="setActive(item.id)"
@@ -111,7 +123,7 @@ const setActive = (id: number) => {
                                         'bg-[#1E3D4E] text-white': activeItem === item.id,
                                         'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== item.id
                                     }">
-                                    <span class="flex-1 text-sm  font-medium">{{ item.name }}</span>
+                                    <span class="flex-1 text-sm font-medium">{{ item.name }}</span>
                                 </button>
                             </router-link>
 
@@ -133,67 +145,8 @@ const setActive = (id: number) => {
                 </div>
                 <!-- Language selector -->
                 <div class="mt-4 flex gap-2">
-
                 </div>
             </div>
         </div>
     </aside>
 </template>
-
-<style scoped>
-.sidebar-scrollbar::-webkit-scrollbar {
-    width: 3px;
-}
-
-.sidebar-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sidebar-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-
-.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Transitions */
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
-.list-enter-active,
-.list-leave-active {
-    transition: all 0.3s ease;
-}
-
-.list-enter-from {
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
-.list-leave-to {
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-/* Submenu animation */
-.submenu-enter-active,
-.submenu-leave-active {
-    transition: all 0.3s ease;
-    max-height: 300px;
-}
-
-.submenu-enter-from,
-.submenu-leave-to {
-    opacity: 0;
-    max-height: 0;
-}
-</style>
