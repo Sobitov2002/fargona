@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/page/main/Page.vue'
 import DefaultLayout from '@/layouts/DefaultLayouts.vue'
-import PostDetail from '@/page/postdetail/NewPodtdetail.vue'
+import PostDetail from '@/page/postdetail/Page.vue'
 import CategoryDetail from '@/page/categorydetail/CategoryDetail.vue'
 import About from '@/page/about/Page.vue'
 import Search from '@/page/search/Page.vue'
-
+import Contact from '@/page/contact/Page.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -37,6 +37,12 @@ const router = createRouter({
       path: '/about',
       name: 'About',
       component: About,
+      meta: { layout: DefaultLayout }
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: Contact,
       meta: { layout: DefaultLayout }
     },
   ],

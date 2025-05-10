@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/lang'
 import { categorydetail } from './services'
@@ -24,6 +24,7 @@ const detailPost = ref<CategoryDetailResponse | null>(null)
 const route = useRoute()
 const page = ref(1)
 
+
 const postDetail = async (id: string, pageNum = 1) => {
     try {
         const response = await categorydetail(id, pageNum)
@@ -33,6 +34,14 @@ const postDetail = async (id: string, pageNum = 1) => {
         console.error("Error fetching detail:", error)
     }
 }
+
+const mainText = computed(() => {
+    if (route.params.id === '1') return 'Fan  texnika';
+    if (route.params.id === '2') return 'Jamiyat';
+    if (route.params.id === '3') return 'Jahon';
+    if (route.params.id === '4') return 'Nuqtai nazar';
+    if (route.params.id === '5') return 'Sport';
+});
 
 const loadPage = async (pageNum: number) => {
     const id = route.params.id as string
@@ -69,7 +78,7 @@ watch([() => store.lang, () => route.params.id], () => {
 
             <div v-else class="bg-white rounded-xl border-slate-200 p-4">
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">Xalqaro</h1>
+                    <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">{{ mainText }}</h1>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-3">

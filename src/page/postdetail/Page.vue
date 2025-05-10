@@ -62,7 +62,8 @@ watch(() => store.lang, async () => {
                     class=" w-full md:h-[650px] h-[400px] rounded-xl ">
             </div>
             <!-- Article Content -->
-            <div class="prose prose-lg max-w-none  " v-html="detailPost.info"></div>
+            <div class="prose prose-lg max-w-none news-content " v-html="detailPost.info"></div>
+            
             <div v-if="detailPost.category" class="flex flex-wrap gap-2 mt-6">
                 <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
                     {{ detailPost.category }}
@@ -128,5 +129,228 @@ watch(() => store.lang, async () => {
 
 .prose figure {
     margin: 1.5rem 0;
+}
+.news-content {
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #1f2937;
+    /* gray-800 */
+    line-height: 1.8;
+    font-size: 16px;
+    word-break: break-word;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+/* Barcha linklar umumiy */
+.news-content a {
+  color: #2563eb; /* blue-600 */
+  text-decoration: underline;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  word-break: break-word;
+}
+
+/* Hover effekti */
+.news-content a:hover {
+  color: #1d4ed8; /* blue-700 */
+  text-decoration: none;
+}
+
+/* Telegram link */
+.news-content a[href*="t.me"],
+.news-content a[href*="telegram.me"] {
+  display: inline-block;
+  background-color: #229ED9;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin: 6px 0;
+  font-weight: 600;
+}
+
+.news-content a[href*="t.me"]:hover,
+.news-content a[href*="telegram.me"]:hover {
+  background-color: #1b8ec7;
+}
+
+/* Facebook link */
+.news-content a[href*="facebook.com"] {
+  display: inline-block;
+  background-color: #1877f2;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin: 6px 0;
+  font-weight: 600;
+}
+
+.news-content a[href*="facebook.com"]:hover {
+  background-color: #145ccf;
+}
+
+/* Headings */
+.news-content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1.5rem 0 1rem;
+    color: #111827;
+    /* gray-900 */
+    border-bottom: 2px solid #e5e7eb;
+    /* gray-200 */
+    padding-bottom: 0.25rem;
+}
+
+.news-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.8rem;
+    color: #1f2937;
+}
+
+.news-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1rem 0 0.6rem;
+    color: #374151;
+    /* gray-700 */
+}
+
+/* Paragraphs */
+.news-content p {
+    margin-bottom: 1rem;
+}
+
+/* Links */
+.news-content a {
+    color: #2563eb;
+    /* blue-600 */
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.news-content a:hover {
+    color: #1d4ed8;
+    /* blue-700 */
+}
+
+/* Lists */
+.news-content ul {
+    padding-left: 1.5rem;
+    list-style-type: disc;
+    margin-bottom: 1rem;
+}
+
+.news-content ol {
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+    margin-bottom: 1rem;
+}
+
+.news-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Images */
+.news-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Blockquote */
+.news-content blockquote {
+    border-left: 4px solid #d1d5db;
+    background: #f9fafb;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #6b7280;
+    /* gray-500 */
+}
+
+/* Code */
+.news-content pre {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+}
+
+.news-content code {
+    background-color: #e5e7eb;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+/* Tables */
+.news-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.news-content th,
+.news-content td {
+    border: 1px solid #d1d5db;
+    padding: 0.75rem;
+}
+
+.news-content th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+}
+
+/* Horizontal rule */
+.news-content hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2rem 0;
+}
+
+/* Video / iframe */
+.news-content iframe,
+.news-content video {
+    width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+/* === TAGS section === */
+.news-content .tags {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e5e7eb;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.news-content .tags span.label {
+    font-weight: 600;
+    color: #6b7280;
+    /* gray-500 */
+}
+
+.news-content .tags .tag {
+    background-color: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
+    font-size: 14px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.news-content .tags .tag:hover {
+    background-color: #e5e7eb;
 }
 </style>

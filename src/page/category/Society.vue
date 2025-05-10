@@ -21,12 +21,7 @@ const itemsToShow = ref(6)
 const visibleCategories = computed(() => {
     return categories.value.slice(0, itemsToShow.value)
 })
-const hasMoreItems = computed(() => {
-    return categories.value.length > itemsToShow.value
-})
-const showAllItems = () => {
-    itemsToShow.value = categories.value.length
-}
+
 const getCategories  = async () =>{
     try {
         const response = await getCategory()
@@ -71,14 +66,14 @@ loading.value = false
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
                     <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Jamiyat</h1>
                     <div class="text-left mt-2 cursor-pointer">
-                        <button @click="showAllItems"
+                        <router-link :to="`/category/2`" 
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
                             Yana ko'rish
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1a2e42"
                                 viewBox="0 0 24 24">
                                 <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3z" />
                             </svg>
-                        </button>
+                        </router-link>
                     </div>
 
 

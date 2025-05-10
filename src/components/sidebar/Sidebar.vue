@@ -66,8 +66,17 @@ const setActive = (id: number | null) => {
     activeItem.value = id;
 }
 
-
-
+interface SocialLink {
+    name: string
+    url: string
+    icon: string
+}
+const socialLinks = ref<SocialLink[]>([
+    { name: 'Telegram', url: 'https://t.me/Fargona24', icon: 'fa-telegram' },
+    { name: 'Instagram', url: 'https://instagram.com/fargona24.uz', icon: 'fa-instagram' },
+    { name: 'YouTube', url: 'https://youtube.com/@fargona24_uz', icon: 'fa-youtube' },
+    { name: 'Facebook', url: 'https://www.facebook.com/FARGONALIKLAR24', icon: 'fa-facebook' }
+])
 
 </script>
 
@@ -103,8 +112,8 @@ const setActive = (id: number | null) => {
                                     'bg-[#1E3D4E] text-white': activeItem === null,
                                     'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
                                 }">
-                               <router-link to="/" class="flex-1 text-sm font-medium">
-                                   {{ mainText }}
+                                <router-link to="/" class="flex-1 text-sm font-medium">
+                                    {{ mainText }}
                                 </router-link>
                             </button>
                             <!-- Active indicator -->
@@ -137,13 +146,13 @@ const setActive = (id: number | null) => {
 
             <!-- Footer -->
             <div class="mt-auto pt-4 border-t border-white/10">
-                <div
-                    class="flex items-center gap-3 px-3 py-2 text-gray-300 rounded-lg hover:bg-[#1E3D4E]/50 hover:text-white cursor-pointer">
-                    <Settings class="w-5 h-5" />
-                    <span class="text-sm font-medium">Settings</span>
-                </div>
-                <!-- Language selector -->
-                <div class="mt-4 flex gap-2">
+                <h4 class="text-sm font-medium mb-3 text-white">Bizni ijtimoiy tarmoqlarda kuzatib boring</h4>
+                <div class="flex space-x-4">
+                    <a v-for="social in socialLinks" :key="social.name" :href="social.url" :aria-label="social.name"
+                        class="w-10 h-10 flex items-center justify-center  rounded-full transition-colors"
+                        target="_blank" rel="noopener noreferrer">
+                        <i :class="social.icon" class="fa-brands text-white text-[33px] "></i>
+                    </a>
                 </div>
             </div>
         </div>
