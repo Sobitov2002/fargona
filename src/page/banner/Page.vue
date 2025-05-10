@@ -64,7 +64,7 @@ const modules = [FreeMode, Pagination, Autoplay]
 <template>
     <div class="max-w-[1250px] mx-auto  sm:px-6  pt-6 p-4 ">
 
-        <div v-if="isLoading" class="grid grid-cols-2 gap-4 bg-white p-4 rounded-xl min-h-[300px] items-center">
+        <div v-if="isLoading" class="grid md:grid-cols-2 grid-cols-1 gap-4 bg-white p-4 rounded-xl min-h-[300px] items-center">
             <div class="space-y-4">
                 <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
                 <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
