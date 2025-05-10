@@ -1,19 +1,79 @@
 <script setup lang="ts">
 import { newsdetail } from './services'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import {  FacebookIcon } from 'lucide-vue-next'
+import { FacebookIcon } from 'lucide-vue-next'
 import { useLangStore } from '@/stores/lang'
 import Course from '@/components/course/Course.vue'
 import Recomundation from '@/page/recommendation/Page.vue'
+
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
+
+// Define the custom directive
+const vTelegramPosts = {
+    mounted(el: HTMLElement) {
+        processTelegramLinks(el)
+    },
+    updated(el: HTMLElement) {
+        processTelegramLinks(el)
+    }
+}
+
+//Get telegram widjet
+
+const processTelegramLinks = (container: HTMLElement) => {
+    if (!container) return
+
+    const regex = /##tgpostlink=([\w\d_/-]+)##/g
+    const html = container.innerHTML
+    let match
+    const fragments: (string | HTMLElement)[] = []
+
+    let lastIndex = 0
+
+    while ((match = regex.exec(html)) !== null) {
+        const before = html.slice(lastIndex, match.index)
+        fragments.push(before)
+
+        // Create Telegram widget script
+        const script = document.createElement('script')
+        script.async = true
+        script.src = 'https://telegram.org/js/telegram-widget.js?7'
+        script.setAttribute('data-telegram-post', match[1])
+        script.setAttribute('data-width', '100%')
+
+        fragments.push(script)
+
+        lastIndex = regex.lastIndex
+    }
+
+    fragments.push(html.slice(lastIndex))
+
+    
+    container.innerHTML = ''
+    fragments.forEach(el => {
+        if (typeof el === 'string') {
+            container.insertAdjacentHTML('beforeend', el)
+        } else {
+            container.appendChild(el)
+        }
+    })
+}
 
 const postDetail = async (id: string) => {
     try {
         detailPost.value = await newsdetail(id)
         console.log(detailPost.value)
+
+     
+        nextTick(() => {
+            const contentElement = document.querySelector('.news-content') as HTMLElement
+            if (contentElement) {
+                processTelegramLinks(contentElement)
+            }
+        })
     } catch (error) {
         console.log(error)
     }
@@ -62,8 +122,9 @@ watch(() => store.lang, async () => {
                     class=" w-full md:h-[650px] h-[400px] rounded-xl ">
             </div>
             <!-- Article Content -->
-            <div class="prose prose-lg max-w-none news-content " v-html="detailPost.info"></div>
-            
+            <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
+            <div class="prose prose-lg max-w-none news-content" v-html="detailPost.info"></div>
+
             <div v-if="detailPost.category" class="flex flex-wrap gap-2 mt-6">
                 <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
                     {{ detailPost.category }}
@@ -98,7 +159,7 @@ watch(() => store.lang, async () => {
 </template>
 
 <style>
-/* Additional styles for article content */
+
 .prose a {
     color: #3b82f6;
     text-decoration: underline;
@@ -130,6 +191,7 @@ watch(() => store.lang, async () => {
 .prose figure {
     margin: 1.5rem 0;
 }
+
 .news-content {
     font-family: 'Helvetica Neue', sans-serif;
     color: #1f2937;
@@ -142,53 +204,56 @@ watch(() => store.lang, async () => {
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
+
 /* Barcha linklar umumiy */
 .news-content a {
-  color: #2563eb; /* blue-600 */
-  text-decoration: underline;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  word-break: break-word;
+    color: #2563eb;
+    /* blue-600 */
+    text-decoration: underline;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    word-break: break-word;
 }
 
 /* Hover effekti */
 .news-content a:hover {
-  color: #1d4ed8; /* blue-700 */
-  text-decoration: none;
+    color: #1d4ed8;
+    /* blue-700 */
+    text-decoration: none;
 }
 
 /* Telegram link */
 .news-content a[href*="t.me"],
 .news-content a[href*="telegram.me"] {
-  display: inline-block;
-  background-color: #229ED9;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 8px;
-  text-decoration: none;
-  margin: 6px 0;
-  font-weight: 600;
+    display: inline-block;
+    background-color: #229ED9;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 6px 0;
+    font-weight: 600;
 }
 
 .news-content a[href*="t.me"]:hover,
 .news-content a[href*="telegram.me"]:hover {
-  background-color: #1b8ec7;
+    background-color: #1b8ec7;
 }
 
 /* Facebook link */
 .news-content a[href*="facebook.com"] {
-  display: inline-block;
-  background-color: #1877f2;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 8px;
-  text-decoration: none;
-  margin: 6px 0;
-  font-weight: 600;
+    display: inline-block;
+    background-color: #1877f2;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 6px 0;
+    font-weight: 600;
 }
 
 .news-content a[href*="facebook.com"]:hover {
-  background-color: #145ccf;
+    background-color: #145ccf;
 }
 
 /* Headings */
