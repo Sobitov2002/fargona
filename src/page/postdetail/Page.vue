@@ -2,11 +2,11 @@
 import { newsdetail } from './services'
 import { ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import { FacebookIcon } from 'lucide-vue-next'
 import { useLangStore } from '@/stores/lang'
 import Course from '@/components/course/Course.vue'
+import { FacebookIcon } from 'lucide-vue-next'
 import Recomundation from '@/page/recommendation/Page.vue'
-
+import { Skeleton } from '@/components/ui/skeleton'
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
@@ -62,12 +62,9 @@ const processTelegramLinks = (container: HTMLElement) => {
     })
 }
 
-const postDetail = async (id: string) => {
+const postDetail = async (type: 'n' | 'r', id: string) => {
     try {
-        detailPost.value = await newsdetail(id)
-        console.log(detailPost.value)
-
-     
+        detailPost.value = await newsdetail(type, id)
         nextTick(() => {
             const contentElement = document.querySelector('.news-content') as HTMLElement
             if (contentElement) {
@@ -78,23 +75,34 @@ const postDetail = async (id: string) => {
         console.log(error)
     }
 }
-
 onMounted(async () => {
+    const type = route.params.type as 'n' | 'r'
     const id = route.params.id as string
-    await postDetail(id)
+    await postDetail(type, id)
 })
 
-watch(() => store.lang, async () => {
-    const id = route.params.id as string
-    await postDetail(id)
-}, { immediate: true })
+watch(
+    [() => store.lang, () => route.params.type, () => route.params.id],
+    async () => {
+        const type = route.params.type as 'n' | 'r'
+        const id = route.params.id as string
+        await postDetail(type, id)
+    },
+    { immediate: true }
+)
+
+
+
 </script>
 
 <template>
-    <div class="max-w-6xl mx-auto mb-4">
+    <div v-if="!detailPost">
+        <Skeleton class="w-[100px] bg-gray-100 h-5 rounded-full" />
+    </div>
+    <div v-else class="max-w-6xl mx-auto mb-4">
         <Course />
     </div>
-    <div class="max-w-6xl mx-auto bg-white rounded-xl">
+    <div v-else class="max-w-6xl mx-auto bg-white rounded-xl">
         <!-- Article Container -->
         <article v-if="detailPost" class="p-4 md:p-6">
             <!-- Article Header -->
@@ -226,8 +234,7 @@ watch(() => store.lang, async () => {
 .news-content a[href*="t.me"],
 .news-content a[href*="telegram.me"] {
     display: inline-block;
-    background-color: #229ED9;
-    color: #fff;
+    color: #111827;
     padding: 6px 12px;
     border-radius: 8px;
     text-decoration: none;
@@ -235,16 +242,11 @@ watch(() => store.lang, async () => {
     font-weight: 600;
 }
 
-.news-content a[href*="t.me"]:hover,
-.news-content a[href*="telegram.me"]:hover {
-    background-color: #1b8ec7;
-}
 
 /* Facebook link */
 .news-content a[href*="facebook.com"] {
     display: inline-block;
-    background-color: #1877f2;
-    color: #fff;
+    color: #111827;
     padding: 6px 12px;
     border-radius: 8px;
     text-decoration: none;

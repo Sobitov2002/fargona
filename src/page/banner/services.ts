@@ -26,7 +26,7 @@ const getLastNews = async () =>{
     const store = useLangStore()
     try { 
         const response = await api.get(`last-post?lang=${store.lang}`)
-        console.log("Songi yangiliklar", response.data);
+        // console.log("Songi yangiliklar", response.data);
         
         return response.data
     } catch (error) {

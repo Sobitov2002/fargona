@@ -63,7 +63,7 @@ const categories = ref<Category[]>([])
 
 onMounted(async () => {
     categories.value = await getCategory(selectedLang.value);
-    console.log(categories.value);
+
 })
 </script>
 

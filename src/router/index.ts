@@ -3,6 +3,7 @@ import HomeView from '@/page/main/Page.vue'
 import DefaultLayout from '@/layouts/DefaultLayouts.vue'
 import PostDetail from '@/page/postdetail/Page.vue'
 import CategoryDetail from '@/page/categorydetail/CategoryDetail.vue'
+import RecPost from '@/page/recommendation/RecDetail.vue'
 import About from '@/page/about/Page.vue'
 import Search from '@/page/search/Page.vue'
 import Contact from '@/page/contact/Page.vue'
@@ -16,7 +17,7 @@ const router = createRouter({
       meta: { layout: DefaultLayout }
     },
     {
-      path: '/new/:id',
+      path: '/news/:type/:id',
       name: 'PostDetail',
       component: PostDetail,
       meta: { layout: DefaultLayout }
@@ -25,6 +26,12 @@ const router = createRouter({
       path: '/category/:id',
       name: 'CategoryDetail',
       component: CategoryDetail,
+      meta: { layout: DefaultLayout }
+    },
+    {
+      path: '/recpost',
+      name: 'RecPost',
+      component: RecPost,
       meta: { layout: DefaultLayout }
     },
     {

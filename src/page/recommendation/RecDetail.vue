@@ -7,8 +7,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 interface Category {
     id: number
-    name: string
-    date: string
+    title: string
+    date?: string
     photo?: string
 }
 
@@ -86,14 +86,14 @@ watch([() => store.lang, () => route.params.id], () => {
                         class="flex-none overflow-hidden transition-transform">
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4 flex-shrink-0">
-                                <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
+                                <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.title"
                                     class="w-full h-30 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
+                                <router-link  :to="`/news/r/${category.id}`" class="block cursor-pointer">
                                     <h2
                                         class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 hover:text-gray-700">
-                                        {{ category.name }}
+                                        {{ category.title }}
                                     </h2>
                                 </router-link>
                                 <p class="text-sm text-gray-800">{{ category.date }}</p>
@@ -102,7 +102,7 @@ watch([() => store.lang, () => route.params.id], () => {
                     </div>
                 </div>
 
-              
+
                 <div class="flex justify-center mt-6 space-x-2">
                     <button @click="loadPage(page - 1)" :disabled="page === 1"
                         class="px-3 py-1 border rounded disabled:opacity-50">Orqaga</button>

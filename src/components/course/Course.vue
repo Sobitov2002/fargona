@@ -1,4 +1,4 @@
-<script setup>
+<script setup lant="ts">
 import { ref, onMounted } from 'vue'
 import { Skeleton } from '@/components/ui/skeleton'
 const currencies = ref([])

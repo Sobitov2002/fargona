@@ -2,13 +2,13 @@ import api from '@/services/apiServices'
 import { useLangStore } from '@/stores/lang';
 
 
-const newsdetail = async (type: 'n' | 'r', id: string) =>{
+const categorydetail = async (id:string ,page=1) =>{
 const store = useLangStore()
     try {
-          const response = await api.get(`/${type}/${id}?lang=${store.lang}`)
+        const response = await api.get(`/all-rec?lang=${store.lang}&page=${page}`)
         return response.data
     } catch (error) {
         console.log(error);
     }
 }
-export { newsdetail }
+export { categorydetail }

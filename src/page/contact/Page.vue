@@ -105,8 +105,8 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
 interface FormData {
     name: string;
@@ -114,34 +114,37 @@ interface FormData {
     message: string;
 }
 
-export default defineComponent({
-    name: 'ContactForm',
-    setup() {
-        const formData = ref<FormData>({
-            name: '',
-            phone: '',
-            message: ''
+// Define the form data using ref
+const formData = ref<FormData>({
+    name: '',
+    phone: '',
+    message: ''
+})
+
+// Define the submit form function
+const submitForm = async () => {
+    try {
+        // Send data to the API using fetch
+        const response = await fetch('https://fargona24.uz/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData.value),
         })
 
-        const submitForm = () => {
-            
-            console.log('Form submitted:', formData.value)
-
-           
-            formData.value = {
-                name: '',
-                phone: '',
-                message: ''
-            }
-
-        
+        if (response.ok) {
+            console.log('Form submitted successfully:', formData.value)
+            // Clear the form after successful submission
+            formData.value = { name: '', phone: '', message: '' }
             alert('Message sent successfully!')
+        } else {
+            console.error('Failed to send message:', response.status)
+            alert('Failed to send message, please try again.')
         }
-
-        return {
-            formData,
-            submitForm
-        }
+    } catch (error) {
+        console.error('Error during submission:', error)
+        alert('Error occurred while sending the message.')
     }
-})
+}
 </script>

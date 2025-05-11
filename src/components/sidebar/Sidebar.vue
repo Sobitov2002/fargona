@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { watch, ref, onMounted, computed } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 import { useSidebarStore } from '@/stores/sidebarStore';
 import Logo from '@/components/ui/Logo.vue';
 import { getSidebar } from './services';
 import { useLangStore } from '@/stores/lang';
 import { useRouter } from 'vue-router'
+import { Menu } from 'lucide-vue-next'
 
 const router = useRouter()
 const sidebarRef = ref<HTMLElement | null>(null);
@@ -17,15 +18,14 @@ const sidebarStore = useSidebarStore();
 interface Category {
     id: number;
     name: string;
-    icon?: string;
 }
 
 const categories = ref<Category[]>([]);
 
 const getSidebarItem = async () =>{
     try {
-       const responce = await getSidebar();
-       categories.value = responce
+        categories.value = await getSidebar();
+    
         if (categories.value.length > 0) {
             activeItem.value = categories.value[0].id;
         }
@@ -103,7 +103,7 @@ const socialLinks = ref<SocialLink[]>([
             <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
             <div class="flex-1 overflow-y-auto sidebar-scrollbar px-1">
                 <ul class="space-y-1 pb-6">
-                    <TransitionGroup name="list">
+                    <h1 name="list"  >
                         <!-- mainText element as li -->
                         <li class="relative">
                             <button @click="setActive(null)"
@@ -140,7 +140,7 @@ const socialLinks = ref<SocialLink[]>([
                                 class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full">
                             </div>
                         </li>
-                    </TransitionGroup>
+                    </h1>
                 </ul>
             </div>
 

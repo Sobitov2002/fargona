@@ -88,7 +88,7 @@ loading.value = false
                                     class="w-full h-30 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link :to="`/new/${category.id}`" class="block cursor-pointer">
+                                <router-link :to="`/news/n/${category.id}`"class="block cursor-pointer">
                                     <h2
                                         class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
                                         {{ category.name

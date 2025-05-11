@@ -83,7 +83,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                             <span class="inline-block px-2 py-1 text-xs bg-[#173044] text-white rounded mb-2">
                                 Asosiy yangilik
                             </span>
-                            <router-link :to="`/new/${lsNews.id}`" class="block cursor-pointer">
+                            <router-link :to="`/news/n/${lsNews.id}`" class="block cursor-pointer">
                                 <h2 class="text-white text-lg sm:text-xl font-bold line-clamp-2 mb-2">
                                     {{ lsNews.name }}
                                 </h2>
@@ -111,7 +111,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                 </h1>
 
                 <div class="divide-y divide-slate-200">
-                    <router-link v-for="(item, index) in lastNews" :key="index" :to="`/new/${item.id}`"
+                    <router-link v-for="(item, index) in lastNews" :key="index" :to="`/news/n/${item.id}`"
                         class="flex flex-row items-center cursor-pointer p-3 transition-colors duration-200 no-underline">
                         <!-- Image section -->
                         <div class="w-24 sm:w-28 h-20 flex-shrink-0 rounded-xl overflow-hidden">
@@ -119,7 +119,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                                 class="w-full h-full object-cover" loading="lazy" />
                         </div>
                         <div class="flex-1 ml-3">
-                            <h2
+                            <h2 
                                 class="text-xl font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-1">
                                 {{ item.name }}
                             </h2>
