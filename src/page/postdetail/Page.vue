@@ -22,7 +22,6 @@ const vTelegramPosts = {
 }
 
 //Get telegram widjet
-
 const processTelegramLinks = (container: HTMLElement) => {
     if (!container) return
 
@@ -37,13 +36,13 @@ const processTelegramLinks = (container: HTMLElement) => {
         const before = html.slice(lastIndex, match.index)
         fragments.push(before)
 
-        // Create Telegram widget script
         const script = document.createElement('script')
         script.async = true
         script.src = 'https://telegram.org/js/telegram-widget.js?7'
         script.setAttribute('data-telegram-post', match[1])
         script.setAttribute('data-width', '100%')
-
+        // Agar balandlikni hozirdayoq belgilamoqchi bo‘lsangiz, quyidagilarni qo‘shing
+        script.setAttribute('data-userpic', 'false') // ixtiyoriy
         fragments.push(script)
 
         lastIndex = regex.lastIndex
@@ -51,7 +50,6 @@ const processTelegramLinks = (container: HTMLElement) => {
 
     fragments.push(html.slice(lastIndex))
 
-    
     container.innerHTML = ''
     fragments.forEach(el => {
         if (typeof el === 'string') {
@@ -60,6 +58,15 @@ const processTelegramLinks = (container: HTMLElement) => {
             container.appendChild(el)
         }
     })
+
+    // Telegram iframe yuklangach balandlikni o‘rnatamiz
+    setTimeout(() => {
+        const iframes = container.querySelectorAll('iframe')
+        iframes.forEach(iframe => {
+            iframe.setAttribute('height', '600') // Yoki kerakli balandlik, masalan '700', '800'
+            iframe.style.height = '600px'
+        })
+    }, 2000) // Telegram script yuklanishi uchun 2 soniya kutamiz
 }
 
 const postDetail = async (type: 'n' | 'r', id: string) => {
