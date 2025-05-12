@@ -94,16 +94,16 @@ const mainText = computed(() => {
                     </div>
                 </div>
             </div>
-
-            <div class="border-t border-gray-700 my-6"></div>
-
-            <div class="text-xs text-gray-400 mb-6">
+            <div class="text-xs text-gray-400 ">
                 <p>
 
                     {{ mainText?.text_4 }}
                 </p>
 
             </div>
+
+            <div class="border-t border-gray-700 my-6"></div>
+
 
             <!-- Social links -->
             <div>
