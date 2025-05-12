@@ -65,6 +65,7 @@ const mainText = computed(() => {
             text_3: "Farg‘ona24 bugungi kunda Fargʻona haqidagi eng so‘nggi xabarlarni yetkazuvchi koʻp yillik tajribaga ega ijtimoiy-siyosiy, axborot -tahliliy Ommaviy axborot vositasi.",
             text_4: "Bog'lanish",
             text_5: 'Bizning auditoriya',
+            text_6: "Ijtimoiy tarmoq"
         };
     }
     if (store.lang === 'ru') {
@@ -73,7 +74,8 @@ const mainText = computed(() => {
             text_2: "FARGONA24.UZ. Веб-сайт как СМИ был зарегистрирован 26 июля 2022 года под номером 1684 при Агентстве информации и массовых коммуникаций при Администрации Президента Республики Узбекистан. Учредитель: “SAMANDAR FARGʻONA24” ООО. Адрес редакции: 150606, Ферганская область, город Фергана. Электронная почта: info@Fargona24.uz",
             text_3: "Фаргона24 сегодня — это многолетнее социально-политическое, информационно-аналитическое средство массовой информации, доставляющее самые последние новости о Фергане.",
             text_4: "Контакты",
-            text_5: "Наша аудитория"
+            text_5: "Наша аудитория",
+            text_6: "Ижтимоий тармоқ"
         };
     }
     if (store.lang === 'kr') {
@@ -82,7 +84,8 @@ const mainText = computed(() => {
             text_2: "FARGONA24.UZ. Веб-сайт ОАВ сифатида 2022 йил 26 июл куни Ўзбекистон Республикаси Президенти Администрацияси ҳузуридаги Ахборот ва оммавий коммуникациялар агентлигидан 1684 рақам билан рўйхатга олинган. Муассис: “SAMANDAR FARGʻONA24” МЧЖ. Таҳририят манзили: 150606, Фарғона вилояти, Фарғона шаҳри. Электрон манзил: info@Fargona24.uz",
             text_3: "Фарғона24 бугунги кунда Фарғона ҳақидаги энг сўнгги хабарларни етказувчи кўп йиллик тажрибага эга ижтимоий-сиёсий, ахборот-таҳлилий Оммавий ахборот воситаси.",
             text_4: "Боғланиш",
-            text_5: "Бизнинг аудитория"
+            text_5: "Бизнинг аудитория",
+            text_6: "Социальная сеть"
         };
     }
 });
@@ -117,7 +120,7 @@ const mainText = computed(() => {
         <!-- Stats Section - Simplified -->
         <div class="rounded-xl bg-white py-12">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ mainText?.text_5 }}</h2>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ mainText?.text_6 }}</h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="bg-gray-100 p-4 text-center border rounded-xl border-gray-100">
@@ -145,7 +148,7 @@ const mainText = computed(() => {
 
         <!-- Team Section - Simplified -->
         <div class="container mx-auto px-4 py-12 rounded-xl bg-white">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">Bizning jamoa</h2>
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ mainText?.text_5 }}</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div v-for="member in aboutData" :key="member.id" class="border rounded-xl border-gray-200">
