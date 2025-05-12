@@ -33,7 +33,7 @@ const mainText = computed(() => {
 </script>
 
 <template>
-    <div class="bg-white rounded-xl mt-6 p-4 flex items-center justify-between">
+    <div class="bg-white rounded-xl mt-6 p-4 md:flex  space-y-2 items-center justify-between">
         <div class="flex justify-between items-center ">
             <h2 class="text-xl text-gray-800 font-bold">{{ mainText }}</h2>
 
@@ -50,7 +50,7 @@ const mainText = computed(() => {
 
         <ul v-else class="flex flex-col md:flex-row md:gap-6 gap-2">
             <li v-for="currency in currencies" :key="currency.Ccy" class="text-gray-800 text-sm md:text-base">
-                <span class="font-semibold">{{ currency.CcyNm_UZ }} ({{ currency.Ccy }}):</span>
+                <span class="font-semibold"> ({{ currency.Ccy }}):</span>
                 {{ currency.Rate }} UZS
             </li>
         </ul>

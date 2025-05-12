@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getMainNews, getRecNews, getLastNews } from './services'
-import { onMounted, ref , watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import Course from '@/components/course/Course.vue'
 import { Skeleton } from '@/components/ui/skeleton'
 import 'swiper/css'
@@ -20,8 +20,26 @@ const lsNews = ref<any>(null)
 const isLoading = ref(true)
 const store = useLangStore()
 
-
-
+const mainText = computed(() => {
+    if (store.lang === 'uz') {
+        return {
+            title: 'So‘nggi yangiliklar',
+            button: 'Asosiy yangilik'
+        };
+    }
+    if (store.lang === 'ru') {
+        return {
+            title: 'Последние новости',
+            button: 'Главные новости'
+        };
+    }
+    if (store.lang === 'kr') {
+        return {
+            title: 'Сўнгги янгилилар',
+            button: 'Асосий янгилик'
+        };
+    }
+});
 useHead({
     title: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami",
     meta: [
@@ -108,10 +126,10 @@ const modules = [FreeMode, Pagination, Autoplay]
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div class="absolute bottom-0 left-0 w-full p-4">
                             <span class="inline-block px-2 py-1 text-xs bg-[#173044] text-white rounded mb-2">
-                                Asosiy yangilik
+                               {{mainText?.button}}
                             </span>
                             <router-link :to="`/news/n/${lsNews.id}`" class="block cursor-pointer">
-                                <h2 class="text-white text-lg sm:text-xl font-bold line-clamp-2 mb-2">
+                                <h2 class="text-white text-[16px] sm:text-xl font-bold line-clamp-2 mb-2">
                                     {{ lsNews.name }}
                                 </h2>
                             </router-link>
@@ -134,7 +152,7 @@ const modules = [FreeMode, Pagination, Autoplay]
 
             <div class=" bg-white rounded-xl shadow-sm overflow-hidden">
                 <h1 class="text-xl text-slate-900 py-3 px-4 border-b font-bold border-slate-200">
-                    Yangiliklar
+                    {{mainText?.title}}
                 </h1>
 
                 <div class="divide-y divide-slate-200">
@@ -147,7 +165,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                         </div>
                         <div class="flex-1 ml-3">
                             <h2 
-                                class="text-xl font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-1">
+                                class="md:text-xl text-[16px] font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-2">
                                 {{ item.name }}
                             </h2>
                             <div class="flex items-center justify-between mt-1 pr-6">

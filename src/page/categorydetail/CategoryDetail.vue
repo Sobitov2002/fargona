@@ -36,12 +36,46 @@ const postDetail = async (id: string, pageNum = 1) => {
 }
 
 const mainText = computed(() => {
-    if (route.params.id === '1') return 'Fan  texnika';
-    if (route.params.id === '2') return 'Jamiyat';
-    if (route.params.id === '3') return 'Jahon';
-    if (route.params.id === '4') return 'Nuqtai nazar';
-    if (route.params.id === '5') return 'Sport';
+    const lang = store.lang as 'uz' | 'ru' | 'kr';
+    const id = route.params.id as '1' | '2' | '3' | '4' | '5'; 
+
+    const idToKey: Record<'1' | '2' | '3' | '4' | '5', 'science' | 'society' | 'world' | 'opinion' | 'sport'> = {
+        '1': 'science',
+        '2': 'society',
+        '3': 'world',
+        '4': 'opinion',
+        '5': 'sport'
+    };
+
+    const translations: Record<'uz' | 'ru' | 'kr', Record<'science' | 'society' | 'world' | 'opinion' | 'sport', string>> = {
+        uz: {
+            science: 'Fan texnika',
+            society: 'Jamiyat',
+            world: 'Jahon',
+            opinion: 'Nuqtai nazar',
+            sport: 'Sport'
+        },
+        ru: {
+            science: 'Наука и техника',
+            society: 'Общество',
+            world: 'Мир',
+            opinion: 'Точка зрения',
+            sport: 'Спорт'
+        },
+        kr: {
+            science: 'Фан ва техника',
+            society: 'Жамият',
+            world: 'Жахон',
+            opinion: 'Нуқтаи назар',
+            sport: 'Спорт'
+        }
+    };
+
+    const key = idToKey[id];
+    return translations[lang][key];
 });
+
+
 
 const loadPage = async (pageNum: number) => {
     const id = route.params.id as string
@@ -80,7 +114,6 @@ watch([() => store.lang, () => route.params.id], () => {
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
                     <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">{{ mainText }}</h1>
                 </div>
-
                 <div class="grid md:grid-cols-2 gap-3">
                     <div v-for="category in detailPost.data" :key="category.id"
                         class="flex-none overflow-hidden transition-transform">
@@ -92,7 +125,7 @@ watch([() => store.lang, () => route.params.id], () => {
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
-                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 hover:text-gray-700">
+                                        class="lg:text-xl text-[16px] text-lg font-bold mb-1 line-clamp-2 text-gray-800 hover:text-gray-700">
                                         {{ category.name }}
                                     </h2>
                                 </router-link>
@@ -105,7 +138,13 @@ watch([() => store.lang, () => route.params.id], () => {
 
                 <div class="flex justify-center mt-6 space-x-2">
                     <button @click="loadPage(page - 1)" :disabled="page === 1"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Orqaga</button>
+                        class="px-3 py-1 border cursor-pointer rounded disabled:opacity-50">
+                        <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m15 19-7-7 7-7" />
+                        </svg>
+                    </button>
 
                     <button v-for="p in detailPost.last_page" :key="p" @click="loadPage(p)"
                         :class="['px-3 py-1 border rounded', { 'bg-blue-500 text-white': p === page }]">
@@ -113,7 +152,13 @@ watch([() => store.lang, () => route.params.id], () => {
                     </button>
 
                     <button @click="loadPage(page + 1)" :disabled="page === detailPost.last_page"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Oldinga</button>
+                        class="px-3 py-1 border rounded cursor-pointer disabled:opacity-50">
+                        <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m9 5 7 7-7 7" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

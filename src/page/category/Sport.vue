@@ -46,11 +46,32 @@ watch(() => store.lang, async () => {
 onMounted(async () => {
    await getTechnica()
 })
+// const mainText = computed(() => {
+//     if (store.lang === 'uz') return 'Sport';
+//     if (store.lang === 'ru') return 'Спорт';
+//     if (store.lang === 'kr') return 'Спорт';
+//     return 'Asosiy';
+// });
+
 const mainText = computed(() => {
-    if (store.lang === 'uz') return 'Sport';
-    if (store.lang === 'ru') return 'Спорт';
-    if (store.lang === 'kr') return 'Спорт';
-    return 'Asosiy';
+    if (store.lang === 'uz') {
+        return {
+            title: 'Sport',
+            button: 'Barchasi'
+        };
+    }
+    if (store.lang === 'ru') {
+        return {
+            title: 'Спорт',
+            button: 'Ещё '
+        };
+    }
+    if (store.lang === 'kr') {
+        return {
+            title: 'Спорт',
+            button: 'Барчаси'
+        };
+    }
 });
 </script>
 
@@ -77,11 +98,11 @@ const mainText = computed(() => {
             </div>
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText }}</h1>
+                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText?.title }}</h1>
                     <div class="text-left mt-2 cursor-pointer">
                         <router-link :to="`/category/5`"
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
-                            Yana ko'rish
+                            {{mainText?.button}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1a2e42"
                                 viewBox="0 0 24 24">
                                 <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3z" />
@@ -101,7 +122,7 @@ const mainText = computed(() => {
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
-                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
+                                        class="lg:text-xl text-lg text-[16px] font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
                                         {{ category.name
                                         }}</h2>
                                 </router-link>
