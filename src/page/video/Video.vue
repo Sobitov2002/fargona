@@ -3,6 +3,8 @@ import { ref, computed, onMounted } from 'vue';
 import api from '@/services/apiServices';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
+import { useLangStore } from '@/stores/lang'
+const store = useLangStore()
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
@@ -70,12 +72,18 @@ onMounted(() => {
         window.removeEventListener('keydown', handleEscape);
     };
 });
+const mainText = computed(() => {
+    if (store.lang === 'uz') return 'Barcha videolar';
+    if (store.lang === 'ru') return 'Все видео';
+    if (store.lang === 'kr') return 'Барча видеолар';
+    return 'Asosiy';
+});
 </script>
 
 <template>
     <div class="bg-[#173044]">
         <div class="  max-w-[1250px] px-4  w-full mx-auto">
-            <h2 class="text-2xl font-bold text-white mb-3 border-b py-2">Barcha videolar</h2>
+            <h2 class="text-2xl font-bold text-white mb-3 border-b py-2">{{ mainText }}</h2>
             <swiper :modules="[Autoplay, FreeMode, Pagination]" :slides-per-view="1" :loop="true" :autoplay="{
                 delay: 3500,
                 disableOnInteraction: false,

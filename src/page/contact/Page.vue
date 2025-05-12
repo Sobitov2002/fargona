@@ -107,18 +107,46 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useHead } from '@vueuse/head'
 
-interface FormData {
+interface FormData { 
     name: string;
     phone: string;
     message: string;
 }
 
-// Define the form data using ref
+
 const formData = ref<FormData>({
     name: '',
     phone: '',
     message: ''
+})
+
+
+useHead({
+    title: "Bogʻlanish - Fargʻona24",
+    meta: [
+        {
+            name: 'description',
+            content: "Fargʻona24 bilan bogʻlanish uchun bizning aloqa maʼlumotlarimiz. Taklif va fikr-mulohazalaringizni yuborishingiz mumkin."
+        },
+        {
+            name: 'keywords',
+            content: "bogʻlanish, aloqa, Fargʻona24 kontakt, murojaat, Fargʻona yangiliklar aloqa"
+        },
+        {
+            property: "og:title",
+            content: "Bogʻlanish - Fargʻona24",
+        },
+        {
+            property: 'og:image',
+            content: 'https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401',
+        },
+        {
+            property: 'og:url',
+            content: 'https://fargona24.uz/contact',
+        }
+    ]
 })
 
 // Define the submit form function

@@ -7,11 +7,41 @@ import Course from '@/components/course/Course.vue'
 import { FacebookIcon } from 'lucide-vue-next'
 import Recomundation from '@/page/recommendation/Page.vue'
 import { Skeleton } from '@/components/ui/skeleton'
+import {useHead } from  '@vueuse/head'
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
+const currentUrl = window.location.href
+const shareLink = ref<string>()
 
-// Define the custom directive
+
+
+useHead({
+    title: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami",
+    meta: [
+        {
+            name: 'description',
+            content: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor"
+        },
+        {
+            name: 'keywords',
+            content: "Farg'ona, Farg'ona yangiliklari, yangiliklar, tezkor xabarlar"
+        },
+        {
+            property: "og:title",
+            content: "Farg'ona 24 | Bosh sahifa"
+        },
+        {
+            property: 'og:image',
+            content: 'https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401',
+        },
+        {
+            property: 'og:url',
+            content: 'https://fargona24.uz/',
+        }
+    ]
+})
+
 const vTelegramPosts = {
     mounted(el: HTMLElement) {
         processTelegramLinks(el)
@@ -21,7 +51,6 @@ const vTelegramPosts = {
     }
 }
 
-//Get telegram widjet
 const processTelegramLinks = (container: HTMLElement) => {
     if (!container) return
 
@@ -59,14 +88,14 @@ const processTelegramLinks = (container: HTMLElement) => {
         }
     })
 
-    // Telegram iframe yuklangach balandlikni o‘rnatamiz
+   
     setTimeout(() => {
         const iframes = container.querySelectorAll('iframe')
         iframes.forEach(iframe => {
-            iframe.setAttribute('height', '600') // Yoki kerakli balandlik, masalan '700', '800'
+            iframe.setAttribute('height', '600') 
             iframe.style.height = '600px'
         })
-    }, 2000) // Telegram script yuklanishi uchun 2 soniya kutamiz
+    }, 500) 
 }
 
 const postDetail = async (type: 'n' | 'r', id: string) => {
@@ -82,10 +111,17 @@ const postDetail = async (type: 'n' | 'r', id: string) => {
         console.log(error)
     }
 }
+
+const telegramShare = async (type: 'n' | 'r', id: string) => {
+    shareLink.value = `https://fargona24.uz/${type}/${id}`
+    console.log(shareLink.value);
+    
+}
 onMounted(async () => {
     const type = route.params.type as 'n' | 'r'
     const id = route.params.id as string
     await postDetail(type, id)
+    await telegramShare(type , id)
 })
 
 watch(
@@ -94,6 +130,7 @@ watch(
         const type = route.params.type as 'n' | 'r'
         const id = route.params.id as string
         await postDetail(type, id)
+        await telegramShare(type, id)
     },
     { immediate: true }
 )
@@ -145,20 +182,24 @@ watch(
                     {{ detailPost.category }}
                 </span>
             </div>
+
             <!-- Social Share -->
             <div class="flex gap-2 mt-6">
-                <button class="p-2 bg-blue-500 text-white  rounded-full hover:bg-blue-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 items-center"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M22.162 2.73L2.588 10.29c-1.205.457-1.197 1.1-.22 1.385l5.053 1.577 1.936 6.147c.24.736.423 1.022 1.07 1.022.698 0 1.004-.322 1.398-.707l3.36-3.263 4.95 3.645c.91.5 1.56.24 1.788-.846l3.24-15.18c.3-1.42-.543-2.072-1.995-1.27z" />
-                    </svg>
-                </button>
-                <button class="p-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors">
-                    <FacebookIcon class="w-5 h-5" />
-                    <span class="sr-only">Share on Twitter</span>
-                </button>
+                <!-- Telegram Icon -->
+                <a :href="`https://t.me/share/url?url=${shareLink}`" target="_blank" rel="noopener noreferrer"
+                    class="p-2  text-white rounded-full flex justify-center  items-center transition-colors">
+                    <i class="fa-brands fa-telegram text-5xl text-blue-600 hover:text-blue-500 "></i>
+                </a>
+
+                <!-- Facebook Icon -->
+                <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
+                    target="_blank" rel="noopener noreferrer"
+                    class="p-2  text-white flex justify-center  items-center rounded-full transition-colors">
+                    <i class="fa-brands fa-facebook text-5xl text-blue-600 hover:text-blue-500 "></i>
+                </a>
             </div>
+
+
         </article>
 
         <!-- Loading state -->

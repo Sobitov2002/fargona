@@ -39,6 +39,12 @@ watch(() => store.lang, async () => {
 onMounted(async () => {
     await getCategories()
 })
+const mainText = computed(() => {
+    if (store.lang === 'uz') return 'Jamiyat';
+    if (store.lang === 'ru') return 'Общество';
+    if (store.lang === 'kr') return 'Жамият';
+    return 'Asosiy';
+});
 loading.value = false
 </script>
 
@@ -64,7 +70,7 @@ loading.value = false
 
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Jamiyat</h1>
+                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText }}</h1>
                     <div class="text-left mt-2 cursor-pointer">
                         <router-link :to="`/category/2`" 
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">

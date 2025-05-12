@@ -29,7 +29,7 @@ const postDetail = async (id: string, pageNum = 1) => {
     try {
         const response = await categorydetail(id, pageNum)
         detailPost.value = response
-        // console.log("Detail data:", response)
+        console.log("Detail data:", response)
     } catch (error) {
         console.error("Error fetching detail:", error)
     }

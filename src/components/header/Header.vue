@@ -71,32 +71,29 @@ onMounted(async () => {
     <div class="w-full z-10 px-3 py-4 bg-[#173044] fixed">
         <div class="max-w-[1250px] px-4 w-full mx-auto flex justify-between items-center">
             <Logo />
-            
+
             <div class="hidden md:block">
                 <div class="flex justify-between gap-6">
-                    <p @click="router.push('/')" class="text-white text-[15px] font-sans font-bold cursor-pointer">
+                    <p @click="router.push('/')"
+                        class="text-white hover:text-[#6489ce] text-[15px] font-sans font-bold cursor-pointer">
                         {{ mainText }}
                     </p>
 
                     <ul v-for="(item, index) in categories" :key="index"
-                        class="flex justify-between gap-6 text-white text-[15px] font-sans font-bold cursor-pointer">
-                        <router-link :to="`/category/${item.id}`">
+                        class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
+                        <router-link class="hover:text-[#6489ce] " :to="`/category/${item.id}`">
                             {{ item.name }}
                         </router-link>
                     </ul>
                 </div>
             </div>
-           
+
             <!-- Desktop Search Input -->
             <div class="hidden md:block relative flex-1 max-w-xs mx-4">
                 <form @submit.prevent="handleSearch">
                     <div class="relative">
-                        <input 
-                            v-model="searchQuery"
-                            type="text" 
-                            :placeholder="searchPlaceholder"
-                            class="w-full bg-[#2a4559] text-white placeholder-gray-300 rounded-md py-1.5 pl-9 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#4c5d6b]"
-                        />
+                        <input v-model="searchQuery" type="text" :placeholder="searchPlaceholder"
+                            class="w-full bg-[#2a4559] text-white placeholder-gray-300 rounded-md py-1.5 pl-9 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#4c5d6b]" />
                         <Search class="absolute left-2.5 top-1.5 h-4 w-4 text-gray-300" />
                     </div>
                 </form>
@@ -104,11 +101,9 @@ onMounted(async () => {
 
             <div class="flex items-center gap-2">
                 <!-- Mobile Search Toggle Button -->
-                <button 
-                    @click="toggleSearch" 
+                <button @click="toggleSearch"
                     class="md:hidden text-white p-1.5 rounded-md hover:bg-[#2a4559] focus:outline-none"
-                    aria-label="Toggle search"
-                >
+                    aria-label="Toggle search">
                     <Search v-if="!isSearchOpen" class="h-5 w-5" />
                     <X v-else class="h-5 w-5" />
                 </button>
@@ -120,7 +115,7 @@ onMounted(async () => {
                         </SelectTrigger>
                         <SelectContent class="bg-[#173044] border-none m-0 p-0">
                             <SelectGroup>
-                                <SelectItem class="text-white m-0 hover:bg-[#4c5d6b] text-[15px] border-none"
+                                <SelectItem class="text-white  m-0 hover:bg-[#4c5d6b] text-[15px] border-none"
                                     value="uz">
                                     O'zbek
                                 </SelectItem>
@@ -153,13 +148,9 @@ onMounted(async () => {
         <div v-if="isSearchOpen" class="md:hidden mt-3 px-4 pb-2 max-w-[1250px] mx-auto">
             <form @submit.prevent="handleSearch">
                 <div class="relative">
-                    <input 
-                        v-model="searchQuery"
-                        type="text" 
-                        :placeholder="searchPlaceholder"
+                    <input v-model="searchQuery" type="text" :placeholder="searchPlaceholder"
                         class="w-full bg-[#2a4559] text-white placeholder-gray-300 rounded-md py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#4c5d6b]"
-                        autofocus
-                    />
+                        autofocus />
                     <Search class="absolute left-2.5 top-2 h-4 w-4 text-gray-300" />
                 </div>
             </form>

@@ -46,6 +46,12 @@ watch(() => store.lang, async () => {
 onMounted(async () => {
    await getTechnica()
 })
+const mainText = computed(() => {
+    if (store.lang === 'uz') return 'Sport';
+    if (store.lang === 'ru') return 'Спорт';
+    if (store.lang === 'kr') return 'Спорт';
+    return 'Asosiy';
+});
 </script>
 
 <template>
@@ -71,7 +77,7 @@ onMounted(async () => {
             </div>
             <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">Sport</h1>
+                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText }}</h1>
                     <div class="text-left mt-2 cursor-pointer">
                         <router-link :to="`/category/5`" 
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">

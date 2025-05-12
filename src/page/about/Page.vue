@@ -1,6 +1,34 @@
 <script setup lang="ts">
 import {  ref ,onMounted } from 'vue'
 import api from '@/services/apiServices' 
+import { useHead } from '@vueuse/head'
+
+useHead({
+    title: "Biz haqimizda - Farg'ona24",
+    meta: [
+        {
+            name: 'description',
+            content: "Farg'ona24 haqida batafsil ma'lumot. Bizning maqsadimiz – Farg'onadagi eng dolzarb va ishonchli yangiliklarni yetkazish."
+        },
+        {
+            name: 'keywords',
+            content: "Farg'ona24 haqida, biz haqimizda, Farg'ona yangiliklar sayti, jamoa, maqsad"
+        },
+        {
+            property: "og:title",
+            content: "Biz haqimizda - Farg'ona24",
+        },
+        {
+            property: 'og:image',
+            content: 'https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401',
+        },
+        {
+            property: 'og:url',
+            content: 'https://fargona24.uz/about',
+        }
+    ]
+})
+
 
 const aboutData = ref<TeamMember[]>([]);
 

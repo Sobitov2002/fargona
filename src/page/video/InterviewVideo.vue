@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import api from '@/services/apiServices';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useLangStore } from '@/stores/lang'
@@ -77,12 +77,18 @@ watch(() => store.lang, async () => {
 onMounted(async() => {
    await videoHendler()
 });
+const mainText = computed(() => {
+    if (store.lang === 'uz') return 'Podcast va Interviyu';
+    if (store.lang === 'ru') return 'Подкаст и интервью';
+    if (store.lang === 'kr') return 'Подкаст ва интервью';
+    return 'Asosiy';
+});
 </script>
 
 <template>
     <div class="bg-[#173044]">
         <div class="  max-w-[1250px]  w-full mx-auto p-5">
-            <h2 class="text-2xl font-bold text-white mb-3 border-b py-2">Podcast va Interviyu</h2>
+            <h2 class="text-2xl font-bold text-white mb-3 border-b py-2">{{ mainText }}</h2>
             <swiper :modules="[Autoplay, FreeMode, Pagination]" :slides-per-view="1" :loop="true" :autoplay="{
                 delay: 3500,
                 disableOnInteraction: false,
