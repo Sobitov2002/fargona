@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import Logo from '../ui/Logo.vue'
 import { useLangStore } from '@/stores/lang'
-import router from '@/router'
+
 
 const store = useLangStore()
 
