@@ -53,15 +53,17 @@ watch([() => store.lang, () => route.query.q], async () => {
         <div>
             <div v-if="!detailPost || !detailPost.data || detailPost.data.length === 0"
                 class="text-center py-10 text-lg flex justify-center  ">
-               <div class="bg-white flex items-center justify-center  w-full p-5 h-60">
-                <h1 class="text-2xl   font-bold pb-1 text-[#1a2e42]">{{serchText}} - Bo'yicha ma'lumot topilmadi !  </h1>
-               </div>
+                <div class="bg-white flex items-center justify-center  w-full p-5 h-60">
+                    <h1 class="text-2xl   font-bold pb-1 text-[#1a2e42]">{{serchText}} - Bo'yicha ma'lumot topilmadi !
+                    </h1>
+                </div>
             </div>
 
             <div v-else class="bg-white rounded-xl border-slate-200 p-4">
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
-                    <h1 class="md:text-2xl text-lg  font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar soni: {{detailPost.data.length}} </h1>
-                    
+                    <h1 class="md:text-2xl text-lg  font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar
+                        soni: {{detailPost.data.length}} </h1>
+
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-3">
@@ -70,7 +72,7 @@ watch([() => store.lang, () => route.query.q], async () => {
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4 flex-shrink-0">
                                 <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
-                                    class="w-full h-30 rounded-xl object-cover">
+                                    class="w-full md:h-30 h-22 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">

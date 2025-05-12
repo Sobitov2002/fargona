@@ -72,7 +72,7 @@ loading.value = false
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
                     <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText }}</h1>
                     <div class="text-left mt-2 cursor-pointer">
-                        <router-link :to="`/category/2`" 
+                        <router-link :to="`/category/2`"
                             class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
                             Yana ko'rish
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1a2e42"
@@ -91,10 +91,10 @@ loading.value = false
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4  flex-shrink-0">
                                 <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
-                                    class="w-full h-30 rounded-xl object-cover">
+                                    class="w-full md:h-30 h-22 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link :to="`/news/n/${category.id}`"class="block cursor-pointer">
+                                <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
                                         class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
                                         {{ category.name

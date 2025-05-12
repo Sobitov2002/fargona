@@ -1,10 +1,12 @@
 <script setup lant="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { Skeleton } from '@/components/ui/skeleton'
 const currencies = ref([])
 const loading = ref(false)
 const error = ref(null)
+import { useLangStore } from '@/stores/lang'
 
+const store = useLangStore()
 const fetchCurrencies = async () => {
     loading.value = true
     error.value = null
@@ -22,12 +24,18 @@ const fetchCurrencies = async () => {
 }
 
 onMounted(fetchCurrencies)
+const mainText = computed(() => {
+    if (store.lang === 'uz') return 'Valyuta kurslari';
+    if (store.lang === 'ru') return 'Курсы валют';
+    if (store.lang === 'kr') return 'Валюта курс';
+    return 'Asosiy';
+});
 </script>
 
 <template>
     <div class="bg-white rounded-xl mt-6 p-4 flex items-center justify-between">
         <div class="flex justify-between items-center ">
-            <h2 class="text-xl text-gray-800 font-bold">Valyuta kurslari</h2>
+            <h2 class="text-xl text-gray-800 font-bold">{{ mainText }}</h2>
 
         </div>
 
@@ -40,11 +48,12 @@ onMounted(fetchCurrencies)
             </div>
         </div>
 
-        <ul v-else class="md:flex gap-4 space-y-2 md:space-y-0">
-            <li v-for="currency in currencies" :key="currency.Ccy" class="text-gray-800">
+        <ul v-else class="flex flex-col md:flex-row md:gap-6 gap-2">
+            <li v-for="currency in currencies" :key="currency.Ccy" class="text-gray-800 text-sm md:text-base">
                 <span class="font-semibold">{{ currency.CcyNm_UZ }} ({{ currency.Ccy }}):</span>
                 {{ currency.Rate }} UZS
             </li>
         </ul>
+
     </div>
 </template>

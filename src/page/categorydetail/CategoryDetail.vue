@@ -87,7 +87,7 @@ watch([() => store.lang, () => route.params.id], () => {
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4 flex-shrink-0">
                                 <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
-                                    class="w-full h-30 rounded-xl object-cover">
+                                    class="w-full md:h-30 h-22 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
@@ -102,7 +102,7 @@ watch([() => store.lang, () => route.params.id], () => {
                     </div>
                 </div>
 
-              
+
                 <div class="flex justify-center mt-6 space-x-2">
                     <button @click="loadPage(page - 1)" :disabled="page === 1"
                         class="px-3 py-1 border rounded disabled:opacity-50">Orqaga</button>
