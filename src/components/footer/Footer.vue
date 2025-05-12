@@ -2,22 +2,15 @@
 import { ref, computed } from 'vue'
 import Logo from '../ui/Logo.vue'
 import { useLangStore } from '@/stores/lang'
-
-
 const store = useLangStore()
 
-interface FooterLink {
-    text: string
-    url: string
-}
+
 
 interface SocialLink {
     name: string
     url: string
     icon: string
 }
-
-
 
 // Lucide yoki Iconify belgilar ishlatilgan
 const socialLinks = ref<SocialLink[]>([
