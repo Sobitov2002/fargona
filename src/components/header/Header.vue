@@ -6,7 +6,7 @@ import { getCategory } from './services'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useRouter } from 'vue-router'
 import { Search, X } from 'lucide-vue-next'
-
+import DarkMode from '@/components/ui/DarkMode.vue'
 const router = useRouter()
 import { useLangStore } from '@/stores/lang';
 
@@ -98,7 +98,9 @@ onMounted(async () => {
                     </div>
                 </form>
             </div>
-
+                <div>
+                    <DarkMode />
+                </div>
             <div class="flex items-center gap-2">
                 <!-- Mobile Search Toggle Button -->
                 <button @click="toggleSearch"
