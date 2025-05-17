@@ -119,7 +119,7 @@ const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString();
 </script>
 
 <template>
-    <div class="max-w-[1250px] mx-auto mt-4 ">
+    <div class="max-w-[1250px] mx-auto mt-2 pb-4 ">
         <div class="bg-white dark:bg-gray-800 rounded-xl border-slate-200 p-4">
             <div class="flex justify-between border-b-2 mb-6 dark:border-slate-400 border-[#1a2e42]">
                 <h1 class="text-2xl font-bold pb-1 dark:text-slate-200 text-[#1a2e42]">
