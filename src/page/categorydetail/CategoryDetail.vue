@@ -129,7 +129,7 @@ watch([() => store.lang, () => route.params.id], () => {
                                         {{ category.name }}
                                     </h2>
                                 </router-link>
-                                <p class="text-sm text-gray-800">{{ category.date }}</p>
+                                <p class="text-sm text-gray-800">{{ category.date }} {{ mainText }}</p>
                             </div>
                         </div>
                     </div>

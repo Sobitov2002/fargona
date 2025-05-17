@@ -7,51 +7,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { useRouter } from 'vue-router'
 import { Search, X } from 'lucide-vue-next'
 import DarkMode from '@/components/ui/DarkMode.vue'
-const router = useRouter()
 import { useLangStore } from '@/stores/lang';
 
+const router = useRouter()
 const selectedLang = ref(localStorage.getItem('lang') || 'uz');
 const store = useLangStore()
 const searchQuery = ref('');
 const isSearchOpen = ref(false);
-
-// Toggle search input visibility on mobile
-const toggleSearch = () => {
-  isSearchOpen.value = !isSearchOpen.value;
-}
-
-// Handle search submission
-const handleSearch = () => {
-  if (searchQuery.value.trim()) {
-    router.push(`/search?q=${encodeURIComponent(searchQuery.value.trim())}`);
-    searchQuery.value = '';
-    isSearchOpen.value = false;
-  }
-}
-
-watch(selectedLang, async (newLang) => {
-    localStorage.setItem('lang', newLang)
-    categories.value = await getCategory(newLang)
-})
-
-watch(selectedLang, () => {
-  store.lang = selectedLang.value;
-});
-
-const mainText = computed(() => {
-  if (selectedLang.value === 'uz') return 'Asosiy';
-  if (selectedLang.value === 'ru') return 'Главный';
-  if (selectedLang.value === 'kr') return 'Асосий'; 
-  return 'Asosiy';
-});
-
-const searchPlaceholder = computed(() => {
-  if (selectedLang.value === 'uz') return 'Qidirish...';
-  if (selectedLang.value === 'ru') return 'Поиск...';
-  if (selectedLang.value === 'kr') return 'Қидириш...'; 
-  return 'Qidirish...';
-});
-
 const sidebarStore = useSidebarStore()
 
 interface Category {
@@ -61,10 +23,49 @@ interface Category {
 
 const categories = ref<Category[]>([])
 
+const toggleSearch = () => {
+    isSearchOpen.value = !isSearchOpen.value;
+}
+
+const handleSearch = () => {
+    if (searchQuery.value.trim()) {
+        router.push(`/search?q=${encodeURIComponent(searchQuery.value.trim())}`);
+        searchQuery.value = '';
+        isSearchOpen.value = false;
+    }
+}
+
+const mainText = computed(() => {
+    if (selectedLang.value === 'uz') return 'Asosiy';
+    if (selectedLang.value === 'ru') return 'Главный';
+    if (selectedLang.value === 'kr') return 'Асосий';
+    return 'Asosiy';
+});
+
+const searchPlaceholder = computed(() => {
+    if (selectedLang.value === 'uz') return 'Qidirish...';
+    if (selectedLang.value === 'ru') return 'Поиск...';
+    if (selectedLang.value === 'kr') return 'Қидириш...';
+    return 'Qidirish...';
+});
+
 onMounted(async () => {
     categories.value = await getCategory(selectedLang.value);
-
 })
+
+watch(selectedLang, async (newLang) => {
+    localStorage.setItem('lang', newLang)
+    categories.value = await getCategory(newLang)
+})
+
+watch(selectedLang, () => {
+    store.lang = selectedLang.value;
+})
+
+// 🔥 Tanlangan category.id ni localStoragega saqlovchi funksiya
+const saveCategoryId = (id: number) => {
+    localStorage.setItem('selectedCategoryId', id.toString());
+}
 </script>
 
 <template>
@@ -79,11 +80,13 @@ onMounted(async () => {
                         {{ mainText }}
                     </p>
 
-                    <ul v-for="(item, index) in categories" :key="index"
-                        class="flex justify-between gap-6 text-white text-[15px]  font-sans font-bold cursor-pointer">
-                        <router-link class="hover:text-[#6489ce] " :to="`/category/${item.id}`">
-                            {{ item.name }}
-                        </router-link>
+                    <ul class="flex justify-between gap-6 text-white text-[15px] font-sans font-bold cursor-pointer">
+                        <li v-for="(item, index) in categories" :key="index">
+                            <router-link class="hover:text-[#6489ce]" :to="`/category/${item.id}`"
+                                @click="saveCategoryId(item.id)">
+                                {{ item.name }}
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -98,9 +101,11 @@ onMounted(async () => {
                     </div>
                 </form>
             </div>
-                <div>
-                    <DarkMode />
-                </div>
+
+            <div>
+                <DarkMode />
+            </div>
+
             <div class="flex items-center gap-2">
                 <!-- Mobile Search Toggle Button -->
                 <button @click="toggleSearch"
@@ -117,16 +122,13 @@ onMounted(async () => {
                         </SelectTrigger>
                         <SelectContent class="bg-[#173044] border-none m-0 p-0">
                             <SelectGroup>
-                                <SelectItem class="text-white  m-0 hover:bg-[#4c5d6b] text-[15px] border-none"
-                                    value="uz">
+                                <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px]" value="uz">
                                     O'zbek
                                 </SelectItem>
-                                <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px] border-none px-2 py-2"
-                                    value="ru">
+                                <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px]" value="ru">
                                     Русский
                                 </SelectItem>
-                                <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px] border-none px-2 py-2"
-                                    value="kr">
+                                <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px]" value="kr">
                                     Ўzbek
                                 </SelectItem>
                             </SelectGroup>

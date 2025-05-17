@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { newsdetail } from './services'
+import { newsdetail, fetchAllRec, fetchLastNewsCategory } from './services'
 import { ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/lang'
 import Course from '@/components/course/Course.vue'
 import { FacebookIcon } from 'lucide-vue-next'
-import Recomundation from '@/page/recommendation/Page.vue'
+import Recommendation from '@/page/recommendation/Page.vue'
 import { Skeleton } from '@/components/ui/skeleton'
-import {useHead } from  '@vueuse/head'
+import { useHead } from '@vueuse/head'
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
 const currentUrl = window.location.href
 const shareLink = ref<string>()
-
+const tags = ref("")
+const tagsArray = ref<string[]>([]);
 
 
 useHead({
@@ -41,6 +42,18 @@ useHead({
         }
     ]
 })
+
+
+const allRecData = ref<any[]>([])
+const lastNewsCategoryData = ref<any[]>([])
+
+const loadAllRec = async () => {
+    allRecData.value = await fetchAllRec(1)
+}
+
+const loadLastNewsCategory = async () => {
+    lastNewsCategoryData.value = await fetchLastNewsCategory()
+}
 
 const vTelegramPosts = {
     mounted(el: HTMLElement) {
@@ -88,19 +101,22 @@ const processTelegramLinks = (container: HTMLElement) => {
         }
     })
 
-   
+
     setTimeout(() => {
         const iframes = container.querySelectorAll('iframe')
         iframes.forEach(iframe => {
-            iframe.setAttribute('height', '600') 
+            iframe.setAttribute('height', '600')
             iframe.style.height = '600px'
         })
-    }, 500) 
+    }, 500)
 }
 
 const postDetail = async (type: 'n' | 'r', id: string) => {
     try {
         detailPost.value = await newsdetail(type, id)
+        tags.value = detailPost.value.tags
+        tagsArray.value = tags.value ? tags.value.split(",") : []
+
         nextTick(() => {
             const contentElement = document.querySelector('.news-content') as HTMLElement
             if (contentElement) {
@@ -112,16 +128,19 @@ const postDetail = async (type: 'n' | 'r', id: string) => {
     }
 }
 
+
 const telegramShare = async (type: 'n' | 'r', id: string) => {
     shareLink.value = `https://fargona24.uz/${type}/${id}`
     console.log(shareLink.value);
-    
+
 }
 onMounted(async () => {
     const type = route.params.type as 'n' | 'r'
     const id = route.params.id as string
     await postDetail(type, id)
-    await telegramShare(type , id)
+    await telegramShare(type, id)
+    await loadAllRec()
+    await loadLastNewsCategory()
 })
 
 watch(
@@ -131,91 +150,106 @@ watch(
         const id = route.params.id as string
         await postDetail(type, id)
         await telegramShare(type, id)
+        await loadAllRec()
+        await loadLastNewsCategory()
     },
     { immediate: true }
 )
 
 
-
 </script>
 
 <template>
-    <div v-if="!detailPost">
-        <Skeleton class="w-[100px] bg-gray-100 h-5 rounded-full" />
-    </div>
-    <div v-else class="max-w-6xl mx-auto mb-4">
-        <Course />
-    </div>
-    <div v-else class="max-w-6xl mx-auto bg-white rounded-xl">
-        <!-- Article Container -->
-        <article v-if="detailPost" class="p-4 md:p-6">
-            <!-- Article Header -->
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-                {{ detailPost.name }}
-            </h1>
-            <!-- Article Meta -->
-            <div class="flex items-center gap- text-sm text-gray-500 mb-4">
-                <span class="flex items-center">
-                    {{ detailPost.date }}/
-                </span>
-                <span class="flex items-center gap-1">
-                    <svg class="w-6 h-6 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-width="2"
-                            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                        <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                    <span>{{ detailPost.views?.count || 0 }} </span>
-                </span>
-            </div>
-            <!-- Article Image -->
-            <div v-if="detailPost.photo" class="mb-6 flex justify-center">
-                <img :src="`https://fargona24.uz/storage/${detailPost.photo}`" :alt="detailPost.name"
-                    class=" w-full md:h-[650px] h-[400px] rounded-xl ">
-            </div>
-            <!-- Article Content -->
-            <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
-            <div class="prose prose-lg max-w-none news-content" v-html="detailPost.info"></div>
+    <div class="px-4 nd:px-0">
+        <div class="max-w-[1200px] mx-auto mb-4">
+            <Course />
+        </div>
+        <div class="max-w-[1200px] mx-auto bg-white rounded-xl">
+            <!-- Article Container -->
+            <article v-if="detailPost" class="p-4 md:p-">
+                <!-- Article Header -->
+                <div class=" sticky top-24 bottom-0 hidden   sm:flex flex-col gap-3 float-left mr-4 ">
+                    <!-- Telegram Icon -->
+                    <a :href="`https://t.me/share/url?url=${shareLink}`" target="_blank" rel="noopener noreferrer"
+                        class="  flex justify-center items-center  transition">
+                        <i class="fa-brands fa-telegram text-4xl text-blue-600 "></i>
+                    </a>
+                    <!-- Facebook Icon -->
+                    <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
+                        target="_blank" rel="noopener noreferrer"
+                        class="p-2 text-white  lex justify-center items-center  transition">
+                        <i class="fa-brands fa-facebook text-4xl text-blue-600 "></i>
+                    </a>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                    {{ detailPost.name }}
+                </h1>
+                <!-- Article Meta -->
+                <div class="flex items-center gap- text-sm text-gray-500 mb-4">
+                    <span v-if="detailPost.date" class="flex items-center">
+                        {{ detailPost.date }} /
+                    </span>
 
-            <div v-if="detailPost.category" class="flex flex-wrap gap-2 mt-6">
-                <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                    {{ detailPost.category }}
-                </span>
-            </div>
+                    <span v-if="detailPost.views" class="flex items-center gap-1">
+                        <svg class="w-6 h-6 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <span>{{ detailPost.views?.count || 0 }} </span>
+                    </span>
+                    <span v-if="detailPost.category" class="px-1 py-1 text-md font-medium  text-gray-500 rounded-full">
+                        / {{ detailPost.category?.name }}
+                    </span>
+                </div>
+                <!-- Article Image -->
+                <div v-if="detailPost.photo" class="mb-6 sm:ml-12 flex justify-center">
+                    <img :src="`https://fargona24.uz/storage/${detailPost.photo}`" :alt="detailPost.name"
+                        class=" w-full md:h-[650px] h-[400px] rounded-xl ">
+                </div>
+                <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
+                <div class="prose sm:ml-12 prose-lg max-w-none news-content" v-html="detailPost.info"></div>
 
-            <!-- Social Share -->
-            <div class="flex gap-2 mt-6">
-                <!-- Telegram Icon -->
-                <a :href="`https://t.me/share/url?url=${shareLink}`" target="_blank" rel="noopener noreferrer"
-                    class="p-2  text-white rounded-full flex justify-center  items-center transition-colors">
-                    <i class="fa-brands fa-telegram text-5xl text-blue-600 hover:text-blue-500 "></i>
-                </a>
+                <!-- Tags Content -->
+                <div class="flex sm:ml-12 flex-wrap gap-3 p-4 bg-white rounded-lg ">
+                    Teglar:
+                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none
+             transition-transform transform hover:scale-110 hover:shadow-2xl">
+                        #{{ tag }}
+                    </span>
+                </div>
+                <!-- Social Share -->
+                <div class="flex items-center mt-6 sm:hidden">
+                    <!-- Telegram Icon -->
+                    <span class="flex gap-2">
+                        <a :href="`https://t.me/share/url?url=${shareLink}`" target="_blank" rel="noopener noreferrer"
+                            class="p-2  text-white rounded-full flex justify-center  items-center transition-colors">
+                            <i class="fa-brands fa-telegram text-4xl text-blue-600 hover:text-blue-500 "></i>
+                        </a>
 
-                <!-- Facebook Icon -->
-                <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
-                    target="_blank" rel="noopener noreferrer"
-                    class="p-2  text-white flex justify-center  items-center rounded-full transition-colors">
-                    <i class="fa-brands fa-facebook text-5xl text-blue-600 hover:text-blue-500 "></i>
-                </a>
-            </div>
-
-
-        </article>
-
-        <!-- Loading state -->
-        <div v-else class="p-4 md:p-6 flex justify-center items-center min-h-[400px]">
-            <div>
+                        <!-- Facebook Icon -->
+                        <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
+                            target="_blank" rel="noopener noreferrer"
+                            class="p-2  text-white flex justify-center  items-center rounded-full transition-colors">
+                            <i class="fa-brands fa-facebook text-4xl text-blue-600 hover:text-blue-500 "></i>
+                        </a>
+                    </span>
+                </div>
+            </article>
+            <!-- Loading state -->
+            <div v-else class="p-4 md:p-6 flex justify-center items-center min-h-[400px]">
 
             </div>
         </div>
-        <Recomundation />
-    </div>
-    <div class="max-w-[1250px] mx-auto">
+        <div class="max-w-[1250px] mx-auto">
+            <Recommendation :items="allRecData.data" :categoryId="1" title="Barcha tavsiya etilgan yangiliklar" />
+            <Recommendation :items="lastNewsCategoryData" :categoryId="2" title="So‘nggi yangiliklar kategoriya bo‘yicha" />
+        </div>
     </div>
 </template>
 
 <style>
-
 .prose a {
     color: #3b82f6;
     text-decoration: underline;
@@ -380,13 +414,41 @@ watch(
 
 /* Blockquote */
 .news-content blockquote {
-    border-left: 4px solid #d1d5db;
+    position: relative;
+    border-left: 6px solid #063377;
     background: #f9fafb;
-    padding: 1rem;
-    margin: 1rem 0;
+    padding: 2rem 2rem;
+    margin: 2rem 0;
     font-style: italic;
-    color: #6b7280;
-    /* gray-500 */
+    color: #374151;
+    /* Tailwind gray-700 */
+    font-size: 1rem;
+    line-height: 1.75rem;
+    border-radius: 0.5rem;
+}
+
+.news-content blockquote::before {
+    content: "“";
+    /* Ochuvchi qo‘shtirnoq */
+    font-size: 4rem;
+    color: #063377;
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.news-content blockquote::after {
+    content: "”";
+    /* Yopuvchi qo‘shtirnoq */
+    font-size: 4rem;
+    color: #063377;
+    position: absolute;
+    bottom: -20px;
+    right: 20px;
+    font-family: Georgia, serif;
+    line-height: 1;
 }
 
 /* Code */

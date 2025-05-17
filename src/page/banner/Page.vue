@@ -122,7 +122,7 @@ const modules = [FreeMode, Pagination, Autoplay]
             <div class="flex flex-col gap-6">
                 <div v-if="lsNews" class="relative rounded-xl overflow-hidden shadow-md group">
                     <img :src="`https://fargona24.uz/storage/${lsNews.photo}`" :alt="lsNews.name"
-                        class="w-full h-60 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        class="w-full h-[360px] sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div class="absolute bottom-0 left-0 w-full p-4">
                             <span class="inline-block px-2 py-1 text-xs bg-[#173044] text-white rounded mb-2">
@@ -133,8 +133,8 @@ const modules = [FreeMode, Pagination, Autoplay]
                                     {{ lsNews.name }}
                                 </h2>
                             </router-link>
-                            <p class="text-white/80 text-xs">
-                                {{ formatDate(lsNews.created_at) }}
+                            <p class="text-white text-xs">
+                                {{lsNews.category.name}}
                             </p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const modules = [FreeMode, Pagination, Autoplay]
 
                 <div class=" overflow-hidden">
                     <div class="w-full ">
-                        <img class="w-full h-66 rounded-xl" :src="`https://fargona24.uz/storage/${recNews.photo}`"
+                        <img class="w-full h-[360px] rounded-xl" :src="`https://fargona24.uz/storage/${recNews.photo}`"
                             alt="Reklama uchun joy...">
                     </div>
                 </div>
@@ -170,7 +170,9 @@ const modules = [FreeMode, Pagination, Autoplay]
                             </h2>
                             <div class="flex items-center justify-between mt-1 pr-6">
                                 <span class="text-sm text-slate-500">
-                                    {{ item.date }}
+                                    {{ item.date }}  {{ item.category.name }}
+                                </span>
+                                <span class="">
                                 </span>
                             </div>
                         </div>

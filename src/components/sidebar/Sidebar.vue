@@ -112,7 +112,7 @@ const socialLinks = ref<SocialLink[]>([
                                     'bg-[#1E3D4E] text-white': activeItem === null,
                                     'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
                                 }">
-                                <router-link to="/" class="flex-1 text-sm font-medium">
+                                <router-link to="/" class="flex-1 font-bold text-md ">
                                     {{ mainText }}
                                 </router-link>
                             </button>
@@ -131,7 +131,7 @@ const socialLinks = ref<SocialLink[]>([
                                         'bg-[#1E3D4E] text-white': activeItem === item.id,
                                         'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== item.id
                                     }">
-                                    <span class="flex-1 text-sm font-medium">{{ item.name }}</span>
+                                    <span class="flex-1 text-md font-bold">{{ item.name }}</span>
                                 </button>
                             </router-link>
 

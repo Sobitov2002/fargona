@@ -5,7 +5,9 @@ import { useLangStore } from '@/stores/lang';
 const getCategory = async () =>{
     const store = useLangStore()
     try {
-        const response  = await api.get(`/last-news-category?lang=${store.lang}&c_id=2`)       
+        const response  = await api.get(`/last-news-category?lang=${store.lang}&c_id=2`)      
+        
+         
         return response.data
 
     } catch (error) {
