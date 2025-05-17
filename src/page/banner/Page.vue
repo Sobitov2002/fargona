@@ -109,13 +109,14 @@ const modules = [FreeMode, Pagination, Autoplay]
 <template>
     <div class="max-w-[1250px] mx-auto  sm:px-6  pt-6 p-4 ">
 
-        <div v-if="isLoading" class="grid md:grid-cols-2 grid-cols-1 gap-4 bg-white p-4 rounded-xl min-h-[300px] items-center">
+        <div v-if="isLoading"
+            class="grid md:grid-cols-2 grid-cols-1 gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl min-h-[300px] items-center">
             <div class="space-y-4">
-                <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
-                <Skeleton class="w-full h-24 bg-gray-300 rounded-2xl" />
+                <Skeleton class="w-full h-24 bg-gray-300 dark:bg-gray-700 rounded-2xl" />
+                <Skeleton class="w-full h-24 bg-gray-300 dark:bg-gray-700 rounded-2xl" />
             </div>
             <div>
-                <Skeleton class="w-full h-48 bg-gray-300 rounded-2xl object-contain" />
+                <Skeleton class="w-full h-48 bg-gray-300 dark:bg-gray-700 rounded-2xl object-contain" />
             </div>
         </div>
         <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -126,7 +127,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div class="absolute bottom-0 left-0 w-full p-4">
                             <span class="inline-block px-2 py-1 text-xs bg-[#173044] text-white rounded mb-2">
-                               {{mainText?.button}}
+                                {{mainText?.button}}
                             </span>
                             <router-link :to="`/news/n/${lsNews.id}`" class="block cursor-pointer">
                                 <h2 class="text-white text-[16px] sm:text-xl font-bold line-clamp-2 mb-2">
@@ -150,12 +151,13 @@ const modules = [FreeMode, Pagination, Autoplay]
             </div>
 
 
-            <div class=" bg-white rounded-xl shadow-sm overflow-hidden">
-                <h1 class="text-xl text-slate-900 py-3 px-4 border-b font-bold border-slate-200">
+            <div class=" bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <h1
+                    class="text-xl text-slate-900 py-3 dark:text-white px-4 border-b font-bold border-slate-200 dark:border-slate-500">
                     {{mainText?.title}}
                 </h1>
 
-                <div class="divide-y divide-slate-200">
+                <div class="divide-y divide-slate-200 dark:divide-slate-500 ">
                     <router-link v-for="(item, index) in lastNews" :key="index" :to="`/news/n/${item.id}`"
                         class="flex flex-row items-center cursor-pointer p-3 transition-colors duration-200 no-underline">
                         <!-- Image section -->
@@ -164,13 +166,13 @@ const modules = [FreeMode, Pagination, Autoplay]
                                 class="w-full h-full object-cover" loading="lazy" />
                         </div>
                         <div class="flex-1 ml-3">
-                            <h2 
-                                class="md:text-xl text-[16px] font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-2">
+                            <h2
+                                class="md:text-xl dark:text-white dark:hover:text-slate-200 text-[16px] font-bold text-gray-800 hover:text-gray-700 transition-colors duration-200 line-clamp-2">
                                 {{ item.name }}
                             </h2>
                             <div class="flex items-center justify-between mt-1 pr-6">
-                                <span class="text-sm text-slate-500">
-                                    {{ item.date }}  {{ item.category.name }}
+                                <span class="text-sm text-slate-500 dark:text-slate-300">
+                                    {{ item.date }} {{ item.category.name }}
                                 </span>
                                 <span class="">
                                 </span>

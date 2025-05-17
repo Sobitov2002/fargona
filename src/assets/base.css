@@ -11,7 +11,7 @@
 body {
   font-family: 'Inter', sans-serif;
 }
-
+@custom-variant dark (&:where(.dark, .dark *));
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -77,7 +77,9 @@ const socialLinks = ref<SocialLink[]>([
     { name: 'YouTube', url: 'https://youtube.com/@fargona24_uz', icon: 'fa-youtube' },
     { name: 'Facebook', url: 'https://www.facebook.com/FARGONALIKLAR24', icon: 'fa-facebook' }
 ])
-
+const saveCategoryId = (id: number) => {
+    localStorage.setItem('selectedCategoryId', id.toString());
+}
 </script>
 
 <template>
@@ -103,7 +105,7 @@ const socialLinks = ref<SocialLink[]>([
             <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
             <div class="flex-1 overflow-y-auto sidebar-scrollbar px-1">
                 <ul class="space-y-1 pb-6">
-                    <h1 name="list"  >
+                    <h1 name="list">
                         <!-- mainText element as li -->
                         <li class="relative">
                             <button @click="setActive(null)"
@@ -125,7 +127,7 @@ const socialLinks = ref<SocialLink[]>([
                         <!-- Dynamic category items -->
                         <li v-for="(item, index) in categories" :key="item.id" class="relative">
                             <router-link :to="`/category/${item.id}`" class="flex flex-col items-start">
-                                <button @click="setActive(item.id)"
+                                <button @click="setActive(item.id),  saveCategoryId(item.id)"
                                     class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
                                     :class="{
                                         'bg-[#1E3D4E] text-white': activeItem === item.id,

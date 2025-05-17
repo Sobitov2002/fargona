@@ -164,7 +164,7 @@ watch(
         <div class="max-w-[1200px] mx-auto mb-4">
             <Course />
         </div>
-        <div class="max-w-[1200px] mx-auto bg-white rounded-xl">
+        <div class="max-w-[1200px] mx-auto bg-white dark:bg-gray-800 rounded-xl">
             <!-- Article Container -->
             <article v-if="detailPost" class="p-4 md:p-">
                 <!-- Article Header -->
@@ -177,11 +177,11 @@ watch(
                     <!-- Facebook Icon -->
                     <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
                         target="_blank" rel="noopener noreferrer"
-                        class="p-2 text-white  lex justify-center items-center  transition">
+                        class="p-2 text-white dark:text-slate-200  lex justify-center items-center  transition">
                         <i class="fa-brands fa-facebook text-4xl text-blue-600 "></i>
                     </a>
                 </div>
-                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                <h1 class="text-2xl md:text-3xl font-bold dark:text-slate-200 text-gray-800 mb-4">
                     {{ detailPost.name }}
                 </h1>
                 <!-- Article Meta -->
@@ -212,9 +212,10 @@ watch(
                 <div class="prose sm:ml-12 prose-lg max-w-none news-content" v-html="detailPost.info"></div>
 
                 <!-- Tags Content -->
-                <div class="flex sm:ml-12 flex-wrap gap-3 p-4 bg-white rounded-lg ">
+                <div
+                    class="flex sm:ml-12 flex-wrap gap-3 p-4 bg-white dark:bg-gray-800 dark:text-slate-200 rounded-lg ">
                     Teglar:
-                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none
+                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-gradient-to-r   from-blue-400 via-blue-500 to-blue-600 text-white dark:text-slate-200 text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none
              transition-transform transform hover:scale-110 hover:shadow-2xl">
                         #{{ tag }}
                     </span>
@@ -244,7 +245,8 @@ watch(
         </div>
         <div class="max-w-[1250px] mx-auto">
             <Recommendation :items="allRecData.data" :categoryId="1" title="Barcha tavsiya etilgan yangiliklar" />
-            <Recommendation :items="lastNewsCategoryData" :categoryId="2" title="So‘nggi yangiliklar kategoriya bo‘yicha" />
+            <Recommendation :items="lastNewsCategoryData" :categoryId="2"
+                title="So‘nggi yangiliklar kategoriya bo‘yicha" />
         </div>
     </div>
 </template>

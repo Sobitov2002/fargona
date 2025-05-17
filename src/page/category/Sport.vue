@@ -73,42 +73,46 @@ const mainText = computed(() => {
         };
     }
 });
+const handleClick = () => {
+    localStorage.setItem('selectedCategoryId', '5')
+}
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto p-5">
+    <div class="max-w-[1250px] mx-auto p-5">
         <div v-if="loading" class="text-center py-10">
-            <div class="text-center py-10 text-lg grid grid-cols-2">
-                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white p-4">
+
+        </div>
+        <div v-else>
+            <div v-if="categories.length === 0" class="text-center py-10 text-lg grid grid-cols-2">
+                <div v-for="n in 4" :key="n" class=" transition-transform mb-4 bg-white dark:bg-gray-800 p-4">
                     <div class="flex justify-between h-full cursor-pointer">
                         <div class="w-1/4 flex-shrink-0">
-                            <Skeleton class="w-full bg-gray-300 h-30 rounded-xl" />
+                            <Skeleton class="w-full bg-gray-300 dark:bg-gray-700 h-30 rounded-xl" />
                         </div>
                         <div class="w-2/3 p-2 space-y-2">
-                            <Skeleton class="h-6 bg-gray-300 w-3/4 rounded" />
-                            <Skeleton class="h-4 w-1/2 bg-gray-300 rounded" />
+                            <Skeleton class="h-6 bg-gray-300 dark:bg-gray-700 w-3/4 rounded" />
+                            <Skeleton class="h-4 w-1/2 bg-gray-300 dark:bg-gray-700 rounded" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-else>
-            <div v-if="categories.length === 0" class="text-center py-10 text-lg grid grid-cols-2">
-                <h1>Ma'lumot topilmadi...!</h1>
-            </div>
-            <div v-else class="bg-white  rounded-xl border-slate-200 p-4 ">
-                <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42]">
-                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] ">{{ mainText?.title }}</h1>
+
+            <div v-else class="bg-white dark:bg-gray-800  rounded-xl border-slate-200 p-4 ">
+                <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42] dark:border-slate-500">
+                    <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] dark:text-slate-200 ">{{ mainText?.title }}</h1>
                     <div class="text-left mt-2 cursor-pointer">
-                        <router-link :to="`/category/5`"
-                            class=" py-1 flex  text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
-                            {{mainText?.button}}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1a2e42"
-                                viewBox="0 0 24 24">
+                        <router-link :to="`/category/5`" @click="handleClick"
+                            class="py-1 flex text-gray-800 dark:text-slate-200 cursor-pointer rounded-md transition-colors duration-200 font-medium">
+                            {{ mainText?.button }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                class="fill-[#1a2e42] dark:fill-slate-200" viewBox="0 0 24 24">
                                 <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3z" />
                             </svg>
                         </router-link>
                     </div>
+
+
                 </div>
                 <div class="grid md:grid-cols-2 gap-3 ">
 
@@ -122,25 +126,18 @@ const mainText = computed(() => {
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
-                                        class="lg:text-xl text-lg text-[16px] font-bold mb-1 line-clamp-2 items-center text-gray-800 hover:text-gray-700">
+                                        class="lg:text-xl text-[16px] text-lg font-bold mb-1 line-clamp-2 items-center dark:text-slate-200 text-gray-800 hover:text-gray-700 dark:hover:text-white">
                                         {{ category.name
                                         }}</h2>
                                 </router-link>
-                                <div>
-                                    <p class="text-sm text-gray-800">{{ category.date }}</p>
-                                </div>
+                                <p class="text-sm text-gray-800 dark:text-slate-300">{{ category.date }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div v-if="hasMoreItems" class="text-left mt-2 cursor-pointer">
-                    <button @click="showAllItems"
-                        class=" py-1   text-gray-800 cursor-pointer rounded-md transition-colors duration-200 font-medium">
-                        Yana ko'rish...
-                    </button>
-                </div>
+
             </div>
         </div>
     </div>

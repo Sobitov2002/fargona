@@ -95,22 +95,23 @@ const mainText = computed(() => {
 <template>
     <div class=" flex-col space-y-5 max-w-[1250px] mx-auto p-5">
         <!-- About Section - Simplified -->
-        <div class="container mx-auto px-4 py-12 rounded-xl bg-white">
+        <div class="container mx-auto px-4 py-12 rounded-xl bg-white dark:bg-gray-800">
             <div class="flex flex-col md:flex-row items-start gap-8">
                 <div class="md:w-1/2">
                     <img src="https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401"
                         alt="Farg'ona24 Office" class="w-full rounded-xl " />
                 </div>
                 <div class="md:w-1/2 items-center flex-col">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-4">{{ mainText?.text_1 }}</h2>
-                    <p class="text-gray-600 mb-4">
+                    <h2 class="text-4xl font-bold text-gray-800 dark:text-slate-200 mb-4">{{ mainText?.text_1 }}</h2>
+                    <p class="text-gray-600 dark:text-slate-200 mb-4">
                         {{ mainText?.text_2 }}
                     </p>
-                    <p class="text-gray-600 mb-4 border-t pt-2">
-                       {{ mainText?.text_3 }}
+                    <p class="text-gray-600 dark:text-slate-200 mb-4 border-t pt-2">
+                        {{ mainText?.text_3 }}
                     </p>
-                    <button class="mt-2 bg-gray-800 hover:bg-gray-700 text-lg text-white py-2 px-4 rounded-xl">
-                      {{mainText?.text_4}} +012 345 6789
+                    <button
+                        class="mt-2 bg-gray-800 dark:bg-gray-900 dark:text-slate-200 hover:bg-gray-700 text-lg text-white py-2 px-4 rounded-xl">
+                        {{mainText?.text_4}} +012 345 6789
                     </button>
                 </div>
 
@@ -119,45 +120,51 @@ const mainText = computed(() => {
         </div>
 
         <!-- Stats Section - Simplified -->
-        <div class="rounded-xl bg-white py-12">
+        <div class="rounded-xl bg-white dark:bg-gray-800 py-12">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ mainText?.text_6 }}</h2>
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{ mainText?.text_6 }}
+                </h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-gray-100 p-4 text-center border rounded-xl border-gray-100">
-                        <div class="text-gray-800 font-bold text-2xl mb-1">400,000+</div>
-                        <div class="text-gray-500">Telegram</div>
+                    <div
+                        class="bg-gray-100 dark:bg-gray-900 p-4 text-center border rounded-xl border-gray-100 dark:border-none">
+                        <div class="text-gray-800 dark:text-slate-200 font-bold text-2xl mb-1">400,000+</div>
+                        <div class="text-gray-500 dark:text-slate-200">Telegram</div>
                     </div>
 
-                    <div class="bg-gray-100 p-4 text-center border rounded-xl border-gray-100">
-                        <div class="text-gray-800 font-bold text-2xl mb-1">38,000+</div>
-                        <div class="text-gray-500">Instagram</div>
+                    <div
+                        class="bg-gray-100 dark:bg-gray-900 p-4 text-center border rounded-xl border-gray-100 dark:border-none">
+                        <div class="text-gray-800 dark:text-slate-200 font-bold text-2xl mb-1">38,000+</div>
+                        <div class="text-gray-500 dark:text-slate-200">Instagram</div>
                     </div>
 
-                    <div class="bg-gray-100 p-4 text-center border rounded-xl border-gray-100">
-                        <div class="text-gray-800 font-bold text-2xl mb-1">5,000+</div>
-                        <div class="text-gray-500">Facebook</div>
+                    <div
+                        class="bg-gray-100 dark:bg-gray-900 p-4 text-center border rounded-xl border-gray-100 dark:border-none">
+                        <div class="text-gray-800 dark:text-slate-200 font-bold text-2xl mb-1">5,000+</div>
+                        <div class="text-gray-500 dark:text-slate-200">Facebook</div>
                     </div>
 
-                    <div class="bg-gray-100 p-4 text-center border rounded-xl border-gray-100">
-                        <div class="text-gray-800 font-bold text-2xl mb-1">50,000+</div>
-                        <div class="text-gray-500">Youtube</div>
+                    <div
+                        class="bg-gray-100 dark:bg-gray-900 p-4 text-center border rounded-xl border-gray-100 dark:border-none">
+                        <div class="text-gray-800 dark:text-slate-200 font-bold text-2xl mb-1">50,000+</div>
+                        <div class="text-gray-500 dark:text-slate-200">Youtube</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Team Section - Simplified -->
-        <div class="container mx-auto px-4 py-12 rounded-xl bg-white">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ mainText?.text_5 }}</h2>
+        <div class="container mx-auto px-4 py-12 rounded-xl bg-white dark:bg-gray-800">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{ mainText?.text_5 }}
+            </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div v-for="member in aboutData" :key="member.id" class="border rounded-xl border-gray-200">
+                <div v-for="member in aboutData" :key="member.id" class="border rounded-xl dark:bg-gray-900 border-gray-200 dark:border-none">
                     <img :src="`https://fargona24.uz/storage/${member.image}`" :alt="member.name"
                         class="w-full md:h-80 h-72 object-cover object-center rounded-t-xl" />
                     <div class="p-4">
-                        <h3 class="font-bold text-gray-800">{{ member.name }}</h3>
-                        <p class="text-gray-600 text-sm">{{ member.role }}</p>
+                        <h3 class="font-bold text-gray-800 dark:text-slate-200">{{ member.name }}</h3>
+                        <p class="text-gray-600  dark:text-slate-200 text-sm">{{ member.role }}</p>
                     </div>
                 </div>
             </div>
