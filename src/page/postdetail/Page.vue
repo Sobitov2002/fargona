@@ -175,6 +175,24 @@ watch(
     },
     { immediate: true }
 )
+
+const mainText = computed(() => {
+    if (store.lang === 'uz') {
+        return {
+            title: 'Teglar',
+        };
+    }
+    if (store.lang === 'ru') {
+        return {
+            title: 'Теги',
+        };
+    }
+    if (store.lang === 'kr') {
+        return {
+            title: 'Теглар',
+        };
+    }
+});
 </script>
 
 <template>
@@ -222,9 +240,9 @@ watch(
                     </span>
                 </div>
                 <!-- Article Image -->
-                <div v-if="detailPost.photo" class="mb-6 sm:ml-12 flex justify-center">
+                <div v-if="detailPost.photo" class="mb-6  sm:ml-12  flex justify-center">
                     <img :src="`https://fargona24.uz/storage/${detailPost.photo}`" :alt="detailPost.name"
-                        class=" w-full md:h-[650px] h-[400px] rounded-xl " loading="lazy">
+                        class=" w-full md:h-[650px] h-[400px] sm:ml-4 rounded-xl " loading="lazy">
                 </div>
                 <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
                 <div :class="contentClass" class="sm:ml-12 " v-html="detailPost.info"></div>
@@ -232,9 +250,8 @@ watch(
                 <!-- Tags Content -->
                 <div
                     class="flex sm:ml-12 flex-wrap gap-3 p-4 bg-white dark:bg-gray-800 dark:text-slate-200 rounded-lg ">
-                    Teglar:
-                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-slate-100 text-gray-800 dark:text-slate-200 text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none
-             transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    {{ mainText.title }}:
+                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-slate-100 text-gray-800 dark:bg-slate-900 dark:text-slate-200 text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none transition-transform transform hover:scale-110 hover:shadow-2xl">
                         #{{ tag }}
                     </span>
                 </div>
