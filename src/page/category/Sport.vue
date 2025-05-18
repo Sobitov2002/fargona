@@ -98,7 +98,7 @@ const handleClick = () => {
                 </div>
             </div>
 
-            <div v-else class="bg-white dark:bg-gray-800  rounded-xl border-slate-200 p-4 ">
+            <div v-else class="bg-white dark:bg-slate-800  rounded-xl border-slate-200 p-4 ">
                 <div class=" flex justify-between border-b-2  mb-6 border-[#1a2e42] dark:border-slate-500">
                     <h1 class="text-2xl font-bold   pb-1 text-[#1a2e42] dark:text-slate-200 ">{{ mainText?.title }}</h1>
                     <div class="text-left mt-2 cursor-pointer">

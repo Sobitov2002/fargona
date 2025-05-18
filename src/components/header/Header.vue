@@ -129,7 +129,7 @@ const saveCategoryId = (id: number) => {
                                     Русский
                                 </SelectItem>
                                 <SelectItem class="text-white hover:bg-[#4c5d6b] text-[15px]" value="kr">
-                                    Ўzbek
+                                    Ўзбек
                                 </SelectItem>
                             </SelectGroup>
                         </SelectContent>

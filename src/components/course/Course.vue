@@ -33,7 +33,7 @@ const mainText = computed(() => {
 </script>
 
 <template>
-    <div class="bg-white dark:bg-gray-800 rounded-xl mt-6 p-4 md:flex  space-y-2 items-center justify-between">
+    <div class="bg-white dark:bg-slate-800 rounded-xl mt-6 p-4 md:flex  space-y-2 items-center justify-between">
         <div class="flex justify-between items-center ">
             <h2 class="text-xl text-gray-800 dark:text-slate-200 font-bold">{{ mainText }}</h2>
         </div>

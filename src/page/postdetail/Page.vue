@@ -1,36 +1,61 @@
 <script setup lang="ts">
-import { newsdetail, fetchAllRec, fetchLastNewsCategory } from './services'
-import { ref, onMounted, watch, nextTick } from 'vue'
+import { ref, onMounted, computed, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/lang'
 import Course from '@/components/course/Course.vue'
-import { FacebookIcon } from 'lucide-vue-next'
 import Recommendation from '@/page/recommendation/Page.vue'
-import { Skeleton } from '@/components/ui/skeleton'
 import { useHead } from '@vueuse/head'
+import { newsdetail, fetchAllRec, fetchLastNewsCategory } from './services'
+
 const store = useLangStore()
 const detailPost = ref<any>(null)
 const route = useRoute()
 const currentUrl = window.location.href
-const shareLink = ref<string>()
-const tags = ref("")
-const tagsArray = ref<string[]>([]);
+const shareLink = ref<string>('')
+const tags = ref('')
+const tagsArray = ref<string[]>([])
 
+const darkMode = ref(false)
+
+// Boshlang'ich qiymatni olish
+onMounted(() => {
+    const stored = localStorage.getItem('darkMode')
+    if (stored !== null) {
+        darkMode.value = stored === 'true'
+    }
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'darkMode') {
+            darkMode.value = event.newValue === 'true'
+        }
+    })
+})
+
+// Computed class
+const contentClass = computed(() =>
+    darkMode.value ? 'news-content dark-content' : 'news-content'
+)
+
+// darkMode ni kuzatish va localStorage ga yozish
+watch(darkMode, (newVal) => {
+    localStorage.setItem('darkMode', newVal.toString())
+})
 
 useHead({
     title: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami",
     meta: [
         {
             name: 'description',
-            content: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor"
+            content:
+                "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor",
         },
         {
             name: 'keywords',
-            content: "Farg'ona, Farg'ona yangiliklari, yangiliklar, tezkor xabarlar"
+            content: 'Farg\'ona, Farg\'ona yangiliklari, yangiliklar, tezkor xabarlar',
         },
         {
-            property: "og:title",
-            content: "Farg'ona 24 | Bosh sahifa"
+            property: 'og:title',
+            content: 'Farg\'ona 24 | Bosh sahifa',
         },
         {
             property: 'og:image',
@@ -39,10 +64,9 @@ useHead({
         {
             property: 'og:url',
             content: 'https://fargona24.uz/',
-        }
-    ]
+        },
+    ],
 })
-
 
 const allRecData = ref<any[]>([])
 const lastNewsCategoryData = ref<any[]>([])
@@ -55,17 +79,10 @@ const loadLastNewsCategory = async () => {
     lastNewsCategoryData.value = await fetchLastNewsCategory()
 }
 
-const vTelegramPosts = {
-    mounted(el: HTMLElement) {
-        processTelegramLinks(el)
-    },
-    updated(el: HTMLElement) {
-        processTelegramLinks(el)
-    }
-}
-
 const processTelegramLinks = (container: HTMLElement) => {
     if (!container) return
+
+    const dark = localStorage.getItem('darkMode') === 'true'
 
     const regex = /##tgpostlink=([\w\d_/-]+)##/g
     const html = container.innerHTML
@@ -83,8 +100,7 @@ const processTelegramLinks = (container: HTMLElement) => {
         script.src = 'https://telegram.org/js/telegram-widget.js?7'
         script.setAttribute('data-telegram-post', match[1])
         script.setAttribute('data-width', '100%')
-        // Agar balandlikni hozirdayoq belgilamoqchi bo‘lsangiz, quyidagilarni qo‘shing
-        script.setAttribute('data-userpic', 'false') // ixtiyoriy
+        script.setAttribute('data-userpic', 'false')
         fragments.push(script)
 
         lastIndex = regex.lastIndex
@@ -93,7 +109,7 @@ const processTelegramLinks = (container: HTMLElement) => {
     fragments.push(html.slice(lastIndex))
 
     container.innerHTML = ''
-    fragments.forEach(el => {
+    fragments.forEach((el) => {
         if (typeof el === 'string') {
             container.insertAdjacentHTML('beforeend', el)
         } else {
@@ -101,21 +117,27 @@ const processTelegramLinks = (container: HTMLElement) => {
         }
     })
 
-
     setTimeout(() => {
         const iframes = container.querySelectorAll('iframe')
-        iframes.forEach(iframe => {
+        iframes.forEach((iframe) => {
             iframe.setAttribute('height', '600')
-            iframe.style.height = '600px'
+            iframe.style.height = '530px'
+
+            // backgroundColor iframe ichida ishlamasligi mumkin, lekin container uchun:
+            const containerDiv = iframe.parentElement
+            if (containerDiv) {
+                containerDiv.style.backgroundColor = dark ? '#1e293b' : '#e2e8f0'
+            }
         })
     }, 500)
 }
+
 
 const postDetail = async (type: 'n' | 'r', id: string) => {
     try {
         detailPost.value = await newsdetail(type, id)
         tags.value = detailPost.value.tags
-        tagsArray.value = tags.value ? tags.value.split(",") : []
+        tagsArray.value = tags.value ? tags.value.split(',') : []
 
         nextTick(() => {
             const contentElement = document.querySelector('.news-content') as HTMLElement
@@ -124,16 +146,14 @@ const postDetail = async (type: 'n' | 'r', id: string) => {
             }
         })
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
 
-
 const telegramShare = async (type: 'n' | 'r', id: string) => {
     shareLink.value = `https://fargona24.uz/${type}/${id}`
-    console.log(shareLink.value);
-
 }
+
 onMounted(async () => {
     const type = route.params.type as 'n' | 'r'
     const id = route.params.id as string
@@ -155,8 +175,6 @@ watch(
     },
     { immediate: true }
 )
-
-
 </script>
 
 <template>
@@ -209,7 +227,7 @@ watch(
                         class=" w-full md:h-[650px] h-[400px] rounded-xl ">
                 </div>
                 <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
-                <div class="prose sm:ml-12 prose-lg max-w-none news-content" v-html="detailPost.info"></div>
+                <div :class="contentClass" class="md:ml-12 " v-html="detailPost.info"></div>
 
                 <!-- Tags Content -->
                 <div
@@ -294,7 +312,67 @@ watch(
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+   
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode styles for news content */
+.dark-content {
+    background-color: #1e293b;
+    /* slate-800 */
+    color: #e2e8f0;
+    /* slate-200 */
+    
+}
+
+/* Dark mode styles for links */
+.dark-content a {
+    color: #60a5fa;
+    /* blue-400 */
+}
+
+.dark-content a:hover {
+    color: #93c5fd;
+    /* blue-300 */
+}
+
+/* Dark mode styles for blockquotes */
+.dark-content blockquote {
+    background: #0f172a;
+    /* slate-900 */
+    border-left: 6px solid #1e40af;
+    /* blue-800 */
+    color: #cbd5e1;
+    /* slate-300 */
+}
+
+.dark-content blockquote::before,
+.dark-content blockquote::after {
+    color: #1e40af;
+    /* blue-800 */
+}
+
+/* Dark mode styles for code */
+.dark-content pre {
+    background-color: #0f172a;
+    /* slate-900 */
+}
+
+.dark-content code {
+    background-color: #1e293b;
+    /* slate-800 */
+}
+
+/* Dark mode styles for tables */
+.dark-content th {
+    background-color: #1e293b;
+    /* slate-800 */
+}
+
+.dark-content th,
+.dark-content td {
+    border: 1px solid #334155;
+    /* slate-700 */
 }
 
 /* Barcha linklar umumiy */
@@ -326,6 +404,11 @@ watch(
     font-weight: 600;
 }
 
+.dark-content a[href*="t.me"],
+.dark-content a[href*="telegram.me"] {
+    color: #e2e8f0;
+    /* slate-200 */
+}
 
 /* Facebook link */
 .news-content a[href*="facebook.com"] {
@@ -336,6 +419,11 @@ watch(
     text-decoration: none;
     margin: 6px 0;
     font-weight: 600;
+}
+
+.dark-content a[href*="facebook.com"] {
+    color: #e2e8f0;
+    /* slate-200 */
 }
 
 .news-content a[href*="facebook.com"]:hover {
@@ -354,11 +442,23 @@ watch(
     padding-bottom: 0.25rem;
 }
 
+.dark-content h1 {
+    color: #f1f5f9;
+    /* slate-100 */
+    border-bottom: 2px solid #334155;
+    /* slate-700 */
+}
+
 .news-content h2 {
     font-size: 1.5rem;
     font-weight: 600;
     margin: 1.2rem 0 0.8rem;
     color: #1f2937;
+}
+
+.dark-content h2 {
+    color: #f1f5f9;
+    /* slate-100 */
 }
 
 .news-content h3 {
@@ -367,6 +467,11 @@ watch(
     margin: 1rem 0 0.6rem;
     color: #374151;
     /* gray-700 */
+}
+
+.dark-content h3 {
+    color: #e2e8f0;
+    /* slate-200 */
 }
 
 /* Paragraphs */
@@ -453,6 +558,45 @@ watch(
     line-height: 1;
 }
 
+.dark-content blockquote {
+    position: relative;
+    border-left: 6px solid #aeaeae;
+    background: #374151;
+    padding: 2rem 2rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #e2e8f0;
+    /* Tailwind gray-700 */
+    font-size: 1rem;
+    line-height: 1.75rem;
+    border-radius: 0.5rem;
+}
+.dark-content blockquote::before {
+    content: "“";
+    /* Ochuvchi qo‘shtirnoq */
+    font-size: 4rem;
+    color: #aeaeae;
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.dark-content blockquote::after {
+    content: "”";
+    /* Yopuvchi qo‘shtirnoq */
+    font-size: 4rem;
+    color: #aeaeae;
+    position: absolute;
+    bottom: -20px;
+    right: 20px;
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+
+
 /* Code */
 .news-content pre {
     background-color: #f3f4f6;
@@ -495,6 +639,11 @@ watch(
     margin: 2rem 0;
 }
 
+.dark-content hr {
+    border-top: 1px solid #334155;
+    /* slate-700 */
+}
+
 /* Video / iframe */
 .news-content iframe,
 .news-content video {
@@ -514,10 +663,20 @@ watch(
     align-items: center;
 }
 
+.dark-content .tags {
+    border-top: 1px dashed #334155;
+    /* slate-700 */
+}
+
 .news-content .tags span.label {
     font-weight: 600;
     color: #6b7280;
     /* gray-500 */
+}
+
+.dark-content .tags span.label {
+    color: #94a3b8;
+    /* slate-400 */
 }
 
 .news-content .tags .tag {
@@ -529,7 +688,19 @@ watch(
     transition: background 0.3s;
 }
 
+.dark-content .tags .tag {
+    background-color: #334155;
+    /* slate-700 */
+    color: #e2e8f0;
+    /* slate-200 */
+}
+
 .news-content .tags .tag:hover {
     background-color: #e5e7eb;
+}
+
+.dark-content .tags .tag:hover {
+    background-color: #475569;
+    /* slate-600 */
 }
 </style>

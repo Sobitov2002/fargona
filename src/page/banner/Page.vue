@@ -110,7 +110,7 @@ const modules = [FreeMode, Pagination, Autoplay]
     <div class="max-w-[1250px] mx-auto  sm:px-6  pt-6 p-4 ">
 
         <div v-if="isLoading"
-            class="grid md:grid-cols-2 grid-cols-1 gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl min-h-[300px] items-center">
+            class="grid md:grid-cols-2 grid-cols-1 gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl min-h-[300px] items-center">
             <div class="space-y-4">
                 <Skeleton class="w-full h-24 bg-gray-300 dark:bg-gray-700 rounded-2xl" />
                 <Skeleton class="w-full h-24 bg-gray-300 dark:bg-gray-700 rounded-2xl" />
@@ -151,7 +151,7 @@ const modules = [FreeMode, Pagination, Autoplay]
             </div>
 
 
-            <div class=" bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+            <div class=" bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden">
                 <h1
                     class="text-xl text-slate-900 py-3 dark:text-white px-4 border-b font-bold border-slate-200 dark:border-slate-500">
                     {{mainText?.title}}

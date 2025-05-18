@@ -54,7 +54,7 @@ const mainText = computed(() => {
             text_6: 'Ism Familya',
             text_7: 'Telefon raqam',
             text_8: 'Xabaringizni yuboring',
-            text_9: 'Xabarni yuvorish',
+            text_9: 'Xabarni yuborish',
         };
     }
     if (store.lang === 'ru') {
@@ -113,7 +113,7 @@ const submitForm = async () => {
 </script>
 <template>
     <div class="p-5  max-w-[1250px] mx-auto">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-5">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-5">
             <!-- Contact Info Cards -->
             <div class=" rounded-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Address Card -->
@@ -139,7 +139,7 @@ const submitForm = async () => {
                 </div>
 
                 <!-- Phone Card -->
-                <div class="bg-gray-100 dark:bg-gray-900 p-6 rounded-2xl shadow-sm">
+                <div class="bg-gray-100 dark:bg-slate-900 p-6 rounded-2xl shadow-sm">
                     <h2 class="text-lg font-semibold text-gray-800  dark:text-slate-200 mb-4 flex items-center">
                         <div class="w-1 h-5 bg-blue-500 mr-2"></div>
                         {{mainText?.text_2}}
@@ -160,7 +160,7 @@ const submitForm = async () => {
                 </div>
 
                 <!-- Social Card -->
-                <div class="bg-gray-100 dark:bg-gray-900 p-6 rounded-2xl shadow-sm">
+                <div class="bg-gray-100 dark:bg-slate-900 p-6 rounded-2xl shadow-sm">
                     <h2 class="text-lg font-semibold text-gray-800  dark:text-slate-200 mb-4 flex items-center">
                         <div class="w-1 h-5 bg-blue-500 mr-2"></div>
                         {{mainText?.text_3}}
@@ -189,28 +189,28 @@ const submitForm = async () => {
                     <!-- Name Input -->
                     <div class="md:col-span-1">
                         <input type="text" v-model="formData.name" :placeholder="mainText?.text_6"
-                            class="w-full dark:text-slate-200 p-3 bg-gray-200 dark:bg-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+                            class="w-full dark:text-slate-200 p-3 bg-gray-200 dark:bg-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
                             required />
                     </div>
 
                     <!-- Phone Input -->
                     <div class="md:col-span-1">
                         <input type="tel" v-model="formData.phone" :placeholder="mainText?.text_7"
-                            class="w-full dark:text-slate-200  p-3 bg-gray-200 dark:bg-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+                            class="w-full dark:text-slate-200  p-3 bg-gray-200 dark:bg-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
                             required />
                     </div>
 
                     <!-- Message Textarea -->
                     <div class="md:col-span-2">
                         <textarea v-model="formData.message" :placeholder="mainText?.text_8" rows="6"
-                            class="w-full p-3 bg-gray-200 dark:text-slate-200 dark:bg-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+                            class="w-full p-3 bg-gray-200 dark:text-slate-200 dark:bg-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
                             required></textarea>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="md:col-span-2 ">
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-600 dark:bg-gray-900 dark:text-slate-200 text-white font-semibold py-3 px-8 rounded-xl  border-none transition-colors">
+                            class="bg-blue-500 hover:bg-blue-600 dark:bg-slate-900 dark:text-slate-200 text-white font-semibold py-3 px-8 rounded-xl  border-none transition-colors">
                             {{mainText?.text_9}}
                         </button>
                     </div>
