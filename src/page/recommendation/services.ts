@@ -2,7 +2,7 @@ import api from '@/services/apiServices'
 import { useLangStore } from '@/stores/lang';
 
 
-const categorydetail = async (page = 1) => {
+const categorydetail = async (page:number) => {
   const store = useLangStore()
   try {
     const response = await api.get(`/all-rec?lang=${store.lang}&page=${page}`)

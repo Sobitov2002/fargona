@@ -25,9 +25,9 @@ const route = useRoute()
 const page = ref(1)
 
 
-const postDetail = async (id: string, pageNum: number) => {
+const postDetail = async (pageNum: number) => {
     try {
-        const response = await categorydetail(id, pageNum)
+        const response = await categorydetail( pageNum)
         detailPost.value = response
         // console.log("Detail data:", response)
     } catch (error) {
@@ -46,7 +46,7 @@ const mainText = computed(() => {
 const loadPage = async (pageNum: number) => {
     const id = route.params.id as string
     page.value = pageNum
-    await postDetail(id, pageNum)
+    await postDetail( pageNum)
 }
 
 onMounted(() => {

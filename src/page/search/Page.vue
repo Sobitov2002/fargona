@@ -6,15 +6,20 @@ import { searchDetail } from './services'
 import { Skeleton } from '@/components/ui/skeleton'
 
 
-interface Category {
-    id: number
-    name: string
-    date: string
-    photo?: string
+interface NewsItem {
+    id: number;
+    name: string;
+    date: string;
+    photo?: string;
+    category: {
+        id: number;
+        name: string;
+    };
+    category_id: number;
 }
 
 interface CategoryDetailResponse {
-    data: Category[]
+    
     [key: string]: any
 }
 
@@ -81,7 +86,7 @@ const idSetcategory = (id: string) => {
                                     class="w-full md:h-30 h-22 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link @click.prevent="idSetcategory(category.category_id)"
+                                <router-link @click.prevent="idSetcategory(category.category.id.toString())"
                                     :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
                                         class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 dark:text-slate-200 dark:hover:text-white hover:text-gray-700">
