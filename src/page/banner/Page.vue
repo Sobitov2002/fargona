@@ -15,7 +15,7 @@ import { Autoplay, FreeMode, Pagination } from 'swiper/modules'
  }
  
 const lastNews = ref<any[]>([])
-const recNews = ref<Recnews[]>([])
+const recNews = ref<Recnews>({ photo: '' })
 const lsNews = ref<any>(null)
 const isLoading = ref(true)
 const store = useLangStore()

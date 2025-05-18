@@ -25,7 +25,7 @@ const route = useRoute()
 const page = ref(1)
 
 
-const postDetail = async (id: string, pageNum = 1) => {
+const postDetail = async (id: string, pageNum: number) => {
     try {
         const response = await categorydetail(id, pageNum)
         detailPost.value = response

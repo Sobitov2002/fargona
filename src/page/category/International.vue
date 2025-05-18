@@ -3,7 +3,33 @@ import { getInternationalNews } from './service'
 import { onMounted, ref, computed ,watch } from 'vue'
 import { Skeleton } from "@/components/ui/skeleton"
 import { useLangStore } from '@/stores/lang'
+import { useHead } from '@vueuse/head'
 
+useHead({
+    title: "Fargʻona24 fargona24",
+    meta: [
+        {
+            name: 'description',
+            content: "Fargʻona24 bilan bogʻlanish uchun bizning aloqa maʼlumotlarimiz. Taklif va fikr-mulohazalaringizni yuborishingiz mumkin."
+        },
+        {
+            name: 'keywords',
+            content: "bogʻlanish, aloqa, Fargʻona24 kontakt, murojaat, Fargʻona yangiliklar aloqa"
+        },
+        {
+            property: "og:title",
+            content: "Bogʻlanish - Fargʻona24",
+        },
+        {
+            property: 'og:image',
+            content: 'https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401',
+        },
+        {
+            property: 'og:url',
+            content: 'https://fargona24.uz/contact',
+        }
+    ]
+})
 const store = useLangStore()
 
 

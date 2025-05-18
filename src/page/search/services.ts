@@ -6,6 +6,8 @@ const searchDetail = async (text:string) =>{
 const store = useLangStore()
     try {
         const response = await api.get(`/search?search=${text}&lang=${store.lang}`)
+        console.log("Search", response.data);
+        
         return response.data
     } catch (error) {
         console.log(error);

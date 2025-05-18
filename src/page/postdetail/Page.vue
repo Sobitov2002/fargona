@@ -68,7 +68,8 @@ useHead({
     ],
 })
 
-const allRecData = ref<any[]>([])
+const allRecData = ref<{ data: any[] } | null>(null)
+
 const lastNewsCategoryData = ref<any[]>([])
 
 const loadAllRec = async () => {
@@ -177,22 +178,18 @@ watch(
 )
 
 const mainText = computed(() => {
-    if (store.lang === 'uz') {
-        return {
-            title: 'Teglar',
-        };
-    }
-    if (store.lang === 'ru') {
-        return {
-            title: 'Теги',
-        };
-    }
-    if (store.lang === 'kr') {
-        return {
-            title: 'Теглар',
-        };
-    }
-});
+  if (store.lang === 'uz') {
+    return { title: 'Teglar' }
+  }
+  if (store.lang === 'ru') {
+    return { title: 'Теги' }
+  }
+  if (store.lang === 'kr') {
+    return { title: 'Теглар' }
+  }
+  return { title: '' } // default qiymat
+})
+
 </script>
 
 <template>
@@ -251,7 +248,8 @@ const mainText = computed(() => {
                 <div
                     class="flex sm:ml-12 flex-wrap gap-3 p-4 bg-white dark:bg-gray-800 dark:text-slate-200 rounded-lg ">
                     {{ mainText.title }}:
-                    <span v-for="(tag, index) in tagsArray" :key="index" class="inline-flex items-center bg-slate-100 text-gray-800 dark:bg-slate-900 dark:text-slate-200 text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none transition-transform transform hover:scale-110 hover:shadow-2xl">
+                    <span v-for="(tag, index) in tagsArray" :key="index"
+                        class="inline-flex items-center bg-slate-100 text-gray-800 dark:bg-slate-900 dark:text-slate-200 text-sm font-semibold px-4 py-1 rounded-xl shadow-lg cursor-default select-none transition-transform transform hover:scale-110 hover:shadow-2xl">
                         #{{ tag }}
                     </span>
                 </div>
@@ -279,7 +277,8 @@ const mainText = computed(() => {
             </div>
         </div>
         <div class="max-w-[1250px] mx-auto lg:p-6">
-            <Recommendation :items="allRecData.data" :categoryId="1" title="Barcha tavsiya etilgan yangiliklar" />
+            <Recommendation v-if="allRecData" :items="allRecData.data" :categoryId="1"
+                title="Barcha tavsiya etilgan yangiliklar" />
             <Recommendation :items="lastNewsCategoryData" :categoryId="2"
                 title="So‘nggi yangiliklar kategoriya bo‘yicha" />
         </div>

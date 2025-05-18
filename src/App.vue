@@ -6,7 +6,7 @@ const route = useRoute();
 
 
 useHead({
-  title: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami",
+  title: "Farg'ona24 - Farg'onadagi eng tezkor yangiliklar olami",
   meta: [
     {
       name: 'description',

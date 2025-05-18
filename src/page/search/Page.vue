@@ -46,6 +46,11 @@ watch([() => store.lang, () => route.query.q], async () => {
     await postDetail(id)
 }, { immediate: true })
 
+
+const idSetcategory = (id: string) => {
+    localStorage.setItem('selectedCategoryId', id.toString());
+    console.log('Selected category ID saved:', id);
+};
 </script>
 
 <template>
@@ -53,15 +58,16 @@ watch([() => store.lang, () => route.query.q], async () => {
         <div>
             <div v-if="!detailPost || !detailPost.data || detailPost.data.length === 0"
                 class="text-center py-10 text-lg flex justify-center  ">
-                <div class="bg-white flex items-center justify-center  w-full p-5 h-60">
-                    <h1 class="text-2xl   font-bold pb-1 text-[#1a2e42]">{{serchText}} - Bo'yicha ma'lumot topilmadi !
+                <div class="bg-white dark:bg-slate-800 flex items-center justify-center  w-full p-5 h-60">
+                    <h1 class="text-2xl   font-bold pb-1 text-[#1a2e42] dark:text-slate-200">{{serchText}} - Bo'yicha
+                        ma'lumot topilmadi !
                     </h1>
                 </div>
             </div>
-
-            <div v-else class="bg-white rounded-xl border-slate-200 p-4">
-                <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
-                    <h1 class="md:text-2xl text-lg  font-bold pb-1 text-[#1a2e42]">"{{serchText}}"-bo'yicha natijalar
+            <div v-else class="bg-white dark:bg-slate-800 rounded-xl border-slate-200 p-4">
+                <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42] dark:border-slate-200">
+                    <h1 class="md:text-2xl text-lg  font-bold pb-1 text-[#1a2e42] dark:text-slate-200">
+                        "{{serchText}}"-bo'yicha natijalar
                         soni: {{detailPost.data.length}} </h1>
 
                 </div>
@@ -75,13 +81,14 @@ watch([() => store.lang, () => route.query.q], async () => {
                                     class="w-full md:h-30 h-22 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
+                                <router-link @click.prevent="idSetcategory(category.category_id)"
+                                    :to="`/news/n/${category.id}`" class="block cursor-pointer">
                                     <h2
-                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 hover:text-gray-700">
+                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 dark:text-slate-200 dark:hover:text-white hover:text-gray-700">
                                         {{ category.name }}
                                     </h2>
                                 </router-link>
-                                <p class="text-sm text-gray-800">{{ category.date }}</p>
+                                <p class="text-sm text-gray-800 dark:text-slate-200 ">{{ category.date }}</p>
                             </div>
                         </div>
                     </div>

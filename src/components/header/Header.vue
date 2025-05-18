@@ -114,9 +114,7 @@ const saveCategoryId = (id: number) => {
                     <Search v-if="!isSearchOpen" class="h-5 w-5" />
                     <X v-else class="h-5 w-5" />
                 </button>
-                <div class="block md:hidden">
-                    <DarkMode />
-                </div>
+               
                 <div class="md:block">
                     <Select v-model="selectedLang">
                         <SelectTrigger class="text-white border-none">

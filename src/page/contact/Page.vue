@@ -100,7 +100,7 @@ const submitForm = async () => {
             console.log('Form submitted successfully:', formData.value)
             // Clear the form after successful submission
             formData.value = { name: '', phone: '', message: '' }
-            alert('Message sent successfully!')
+            alert('Xabaringiz muvaffaqiyatli yuborildi!')
         } else {
             console.error('Failed to send message:', response.status)
             alert('Failed to send message, please try again.')

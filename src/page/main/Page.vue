@@ -11,7 +11,7 @@ import Recommendation from '../recommendation/Page.vue'
 import { fetchAllRec } from '@/page/postdetail/services'
 
 
-const allRecData = ref<any[]>([])
+const allRecData = ref<{ data: any[] } | null>(null)
 
 const loadAllRec = async () => {
    allRecData.value = await fetchAllRec(1)
@@ -29,6 +29,7 @@ onMounted(() => {
    <Tech />
    <InterviewVideo />
    <div class="p-5">
-      <Recommendation :items="allRecData.data" :categoryId="1" title="Barcha tavsiya etilgan yangiliklar" />
+      <Recommendation v-if="allRecData" :items="allRecData.data" :categoryId="1"
+         title="Barcha tavsiya etilgan yangiliklar" />
    </div>
 </template>

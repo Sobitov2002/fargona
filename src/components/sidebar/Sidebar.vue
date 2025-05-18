@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, onMounted } from 'vue';
+import { watch, ref, onMounted, computed } from 'vue';
 import { useSidebarStore } from '@/stores/sidebarStore';
 import Logo from '@/components/ui/Logo.vue';
 import { getSidebar } from './services';
@@ -48,6 +48,13 @@ const updateMainText = () => {
         mainText.value = 'Асосий';
     }
 };
+const searchPlaceholder = computed(() => {
+    if (store.lang === 'uz') return "Tungi ko'rinish";
+    if (store.lang === 'ru') return 'Ночной режим';
+    if (store.lang === 'kr') return 'Тунги куриниш';
+    return 'Qidirish...';
+});
+
 onMounted(async () => {
     await getSidebarItem()
     updateMainText();
@@ -145,7 +152,11 @@ const saveCategoryId = (id: number) => {
                         </li>
                     </h1>
                 </ul>
-            
+
+                <div class="flex md:hidden justify-between border-t border-slate-200 py-2 ml-3 items-center ">
+                    <span class="text-slate-200 font-bold ">{{ searchPlaceholder }}</span>
+                    <DarkMode />
+                </div>
             </div>
 
 
