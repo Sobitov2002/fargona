@@ -224,10 +224,10 @@ watch(
                 <!-- Article Image -->
                 <div v-if="detailPost.photo" class="mb-6 sm:ml-12 flex justify-center">
                     <img :src="`https://fargona24.uz/storage/${detailPost.photo}`" :alt="detailPost.name"
-                        class=" w-full md:h-[650px] h-[400px] rounded-xl ">
+                        class=" w-full md:h-[650px] h-[400px] rounded-xl "  loading="lazy">
                 </div>
                 <!-- Instead of using a custom directive, we'll just use v-html and process it after render -->
-                <div :class="contentClass" class="md:ml-12 " v-html="detailPost.info"></div>
+                <div :class="contentClass" class="sm:ml-12 " v-html="detailPost.info"></div>
 
                 <!-- Tags Content -->
                 <div
@@ -261,7 +261,7 @@ watch(
 
             </div>
         </div>
-        <div class="max-w-[1250px] mx-auto">
+        <div class="max-w-[1250px] mx-auto lg:p-6">
             <Recommendation :items="allRecData.data" :categoryId="1" title="Barcha tavsiya etilgan yangiliklar" />
             <Recommendation :items="lastNewsCategoryData" :categoryId="2"
                 title="So‘nggi yangiliklar kategoriya bo‘yicha" />

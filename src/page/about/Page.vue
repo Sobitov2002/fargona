@@ -99,7 +99,7 @@ const mainText = computed(() => {
             <div class="flex flex-col md:flex-row items-start gap-8">
                 <div class="md:w-1/2">
                     <img src="https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401"
-                        alt="Farg'ona24 Office" class="w-full rounded-xl " />
+                        alt="Farg'ona24 Office" class="w-full rounded-xl " loading="lazy" />
                 </div>
                 <div class="md:w-1/2 items-center flex-col">
                     <h2 class="text-4xl font-bold text-gray-800 dark:text-slate-200 mb-4">{{ mainText?.text_1 }}</h2>
@@ -159,9 +159,10 @@ const mainText = computed(() => {
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div v-for="member in aboutData" :key="member.id" class="border rounded-xl dark:bg-slate-900 border-gray-200 dark:border-none">
+                <div v-for="member in aboutData" :key="member.id"
+                    class="border rounded-xl dark:bg-slate-900 border-gray-200 dark:border-none">
                     <img :src="`https://fargona24.uz/storage/${member.image}`" :alt="member.name"
-                        class="w-full md:h-80 h-72 object-cover object-center rounded-t-xl" />
+                        class="w-full md:h-80 h-72 object-cover object-center rounded-t-xl" loading="lazy" />
                     <div class="p-4">
                         <h3 class="font-bold text-gray-800 dark:text-slate-200">{{ member.name }}</h3>
                         <p class="text-gray-600  dark:text-slate-200 text-sm">{{ member.role }}</p>

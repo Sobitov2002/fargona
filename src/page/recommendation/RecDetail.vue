@@ -76,7 +76,7 @@ watch([() => store.lang, () => route.params.id], () => {
                 </div>
             </div>
 
-            <div v-else class="bg-white rounded-xl border-slate-200 p-4">
+            <div v-else class="bg-white dark:bg-slate-800 rounded-xl border-slate-200 p-4">
                 <div class="flex justify-between border-b-2 mb-6 border-[#1a2e42]">
                     <h1 class="text-2xl font-bold pb-1 text-[#1a2e42]">{{ mainText }}</h1>
                 </div>
@@ -86,17 +86,17 @@ watch([() => store.lang, () => route.params.id], () => {
                         class="flex-none overflow-hidden transition-transform">
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4 flex-shrink-0">
-                                <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.title"
-                                    class="w-full h-30 rounded-xl object-cover">
+                                <img :src="`https://fargona24.uz/storage/${category.photo}`"  loading="lazy"
+                                    :alt="category.title" class="w-full h-30 rounded-xl object-cover">
                             </div>
                             <div class="w-2/3 p-2">
-                                <router-link  :to="`/news/r/${category.id}`" class="block cursor-pointer">
+                                <router-link :to="`/news/r/${category.id}`" class="block cursor-pointer">
                                     <h2
-                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 hover:text-gray-700">
+                                        class="lg:text-xl text-lg font-bold mb-1 line-clamp-2 text-gray-800 dark:text-slate-200 hover:text-gray-700 dark:hover:text-white">
                                         {{ category.title }}
                                     </h2>
                                 </router-link>
-                                <p class="text-sm text-gray-800">{{ category.date }}</p>
+                                <p class="text-sm text-gray-800 dark:text-slate-200">{{ category.date }}</p>
                             </div>
                         </div>
                     </div>
@@ -105,15 +105,15 @@ watch([() => store.lang, () => route.params.id], () => {
 
                 <div class="flex justify-center mt-6 space-x-2">
                     <button @click="loadPage(page - 1)" :disabled="page === 1"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Orqaga</button>
+                        class="px-3 dark:text-slate-200 py-1 border cursor-pointer rounded disabled:opacity-50">Orqaga</button>
 
                     <button v-for="p in detailPost.last_page" :key="p" @click="loadPage(p)"
-                        :class="['px-3 py-1 border rounded', { 'bg-blue-500 text-white': p === page }]">
+                        :class="['px-3 py-1  rounded', { 'bg-blue-500 dark:bg-slate-900 text-white dark:text-slate-200 ': p === page }]">
                         {{ p }}
                     </button>
 
                     <button @click="loadPage(page + 1)" :disabled="page === detailPost.last_page"
-                        class="px-3 py-1 border rounded disabled:opacity-50">Oldinga</button>
+                        class="px-3 dark:text-slate-200 py-1 border cursor-pointer rounded disabled:opacity-50">Oldinga</button>
                 </div>
             </div>
         </div>

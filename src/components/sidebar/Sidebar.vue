@@ -6,6 +6,7 @@ import { getSidebar } from './services';
 import { useLangStore } from '@/stores/lang';
 import { useRouter } from 'vue-router'
 import { Menu } from 'lucide-vue-next'
+import DarkMode from '@/components/ui/DarkMode.vue'
 
 const router = useRouter()
 const sidebarRef = ref<HTMLElement | null>(null);
@@ -144,7 +145,10 @@ const saveCategoryId = (id: number) => {
                         </li>
                     </h1>
                 </ul>
+            
             </div>
+
+
 
             <!-- Footer -->
             <div class="mt-auto pt-4 border-t border-white/10">

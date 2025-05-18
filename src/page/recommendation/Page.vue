@@ -143,7 +143,7 @@ const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString();
                 :breakpoints="{ 640: { slidesPerView: 1.5 }, 768: { slidesPerView: 3 } }">
                 <SwiperSlide v-for="(item, index) in normalizedItems" :key="index"
                     class="relative rounded-2xl overflow-hidden shadow-sm group h-60 sm:h-56">
-                    <img :src="`https://fargona24.uz/storage/${item.photo}`" :alt="item.title"
+                    <img :src="`https://fargona24.uz/storage/${item.photo}`"  loading="lazy" :alt="item.title"
                         class="w-full h-60 object-cover transition-transform rounded-2xl duration-500 group-hover:scale-105" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div class="absolute bottom-0 left-0 w-full p-3">

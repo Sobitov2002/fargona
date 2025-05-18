@@ -122,7 +122,7 @@ const modules = [FreeMode, Pagination, Autoplay]
         <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="flex flex-col gap-6">
                 <div v-if="lsNews" class="relative rounded-xl overflow-hidden shadow-md group">
-                    <img :src="`https://fargona24.uz/storage/${lsNews.photo}`" :alt="lsNews.name"
+                    <img :src="`https://fargona24.uz/storage/${lsNews.photo}`" loading="lazy" :alt="lsNews.name"
                         class="w-full h-[360px] sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div class="absolute bottom-0 left-0 w-full p-4">
@@ -145,7 +145,7 @@ const modules = [FreeMode, Pagination, Autoplay]
                 <div class=" overflow-hidden">
                     <div class="w-full ">
                         <img class="w-full h-[360px] rounded-xl" :src="`https://fargona24.uz/storage/${recNews.photo}`"
-                            alt="Reklama uchun joy...">
+                            alt="Reklama uchun joy..." loading="lazy">
                     </div>
                 </div>
             </div>

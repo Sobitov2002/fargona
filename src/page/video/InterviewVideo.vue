@@ -112,7 +112,8 @@ const mainText = computed(() => {
                     @click="playVideo(item.link)">
                     <!-- Video Thumbnail -->
                     <img :src="`https://fargona24.uz/storage/${item.image}`" :alt="item.name"
-                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-105"
+                         loading="lazy" />
 
                     <!-- Play Button Overlay -->
                     <div

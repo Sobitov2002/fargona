@@ -120,7 +120,7 @@ watch([() => store.lang, () => route.params.id], () => {
                         <div class="flex h-full cursor-pointer">
                             <div v-if="category.photo" class="w-1/4 flex-shrink-0">
                                 <img :src="`https://fargona24.uz/storage/${category.photo}`" :alt="category.name"
-                                    class="w-full md:h-30 h-22 rounded-xl object-cover">
+                                    class="w-full md:h-30 h-22 rounded-xl object-cover" loading="lazy">
                             </div>
                             <div class="w-2/3 p-2">
                                 <router-link :to="`/news/n/${category.id}`" class="block cursor-pointer">
