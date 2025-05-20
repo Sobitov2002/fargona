@@ -37,6 +37,7 @@ const getSidebarItem = async () =>{
 }
 
 const mainText = ref('Asosiy');
+const mainText2 = ref("Reklama bo'limi");
 
 // Tilga qarab matnni o‘zgartirish
 const updateMainText = () => {
@@ -47,13 +48,20 @@ const updateMainText = () => {
     } else if (store.lang === 'kr') {
         mainText.value = 'Асосий';
     }
+    if (store.lang === 'uz') {
+        mainText2.value = "Reklama bo'limi";
+    } else if (store.lang === 'ru') {
+        mainText2.value = 'Рекламный отдел';
+    } else if (store.lang === 'kr') {
+        mainText2.value = 'Реклама бўлими';
+    }
 };
-const searchPlaceholder = computed(() => {
-    if (store.lang === 'uz') return "Tungi ko'rinish";
-    if (store.lang === 'ru') return 'Ночной режим';
-    if (store.lang === 'kr') return 'Тунги куриниш';
-    return 'Qidirish...';
-});
+// const searchPlaceholder = computed(() => {
+//     if (store.lang === 'uz') return "Tungi ko'rinish";
+//     if (store.lang === 'ru') return 'Ночной режим';
+//     if (store.lang === 'kr') return 'Тунги куриниш';
+//     return 'Qidirish...';
+// });
 
 onMounted(async () => {
     await getSidebarItem()
@@ -150,13 +158,30 @@ const saveCategoryId = (id: number) => {
                                 class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full">
                             </div>
                         </li>
+                        <li class="relative">
+                            <button @click="setActive(null)"
+                                class="group flex items-left gap-3 px-3 py-2.5 rounded-lg transition-all duration-200"
+                                :class="{
+                                    'bg-[#1E3D4E] text-white': activeItem === null,
+                                    'text-gray-300 hover:bg-[#1E3D4E]/50 hover:text-white': activeItem !== null
+                                }">
+                                <a href="https://t.me/FarAdmin24" target="_blank" rel="noopener noreferrer"
+                                    class="flex-1 font-bold text-md">
+                                    {{ mainText2 }}
+                                </a>
+                            </button>
+                            <!-- Active indicator -->
+                            <div v-if="activeItem === null"
+                                class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full">
+                            </div>
+                        </li>
                     </h1>
                 </ul>
 
-                <div class="flex md:hidden justify-between border-t border-slate-200 py-2 ml-3 items-center ">
+                <!-- <div class="flex md:hidden justify-between border-t border-slate-200 py-2 ml-3 items-center ">
                     <span class="text-slate-200 font-bold ">{{ searchPlaceholder }}</span>
                     <DarkMode />
-                </div>
+                </div> -->
             </div>
 
 

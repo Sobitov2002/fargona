@@ -25,7 +25,7 @@ const mainText = computed(() => {
             text_1: 'Biz haqimizda',
             text_2: "Bog`lanish",
             text_3: "Tahririyat manzili: 150606, Farg`ona viloyati Farg`ona shahri",
-            text_4: "Farg'ona24 2019-yil 15-iyunda ishga tushgan o'zbek tilidagi eng faol internet-nashrlardan biri. Muassis: 'SAMANDAR FARG'ONA24' MCHJ. 'FARGONA24.UZ' saytida e'lon qilingan materiallardan nusxa ko'chirish, tarqatish va boshqa shakllarda foydalanish faqat tahririyat yozma roziligi bilan  amalga oshirilishi mumkin. Tahririyat manzili: 150606, Farg'ona viloyati Farg'ona shahri Elektron manzil: info@fargona24.uz',",  
+            text_4: `Fargʻona24 2019-yil 15-iyunda ishga tushgan oʻzbek tilidagi eng faol internet-nashrlardan biri.  Muassis:  „SAMANDAR FARGʻONA24“ MCHJ. "FARGʻONA.UZ" saytida eʼlon qilingan materiallardan nusxa koʻchirish, tarqatish va boshqa shakllarda foydalanish faqat tahririyat yozma roziligi bilan amalga oshirilishi mumkin. Tahririyat manzili: 150606, Farg'ona viloyati Farg'ona shahri Elektron manzil: info@fargona24.uz Saytda eʼlon qilinayotgan mualliflik maqolalarida keltirilgan fikrlar muallifga tegishli va ular Fargona24.uz tahririyati nuqtayi nazarini ifoda etmasligi mumkin. Ⓣ - maqola va materiallarda qo‘yilgan mazkur belgi ularning tijorat va reklama huquqlari asosida eʼlon qilinganligini bildiradi.`,  
             text_5: 'Bizni ijtimoiy tarmoqlarda kuzatib boring',
             text_6: "Farg'ona viloyati yangiliklari va ma'lumotlari"
         };
@@ -35,7 +35,7 @@ const mainText = computed(() => {
             text_1: 'О нас',
             text_2: 'Связаться с нами',
             text_3: 'Адрес редакции: 150606, Ферганская область, город Фергана',
-            text_4: 'Farg‘ona24 — один из самых активных интернет-изданий на узбекском языке, начавший работу 15 июня 2019 года. Учредитель: ООО "SAMANDAR FARG‘ONA24". Копирование, распространение и иное использование материалов, опубликованных на сайте "FARGONA24.UZ", возможно только с письменного разрешения редакции. Адрес редакции: 150606, Ферганская область, город Фергана. Электронная почта: info@fargona24.uz',
+            text_4: `Fargʻona24 был запущен 15 июня 2019 года и является одним из самых активных интернет-изданий на узбекском языке. Учредитель: ООО «SAMANDAR FARGʻONA24». Копирование, распространение и иное использование материалов, опубликованных на сайте "FARGʻONA.UZ", допускается только с письменного разрешения редакции. Адрес редакции: 150606, Ферганская область, город Фергана. Электронная почта: info@fargona24.uz. Мнения, выраженные в авторских статьях, опубликованных на сайте, принадлежат их авторам и не обязательно отражают точку зрения редакции Fargona24.uz. Ⓣ — данный символ в статьях и материалах указывает на то, что они опубликованы на коммерческой или рекламной основе.`,
             text_5: 'Следите за нами в социальных сетях',
             text_6:"Новости и информация Ферганской области"
         };
@@ -45,7 +45,7 @@ const mainText = computed(() => {
             text_1: 'Биз ҳақимизда',
             text_2: 'Боғланиш',
             text_3: "Таҳририят манзили: 150606, Фарғона вилояти, Фарғона шаҳри",
-            text_4: "Фарғона24 2019-йил 15-июнда ишга тушган ўзбек тилидаги энг фаол интернет-нашрлардан бири. Муассис: 'SAMANDAR FARG‘ONA24' МЧЖ. 'FARGONA24.UZ' сайтида эълон қилинган материаллардан нусха кўчириш, тарқатиш ва бошқа шаклларда фойдаланиш фақат таҳририят ёзма розилиги билан амалга оширилиши мумкин. Таҳририят манзили: 150606, Фарғона вилояти, Фарғона шаҳри. Электрон манзил: info@fargona24.uz",
+            text_4: `Фарғона24 2019-йил 15-июнда ишга тушган ўзбек тилидаги энг фаол интернет-нашрлардан бири. Муассис: „SAMANDAR FARGʻONA24“ МЧЖ. "FARGʻONA.UZ" сайтида эълон қилинган материаллардан нусха кўчириш, тарқатиш ва бошқа шаклларда фойдаланиш фақат таҳририят ёзма розилиги билан амалга оширилиши мумкин. Таҳририят манзили: 150606, Фарғона вилояти Фарғона шаҳри. Электрон манзил: info@fargona24.uz. Сайтда эълон қилинаётган муаллифлик мақолаларида келтирилган фикрлар муаллифга тегишли ва улар Fargona24.uz таҳририяти нуқтаи назарини ифода этмаслиги мумкин. Ⓣ — мақола ва материалларда қўйилган мазкур белги уларнинг тижорат ва реклама ҳуқуқлари асосида эълон қилинганлигини билдиради.`,
             text_5: 'Бизни ижтимоий тармоқларда кузатиб боринг',
             text_6: "Фарғона вилояти янгиликлари ва маълумотлари"
         };
@@ -89,7 +89,7 @@ const mainText = computed(() => {
                             {{mainText?.text_3}}
                         </p>
                         <p class="text-sm text-gray-300 mt-1">
-                            info@fargona24.uz
+                            stuychiyev882@gmail.com
                         </p>
                     </div>
                 </div>

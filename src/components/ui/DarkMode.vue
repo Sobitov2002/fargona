@@ -6,7 +6,7 @@ const darkModeStore = useDarkModeStore();
 
 <template>
     <button @click="darkModeStore.toggleDarkMode"
-        class="relative flex items-center justify-center w-7 h-7 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary overflow-hidden"
+        class="relative flex items-center justify-center w-6 h-6 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary overflow-hidden"
         :class="{
             'bg-[#173044]': darkModeStore.darkMode,
             'bg-blue-100': !darkModeStore.darkMode,
