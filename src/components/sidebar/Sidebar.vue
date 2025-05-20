@@ -49,11 +49,11 @@ const updateMainText = () => {
         mainText.value = 'Асосий';
     }
     if (store.lang === 'uz') {
-        mainText2.value = "Reklama bo'limi";
+        mainText2.value = "Reklama ";
     } else if (store.lang === 'ru') {
-        mainText2.value = 'Рекламный отдел';
+        mainText2.value = 'Реклама ';
     } else if (store.lang === 'kr') {
-        mainText2.value = 'Реклама бўлими';
+        mainText2.value = 'Реклама ';
     }
 };
 // const searchPlaceholder = computed(() => {

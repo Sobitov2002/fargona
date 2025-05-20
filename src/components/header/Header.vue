@@ -41,6 +41,12 @@ const mainText = computed(() => {
     if (selectedLang.value === 'kr') return 'Асосий';
     return 'Asosiy';
 });
+const mainText2 = computed(() => {
+    if (selectedLang.value === 'uz') return 'Reklama';
+    if (selectedLang.value === 'ru') return 'Реклама';
+    if (selectedLang.value === 'kr') return 'Реклама';
+    return 'Asosiy';
+});
 
 const searchPlaceholder = computed(() => {
     if (selectedLang.value === 'uz') return 'Qidirish...';
@@ -73,21 +79,25 @@ const saveCategoryId = (id: number) => {
         <div class="max-w-[1250px] px-4 w-full mx-auto flex justify-between items-center">
             <Logo />
 
-            <div class="hidden md:block">
-                <div class="flex justify-between gap-6">
+            <div class="hidden md:block ml-4">
+                <div class="flex justify-between gap-5">
                     <p @click="router.push('/')"
-                        class="text-white hover:text-[#6489ce] text-[15px] font-sans font-bold cursor-pointer">
+                        class="text-white hover:text-[#6489ce] whitespace-nowrap text-[15px] font-sans font-bold cursor-pointer">
                         {{ mainText }}
                     </p>
 
-                    <ul class="flex justify-between gap-6 text-white text-[15px] font-sans font-bold cursor-pointer">
+                    <ul class="flex justify-between  gap-5 text-white text-[15px] font-sans font-bold cursor-pointer">
                         <li v-for="(item, index) in categories" :key="index">
-                            <router-link class="hover:text-[#6489ce]" :to="`/category/${item.id}`"
+                            <router-link class="hover:text-[#6489ce] whitespace-nowrap" :to="`/category/${item.id}`"
                                 @click="saveCategoryId(item.id)">
                                 {{ item.name }}
                             </router-link>
                         </li>
                     </ul>
+                    <p @click="router.push('/')"
+                        class="text-white hover:text-[#6489ce] whitespace-nowrap text-[15px] font-sans font-bold cursor-pointer">
+                        {{ mainText2 }}
+                    </p>
                 </div>
             </div>
 
