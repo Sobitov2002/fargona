@@ -134,7 +134,8 @@ const mainText = computed(() => {
         <!-- Stats Section - Simplified -->
         <div class="rounded-xl bg-white dark:bg-slate-800 py-12">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{ mainText?.text_6 }}
+                <h2 class="md:text-4xl text-3xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{
+                    mainText?.text_6 }}
                 </h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -169,7 +170,8 @@ const mainText = computed(() => {
 
         <div class="rounded-xl bg-white dark:bg-slate-800 py-12">
             <div class="container mx-auto px-4">
-                <h2 class="md:text-4xl text-2xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{ mainText?.text_10
+                <h2 class="md:text-4xl text-3xl font-bold text-gray-800 dark:text-slate-200 mb-6 text-center">{{
+                    mainText?.text_10
                     }}
 
                 </h2>
