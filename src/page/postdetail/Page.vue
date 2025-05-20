@@ -151,9 +151,17 @@ const postDetail = async (type: 'n' | 'r', id: string) => {
     }
 }
 
-const telegramShare = async (type: 'n' | 'r', id: string) => {
-    shareLink.value = `https://fargona24.uz/${type}/${id}`
+// const telegramShare = (type: 'n' | 'r', id: string) => {
+//     shareLink.value = `https://fargona24.uz/#/news/${type}/${id}`
+// }
+const telegramShare = (type: 'n' | 'r', id: string) => {
+    const url = `https://fargona24.uz/#/news/${type}/${id}`
+    const photoUrl = `https://fargona24.uz/storage/${detailPost.value.photo}`
+    const textToShare = `${detailPost.value.name} - Siz uchun yangilik!`
+
+    shareLink.value = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(textToShare)}`
 }
+
 
 onMounted(async () => {
     const type = route.params.type as 'n' | 'r'
@@ -203,9 +211,9 @@ const mainText = computed(() => {
                 <!-- Article Header -->
                 <div class=" sticky top-24 bottom-0 hidden   sm:flex flex-col gap-3 float-left mr-4 ">
                     <!-- Telegram Icon -->
-                    <a :href="`https://t.me/share/url?url=${shareLink}`" target="_blank" rel="noopener noreferrer"
-                        class="  flex justify-center items-center  transition">
-                        <i class="fa-brands fa-telegram text-4xl text-blue-600 "></i>
+                    <a :href="shareLink" target="_blank" rel="noopener noreferrer"
+                        class="flex justify-center items-center transition">
+                        <i class="fa-brands fa-telegram text-4xl text-blue-600"></i>
                     </a>
                     <!-- Facebook Icon -->
                     <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`"
