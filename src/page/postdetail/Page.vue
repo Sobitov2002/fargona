@@ -41,21 +41,21 @@ watch(darkMode, (newVal) => {
     localStorage.setItem('darkMode', newVal.toString())
 })
 
+
 useHead({
-    title: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami",
+    title: "Farg'ona24 - Farg'onadagi eng tezkor yangiliklar olami",
     meta: [
         {
             name: 'description',
-            content:
-                "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor",
+            content: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor"
         },
         {
             name: 'keywords',
-            content: 'Farg\'ona, Farg\'ona yangiliklari, yangiliklar, tezkor xabarlar',
+            content: " fargona24 , fargona 24 ,Farg'ona, Farg'ona yangiliklari,  yangiliklar, tezkor xabarlar, Fargona24, Farg'ona voqealari, O‘zbekiston yangiliklari"
         },
         {
-            property: 'og:title',
-            content: 'Farg\'ona 24 | Bosh sahifa',
+            property: "og:title",
+            content: "Farg'ona 24 | Bosh sahifa"
         },
         {
             property: 'og:image',
@@ -64,8 +64,8 @@ useHead({
         {
             property: 'og:url',
             content: 'https://fargona24.uz/',
-        },
-    ],
+        }
+    ]
 })
 
 const allRecData = ref<{ data: any[] } | null>(null)

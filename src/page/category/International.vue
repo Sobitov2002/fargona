@@ -4,21 +4,20 @@ import { onMounted, ref, computed ,watch } from 'vue'
 import { Skeleton } from "@/components/ui/skeleton"
 import { useLangStore } from '@/stores/lang'
 import { useHead } from '@vueuse/head'
-
 useHead({
-    title: "Fargʻona24 fargona24",
+    title: "Farg'ona24 - Farg'onadagi eng tezkor yangiliklar olami",
     meta: [
         {
             name: 'description',
-            content: "Fargʻona24 bilan bogʻlanish uchun bizning aloqa maʼlumotlarimiz. Taklif va fikr-mulohazalaringizni yuborishingiz mumkin."
+            content: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor"
         },
         {
             name: 'keywords',
-            content: "bogʻlanish, aloqa, Fargʻona24 kontakt, murojaat, Fargʻona yangiliklar aloqa"
+            content: " fargona24 , fargona 24 ,Farg'ona, Farg'ona yangiliklari,  yangiliklar, tezkor xabarlar, Fargona24, Farg'ona voqealari, O‘zbekiston yangiliklari"
         },
         {
             property: "og:title",
-            content: "Bogʻlanish - Fargʻona24",
+            content: "Farg'ona 24 | Bosh sahifa"
         },
         {
             property: 'og:image',
@@ -26,7 +25,7 @@ useHead({
         },
         {
             property: 'og:url',
-            content: 'https://fargona24.uz/contact',
+            content: 'https://fargona24.uz/',
         }
     ]
 })

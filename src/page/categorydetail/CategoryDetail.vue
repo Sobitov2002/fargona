@@ -5,6 +5,32 @@ import { useLangStore } from '@/stores/lang'
 import { categorydetail } from './services'
 import { Skeleton } from '@/components/ui/skeleton'
 
+import { useHead } from '@vueuse/head'
+useHead({
+    title: "Farg'ona24 - Farg'onadagi eng tezkor yangiliklar olami",
+    meta: [
+        {
+            name: 'description',
+            content: "Farg'ona24 - Fargonadagi eng tezkor yangiliklar olami. Farg'ona yangiliklar, Fargona tezkor"
+        },
+        {
+            name: 'keywords',
+            content: " fargona24 , fargona 24 ,Farg'ona, Farg'ona yangiliklari,  yangiliklar, tezkor xabarlar, Fargona24, Farg'ona voqealari, O‘zbekiston yangiliklari"
+        },
+        {
+            property: "og:title",
+            content: "Farg'ona 24 | Bosh sahifa"
+        },
+        {
+            property: 'og:image',
+            content: 'https://ik.imagekit.io/vtroph5l9/Product/logotip.jpg?updatedAt=1746790238401',
+        },
+        {
+            property: 'og:url',
+            content: 'https://fargona24.uz/',
+        }
+    ]
+})
 interface Category {
     id: number
     name: string
