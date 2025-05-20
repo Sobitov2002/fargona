@@ -94,10 +94,10 @@ const saveCategoryId = (id: number) => {
                             </router-link>
                         </li>
                     </ul>
-                    <p @click="router.push('/')"
+                    <a href="https://t.me/FarAdmin24" target="_blank" rel="noopener noreferrer"
                         class="text-white hover:text-[#6489ce] whitespace-nowrap text-[15px] font-sans font-bold cursor-pointer">
                         {{ mainText2 }}
-                    </p>
+                    </a>
                 </div>
             </div>
 
